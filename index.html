@@ -3,38 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cue's Web</title>
+    <title>My Modern Website</title>
     <style>
-        /* Global styles for a modern, smooth look */
+        :root {
+            --bg-color: #f0f4f8;
+            --text-color: #333;
+            --header-bg: linear-gradient(135deg, #6a11cb, #2575fc);
+            --button-bg: linear-gradient(135deg, #ff7e5f, #feb47b);
+            --footer-bg: #2575fc;
+            --card-bg: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --border-color: #ddd;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --header-bg: linear-gradient(135deg, #2e1065, #1e40af);
+            --button-bg: linear-gradient(135deg, #d946ef, #f472b6);
+            --footer-bg: #1e40af;
+            --card-bg: #2d2d2d;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --border-color: #444;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4f8;
-            color: #333;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             min-height: 100vh;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         header {
             text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            padding: 60px 20px;
+            background: var(--header-bg);
             color: white;
             width: 100%;
-            border-bottom-left-radius: 50px;
-            border-bottom-right-radius: 50px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            position: relative;
+            z-index: 10;
         }
 
         h1 {
-            font-size: 2.5em;
+            font-size: 2.8em;
             margin: 0;
+            letter-spacing: -0.02em;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-out;
         }
 
         .button-container {
@@ -43,55 +67,103 @@
             justify-content: center;
             gap: 20px;
             padding: 40px 20px;
-            max-width: 800px;
+            max-width: 1000px;
+            width: 100%;
         }
 
         .button {
-            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            background: var(--button-bg);
             color: white;
-            padding: 15px 30px;
+            padding: 16px 32px;
             font-size: 1.2em;
+            font-weight: 500;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
             text-decoration: none;
+            text-align: center;
+            min-width: 150px;
         }
 
         .button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(20deg);
         }
 
         footer {
             text-align: center;
             padding: 20px;
-            background-color: #2575fc;
+            background: var(--footer-bg);
             color: white;
             width: 100%;
-            position: fixed;
-            bottom: 0;
-            border-top-left-radius: 50px;
-            border-top-right-radius: 50px;
-            box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1);
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+            box-shadow: 0 -10px 20px var(--shadow-color);
+            margin-top: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2em; }
+            .button { padding: 12px 24px; font-size: 1em; }
+            .theme-toggle { font-size: 1.2em; }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to Cue's Web</h1>
+        <h1>Welcome to My Modern Website</h1>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
     </header>
 
     <div class="button-container">
         <a href="typing.html" class="button">Go to Typing Page</a>
         <a href="https://example.com" class="button" target="_blank">External Link 1</a>
         <a href="https://another-example.com" class="button" target="_blank">External Link 2</a>
-        <!-- Add more buttons as needed -->
     </div>
 
     <footer>
-        &copy; 2025 Cue's Web. All rights reserved.
+        &copy; 2025 My Website. All rights reserved.
     </footer>
+
+    <script>
+        const toggleButton = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        toggleButton.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+        toggleButton.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            toggleButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('theme', newTheme);
+        });
+    </script>
 </body>
 </html>
