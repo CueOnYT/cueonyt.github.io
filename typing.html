@@ -3,69 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devin's Typing</title>
+    <title>Devin's Typing Practice</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap">
     <style>
         :root {
-            --bg-color: #f0f4f8;
-            --text-color: #333;
-            --header-bg: linear-gradient(135deg, #11998e, #38ef7d);
-            --button-bg: linear-gradient(135deg, #ff7e5f, #feb47b);
-            --footer-bg: #38ef7d;
-            --card-bg: #ffffff;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --border-color: #ddd;
+            --bg-color: #0a0a0a;
+            --text-color: #e0e7ff;
+            --header-bg: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            --button-bg: linear-gradient(135deg, #3b82f6, #60a5fa);
+            --footer-bg: #1e3a8a;
+            --card-bg: #1f1f1f;
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --border-color: #374151;
+            --accent-color: #60a5fa;
         }
 
-        [data-theme="dark"] {
-            --bg-color: #1a1a1a;
-            --text-color: #e0e0e0;
-            --header-bg: linear-gradient(135deg, #065f46, #10b981);
-            --button-bg: linear-gradient(135deg, #d946ef, #f472b6);
-            --footer-bg: #10b981;
-            --card-bg: #2d2d2d;
-            --shadow-color: rgba(0, 0, 0, 0.3);
-            --border-color: #444;
+        [data-theme="light"] {
+            --bg-color: #f3f4f6;
+            --text-color: #1f2937;
+            --header-bg: linear-gradient(135deg, #3b82f6, #93c5fd);
+            --button-bg: linear-gradient(135deg, #60a5fa, #93c5fd);
+            --footer-bg: #3b82f6;
+            --card-bg: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --border-color: #d1d5db;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', system-ui, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            margin: 0;
-            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         header {
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px 60px;
             background: var(--header-bg);
             color: white;
             width: 100%;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-            box-shadow: 0 10px 20px var(--shadow-color);
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            box-shadow: 0 15px 30px var(--shadow-color);
             position: relative;
         }
 
         h1 {
-            font-size: 2.8em;
-            margin: 0;
+            font-size: 3.2rem;
+            font-weight: 700;
             letter-spacing: -0.02em;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 1s ease-out;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+            animation: slideIn 1s ease-out;
         }
 
         .typing-area {
             background: var(--card-bg);
-            padding: 30px;
+            padding: 40px;
             border-radius: 30px;
-            box-shadow: 0 10px 20px var(--shadow-color);
-            max-width: 700px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            max-width: 800px;
             width: 90%;
             margin: 40px 20px;
             text-align: center;
@@ -73,40 +79,64 @@
 
         textarea {
             width: 100%;
-            height: 250px;
+            height: 300px;
             padding: 20px;
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--border-color);
             border-radius: 20px;
-            font-size: 1.1em;
+            font-size: 1.1rem;
             resize: none;
-            transition: border-color 0.3s ease, background-color 0.3s ease;
+            transition: all 0.3s ease;
             background: var(--card-bg);
             color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
         }
 
         textarea:focus {
-            border-color: #38ef7d;
+            border-color: var(--accent-color);
             outline: none;
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .stats {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: var(--text-color);
         }
 
         .back-button {
             background: var(--button-bg);
             color: white;
-            padding: 16px 32px;
-            font-size: 1.2em;
-            font-weight: 500;
+            padding: 18px 36px;
+            font-size: 1.2rem;
+            font-weight: 600;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 5px 15px var(--shadow-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            box-shadow: 0 8px 20px var(--shadow-color);
+            transition: all 0.3s ease;
             text-decoration: none;
-            margin: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .back-button:hover::before {
+            left: 100%;
         }
 
         .back-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px var(--shadow-color);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px var(--shadow-color);
         }
 
         .theme-toggle {
@@ -115,38 +145,46 @@
             right: 20px;
             background: none;
             border: none;
-            font-size: 1.5em;
+            font-size: 1.8rem;
             color: white;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .theme-toggle:hover {
-            transform: rotate(20deg);
+            transform: rotate(360deg);
         }
 
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
             background: var(--footer-bg);
             color: white;
             width: 100%;
-            border-top-left-radius: 40px;
-            border-top-right-radius: 40px;
-            box-shadow: 0 -10px 20px var(--shadow-color);
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+            box-shadow: 0 -15px 30px var(--shadow-color);
             margin-top: auto;
+            font-size: 0.9rem;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 600px) {
-            h1 { font-size: 2em; }
-            .back-button, textarea { font-size: 1em; }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .back-button, textarea { font-size: 1rem; }
+            .typing-area { padding: 30px; }
+            .theme-toggle { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            .back-button { padding: 12px 24px; font-size: 0.9rem; }
             .typing-area { padding: 20px; }
-            .theme-toggle { font-size: 1.2em; }
+            header { padding: 60px 15px 40px; }
         }
     </style>
 </head>
@@ -158,7 +196,12 @@
 
     <div class="typing-area">
         <p>Type anything below to practice your typing skills!</p>
-        <textarea placeholder="Start typing here..."></textarea>
+        <textarea id="typingInput" placeholder="Start typing here..."></textarea>
+        <div class="stats">
+            <span id="wordCount">Words: 0</span> | 
+            <span id="charCount">Characters: 0</span> | 
+            <span id="wpm">WPM: 0</span>
+        </div>
     </div>
 
     <a href="index.html" class="back-button">Back to Home</a>
@@ -170,9 +213,13 @@
     <script>
         const toggleButton = document.getElementById('themeToggle');
         const html = document.documentElement;
+        const textarea = document.getElementById('typingInput');
+        const wordCountEl = document.getElementById('wordCount');
+        const charCountEl = document.getElementById('charCount');
+        const wpmEl = document.getElementById('wpm');
 
-        // Check for saved theme preference
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        // Theme toggle
+        const savedTheme = localStorage.getItem('theme') || 'dark';
         html.setAttribute('data-theme', savedTheme);
         toggleButton.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
 
@@ -182,6 +229,29 @@
             html.setAttribute('data-theme', newTheme);
             toggleButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
             localStorage.setItem('theme', newTheme);
+        });
+
+        // Typing stats
+        let startTime = null;
+
+        textarea.addEventListener('input', () => {
+            const text = textarea.value;
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            const wordCount = words.length;
+            const charCount = text.length;
+
+            wordCountEl.textContent = `Words: ${wordCount}`;
+            charCountEl.textContent = `Characters: ${charCount}`;
+
+            if (!startTime && text.length > 0) {
+                startTime = new Date();
+            }
+
+            if (startTime) {
+                const elapsedMinutes = (new Date() - startTime) / 1000 / 60;
+                const wpm = elapsedMinutes > 0 ? Math.round(wordCount / elapsedMinutes) : 0;
+                wpmEl.textContent = `WPM: ${wpm}`;
+            }
         });
     </script>
 </body>
