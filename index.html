@@ -5,29 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cuemo's Tool - Yearbook Maker</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
   <header>
-    <h1>Cuemo's Tool</h1>
+    <h1><i class="fa-solid fa-book"></i> Cuemo's Tool</h1>
     <nav>
-      <button onclick="Core.newProject()">New</button>
-      <button onclick="Core.openProject()">Open</button>
-      <button onclick="Core.saveProject()">Save</button>
-      <button onclick="Export.showMenu()">Export</button>
-      <button onclick="Tour.start()">Help</button>
+      <button onclick="Core.newProject()"><i class="fa-solid fa-file"></i></button>
+      <button onclick="Core.openProject()"><i class="fa-solid fa-folder-open"></i></button>
+      <button onclick="Core.saveProject()"><i class="fa-solid fa-save"></i></button>
+      <button onclick="Export.showMenu()"><i class="fa-solid fa-download"></i></button>
+      <button onclick="Tour.start()"><i class="fa-solid fa-circle-question"></i></button>
     </nav>
   </header>
 
   <main>
     <aside id="sidebar">
-      <h2>Pages</h2>
-      <div id="pageList"></div>
-      <button onclick="Core.addPage()">Add Page</button>
-      <h2>Templates</h2>
-      <button onclick="Templates.insert('sports')">Sports Team</button>
-      <button onclick="Templates.insert('classroom')">Classroom</button>
-      <button onclick="Templates.insert('clubs')">Clubs</button>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="pages">Pages</button>
+        <button class="tab-btn" data-tab="inspector">Inspector</button>
+        <button class="tab-btn" data-tab="assets">Assets</button>
+      </div>
+      <div class="tab-content" id="pages"></div>
+      <div class="tab-content hidden" id="inspector"></div>
+      <div class="tab-content hidden" id="assets"></div>
     </aside>
+
     <section id="workspace">
       <canvas id="yearbookCanvas" width="800" height="1000"></canvas>
     </section>
@@ -37,11 +40,13 @@
     © 2025 Cuemo's Tool – Advanced Yearbook Maker
   </footer>
 
-  <!-- JS Files -->
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
   <script src="js/core.js"></script>
   <script src="js/canvas.js"></script>
   <script src="js/export.js"></script>
   <script src="js/templates.js"></script>
   <script src="js/tour.js"></script>
+  <script src="js/inspector.js"></script>
 </body>
 </html>
