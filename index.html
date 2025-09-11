@@ -10,10 +10,11 @@
   <header>
     <h1>Cuemo's Tool</h1>
     <nav>
-      <button onclick="Core.newProject()">New Project</button>
-      <button onclick="Core.openProject()">Open Project</button>
-      <button onclick="Core.saveProject()">Save Project</button>
-      <button onclick="Core.exportMenu()">Export</button>
+      <button onclick="Core.newProject()">New</button>
+      <button onclick="Core.openProject()">Open</button>
+      <button onclick="Core.saveProject()">Save</button>
+      <button onclick="Export.showMenu()">Export</button>
+      <button onclick="Tour.start()">Help</button>
     </nav>
   </header>
 
@@ -22,6 +23,10 @@
       <h2>Pages</h2>
       <div id="pageList"></div>
       <button onclick="Core.addPage()">Add Page</button>
+      <h2>Templates</h2>
+      <button onclick="Templates.insert('sports')">Sports Team</button>
+      <button onclick="Templates.insert('classroom')">Classroom</button>
+      <button onclick="Templates.insert('clubs')">Clubs</button>
     </aside>
     <section id="workspace">
       <canvas id="yearbookCanvas" width="800" height="1000"></canvas>
@@ -34,5 +39,9 @@
 
   <!-- JS Files -->
   <script src="js/core.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/templates.js"></script>
+  <script src="js/tour.js"></script>
 </body>
 </html>
