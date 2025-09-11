@@ -1,225 +1,362 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cuemo's Tool - Yearbook Maker</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cuemo's Tool — Yearbook Maker</title>
+  <meta name="description" content="Cuemo's Tool: a powerful single-file yearbook maker. Build, edit and export printable yearbooks." />
+  <!-- CSS: Dark, responsive -->
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #1a1a1a;
-      color: #f0f0f0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    header {
-      background-color: #111;
-      padding: 12px;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-      border-bottom: 1px solid #333;
-    }
-    .toolbar {
-      background: #222;
-      padding: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      border-bottom: 1px solid #333;
-    }
-    .toolbar button, .toolbar input, .toolbar select {
-      background: #333;
-      border: none;
-      color: #f0f0f0;
-      padding: 8px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-    .toolbar button:hover {
-      background: #444;
-    }
-    .main {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-    }
-    .sidebar {
-      width: 250px;
-      background: #181818;
-      border-right: 1px solid #333;
-      padding: 10px;
-      overflow-y: auto;
-    }
-    .canvas-container {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #121212;
-      overflow: auto;
-    }
-    canvas {
-      background: #1e1e1e;
-      border: 1px solid #444;
-      max-width: 100%;
-      height: auto;
-    }
-    .photo-thumb {
-      width: 70px;
-      height: 70px;
-      object-fit: cover;
-      margin: 4px;
-      border: 1px solid #444;
-      border-radius: 4px;
-      cursor: grab;
-    }
-    footer {
-      background: #111;
-      text-align: center;
-      padding: 8px;
-      font-size: 0.85rem;
-      border-top: 1px solid #333;
-    }
-    @media (max-width: 768px) {
-      .main { flex-direction: column; }
-      .sidebar { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid #333; }
-      .canvas-container { flex: 1; }
-    }
+    :root{ --bg:#0b0f13; --panel:#0f1720; --muted:#94a3b8; --accent:#06b6d4; --card:#0b1220 }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:#e6eef2}
+    .app{display:grid;grid-template-columns:320px 1fr 320px;gap:12px;padding:12px;height:100vh}
+    .panel{background:linear-gradient(180deg,#071018 0%, #0b1220 100%);border-radius:10px;padding:12px;box-shadow:0 8px 24px rgba(2,6,23,.6);overflow:auto}
+    header{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+    .brand{font-weight:700;font-size:18px}
+    .muted{color:var(--muted);font-size:13px}
+    .photos-grid{display:flex;flex-wrap:wrap;gap:8px}
+    .photo-thumb{width:72px;height:72px;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.04);cursor:grab}
+    .photo-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .center{display:flex;flex-direction:column;align-items:center}
+    .canvas-wrap{display:flex;flex-direction:column;align-items:center;gap:8px}
+    .page-canvas{width:800px;height:1000px;background:white;border-radius:6px;overflow:hidden;position:relative;box-shadow:0 10px 30px rgba(2,6,23,.7)}
+    .element{position:absolute;touch-action:none}
+    .element img{width:100%;height:100%;object-fit:cover;display:block}
+    .element .text{white-space:pre-wrap}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+    button{background:var(--accent);border:none;padding:8px 10px;border-radius:8px;color:#022;cursor:pointer;font-weight:600}
+    button.ghost{background:transparent;border:1px solid rgba(255,255,255,.06);color:var(--muted)}
+    input,select,textarea{background:transparent;border:1px solid rgba(255,255,255,.06);padding:6px;border-radius:6px;color:inherit}
+    .inspector{display:flex;flex-direction:column;gap:8px}
+    .pages-row{display:flex;gap:8px;flex-wrap:wrap}
+    .thumb-small{width:80px;height:100px;border-radius:6px;background:linear-gradient(180deg,#081018,#0b1220);display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;border:1px solid rgba(255,255,255,.02)}
+    footer{color:var(--muted);font-size:12px;margin-top:12px}
+    @media (max-width:1100px){ .app{grid-template-columns:1fr;grid-template-rows:auto 1fr auto} .panel.right{order:3} }
   </style>
 </head>
 <body>
-  <header>Cuemo's Tool - Advanced Yearbook Maker</header>
-  <div class="toolbar">
-    <button onclick="addPage()">Add Page</button>
-    <button onclick="exportPDF()">Export PDF</button>
-    <button onclick="exportPNG()">Export PNG</button>
-    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
-    <input type="file" id="uploadPhoto" multiple accept="image/*" onchange="handleUpload(event)" />
-    <select id="fontSelect" onchange="changeFont(this.value)">
-      <option value="Arial">Arial</option>
-      <option value="Georgia">Georgia</option>
-      <option value="Courier New">Courier New</option>
-      <option value="Comic Sans MS">Comic Sans</option>
-    </select>
-    <input type="color" id="colorPicker" onchange="changeTextColor(this.value)" />
-  </div>
-  <div class="main">
-    <div class="sidebar">
-      <h3>Photos</h3>
-      <div id="photoLibrary"></div>
-      <h3>Pages</h3>
-      <div id="pageList"></div>
-    </div>
-    <div class="canvas-container">
-      <canvas id="yearbookCanvas" width="800" height="1000"></canvas>
-    </div>
-  </div>
-  <footer>© 2025 Cuemo's Tool - Complex Yearbook Maker</footer>
+  <div class="app">
+    <!-- LEFT: Project & Photos -->
+    <div class="panel left">
+      <header>
+        <div class="brand">Cuemo's Tool</div>
+        <div class="muted">Advanced Yearbook Maker</div>
+      </header>
 
+      <div>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <input id="projectName" placeholder="Project name" />
+          <button id="newProjectBtn" class="ghost">New</button>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <select id="projectList"></select>
+          <button id="renameProject" class="ghost">Rename</button>
+          <button id="deleteProject" class="ghost">Delete</button>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <button id="saveProject" class="ghost">Save</button>
+          <button id="downloadProject">Download</button>
+          <input id="uploadProject" type="file" accept=".yearbook,application/json" />
+        </div>
+      </div>
+
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.03);margin:10px 0">
+
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <div style="font-weight:600">Photos</div>
+          <div class="muted">Drag to canvas • Double-click to add</div>
+        </div>
+        <input id="photoInput" type="file" accept="image/*" multiple />
+        <div id="photos" class="photos-grid" style="margin-top:8px"></div>
+      </div>
+
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.03);margin:10px 0">
+
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <div style="font-weight:600">Templates</div>
+          <div class="muted">Quick layouts</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="ghost tpl" data-tpl="portrait">Portrait Grid</button>
+          <button class="ghost tpl" data-tpl="collage">Collage</button>
+          <button class="ghost tpl" data-tpl="single">Single</button>
+        </div>
+      </div>
+
+      <footer>
+        <div class="muted">Saved per project locally. Export high-quality print-ready PDF. Works on desktop & iPad Safari.</div>
+      </footer>
+    </div>
+
+    <!-- CENTER: Canvas -->
+    <div class="center">
+      <div class="controls">
+        <button id="addPage">+ Page</button>
+        <button id="exportPdf">Export PDF</button>
+        <button id="exportZip" class="ghost">Export PNGs ZIP</button>
+        <button id="printBtn" class="ghost">Print</button>
+        <button id="undoBtn" class="ghost">Undo</button>
+        <button id="redoBtn" class="ghost">Redo</button>
+
+        <select id="scaleSelect" style="min-width:120px">
+          <option value="1">100% (W:8in)</option>
+          <option value="2">200% (2x for print)</option>
+        </select>
+
+        <input id="searchElem" placeholder="Select element by id/text" />
+      </div>
+
+      <div id="pagePreview" class="page-canvas" aria-label="Yearbook page canvas"></div>
+
+      <div style="display:flex;gap:8px;margin-top:8px;align-items:center;width:800px;justify-content:space-between">
+        <div>
+          <div class="pages-row" id="pagesRow"></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <div class="muted">Canvas: 800 x 1000 px (8" x 10" @100 DPI). Export uses selected scale for higher print quality.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Inspector -->
+    <div class="panel right">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-weight:700">Inspector</div>
+        <div class="muted">Edit selected element</div>
+      </div>
+
+      <div class="inspector" id="inspector">
+        <div class="muted">Select an element on the canvas to edit its properties.</div>
+      </div>
+
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.03);margin:10px 0">
+
+      <div>
+        <div style="font-weight:700;margin-bottom:6px">Page Controls</div>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <button id="duplicatePage" class="ghost">Duplicate</button>
+          <button id="deletePage" class="ghost">Delete</button>
+          <button id="moveLeft" class="ghost">←</button>
+          <button id="moveRight" class="ghost">→</button>
+        </div>
+
+        <div style="font-weight:700;margin-top:8px">Export Options</div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <label class="muted">Paper:</label>
+          <select id="paperSize"><option value="8x10">8x10 in</option><option value="11x8.5">11x8.5 in</option></select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
   <script>
-    const canvas = document.getElementById('yearbookCanvas');
-    const ctx = canvas.getContext('2d');
-    let pages = [{ id: Date.now(), elements: [] }];
-    let currentPage = 0;
-    let photos = [];
-    let currentFont = 'Arial';
-    let currentColor = '#ffffff';
-    let darkMode = true;
+  (function(){
+    // ------------------ State ------------------
+    const STORAGE_KEY = 'cuemo_projects_v2';
+    let projects = loadProjects();
+    if(!projects.length){ projects = [ createEmptyProject('My Yearbook') ]; saveProjects(); }
+    let currentProjectIndex = 0;
+    let selected = null;
+    let undoStack = [];
+    let redoStack = [];
 
-    function renderPage(){
-      ctx.fillStyle = darkMode ? '#1e1e1e' : '#fff';
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-      pages[currentPage].elements.forEach(el=>{
-        if(el.type==='img') ctx.drawImage(el.img, el.x, el.y, el.w, el.h);
-        if(el.type==='text'){
-          ctx.font = `${el.size}px ${el.font}`;
-          ctx.fillStyle = el.color;
-          ctx.fillText(el.text, el.x, el.y);
-        }
-      });
+    // Elements
+    const photosEl = document.getElementById('photos');
+    const photoInput = document.getElementById('photoInput');
+    const pagePreview = document.getElementById('pagePreview');
+    const pagesRow = document.getElementById('pagesRow');
+    const inspector = document.getElementById('inspector');
+    const projectList = document.getElementById('projectList');
+    const projectName = document.getElementById('projectName');
+
+    // Init
+    renderProjectList(); selectProject(0); attachUI();
+
+    // ------------------ Models ------------------
+    function createEmptyProject(name){ return { id: 'proj_'+Date.now(), name: name||'Project', pages: [ createPage('Page 1') ], photos: [] }; }
+    function createPage(title){ return { id: 'pg_'+Math.random().toString(36).slice(2,9), title:title||'Page', elements:[], bg:'#ffffff' }; }
+    function createImgElement(src,x=40,y=40,w=200,h=200){ return { id:'el_'+Math.random().toString(36).slice(2,9), type:'img', x,y,w,h,rotation:0, props:{src} }; }
+    function createTextElement(text='Text',x=60,y=60,size=20){ return { id:'el_'+Math.random().toString(36).slice(2,9), type:'text', x,y,w:300,h:40,rotation:0, props:{text, size, font:'Inter', color:'#0b1220', align:'left'} }; }
+    function createRectElement(x=50,y=50,w=200,h=120,fill='#f8fafc'){ return { id:'el_'+Math.random().toString(36).slice(2,9), type:'rect', x,y,w,h, rotation:0, props:{fill} }; }
+
+    // ------------------ Persistence ------------------
+    function saveProjects(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(projects)); }
+    function loadProjects(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }catch(e){ return []; } }
+
+    // ------------------ Rendering ------------------
+    function renderPhotos(){ photosEl.innerHTML=''; const p = currentProject().photos || []; p.forEach(ph=>{
+      const d = document.createElement('div'); d.className='photo-thumb'; const img = document.createElement('img'); img.src = ph.src; d.appendChild(img);
+      d.draggable = true; d.addEventListener('dragstart', (e)=> e.dataTransfer.setData('text/plain', ph.src));
+      d.addEventListener('dblclick', ()=>{ currentPage().elements.push(createImgElement(ph.src,60,60,200,200)); pushUndo(); renderCanvas(); saveProjects(); });
+      photosEl.appendChild(d);
+    }); }
+
+    function renderPagesRow(){ pagesRow.innerHTML=''; currentProject().pages.forEach((pg, i)=>{
+      const t = document.createElement('div'); t.className='thumb-small'; t.textContent = (i+1)+"
+"+pg.title; t.onclick = ()=>{ currentProject().currentPage = i; renderCanvas(); }; pagesRow.appendChild(t);
+    }); }
+
+    function renderProjectList(){ projectList.innerHTML=''; projects.forEach((pr,i)=>{ const o = document.createElement('option'); o.value = i; o.textContent = pr.name; projectList.appendChild(o); }); }
+
+    function renderCanvas(){ pagePreview.innerHTML=''; const pg = currentPage(); pagePreview.style.background = pg.bg || '#ffffff';
+      pg.elements.forEach(el=>{
+        const node = document.createElement('div'); node.className='element'; node.dataset.id = el.id; node.style.left = el.x+'px'; node.style.top = el.y+'px'; node.style.width = el.w+'px'; node.style.height = el.h+'px'; node.style.transform = `rotate(${el.rotation||0}deg)`; node.style.touchAction='none';
+        node.style.boxShadow = selected && selected.id===el.id ? '0 6px 20px rgba(6,182,212,.12)' : 'none';
+        if(el.type==='img'){ const im = document.createElement('img'); im.src = el.props.src; node.appendChild(im); }
+        if(el.type==='text'){ const t = document.createElement('div'); t.className='text'; t.contentEditable = true; t.innerText = el.props.text; t.style.fontSize = (el.props.size||20)+'px'; t.style.color = el.props.color || '#000'; t.style.padding = '4px'; t.addEventListener('input', ()=>{ el.props.text = t.innerText; pushUndo(); saveProjects(); }); node.appendChild(t); }
+        if(el.type==='rect'){ node.style.background = el.props.fill || '#fff'; }
+        pagePreview.appendChild(node);
+        makeInteractive(node, el);
+      }); updateInspector(); renderPagesRow(); renderPhotos(); }
+
+    function currentProject(){ return projects[currentProjectIndex]; }
+    function currentPage(){ const pr = currentProject(); if(pr.currentPage==null) pr.currentPage = 0; return pr.pages[pr.currentPage]; }
+
+    // ------------------ Interaction (drag/resize/rotate) ------------------
+    function makeInteractive(dom, model){
+      dom.addEventListener('pointerdown', (e)=>{ e.stopPropagation(); selectElement(model.id); });
+      interact(dom).draggable({ listeners:{ move(event){ const dx = event.dx; const dy = event.dy; model.x += dx; model.y += dy; dom.style.left = model.x+'px'; dom.style.top = model.y+'px'; saveProjects(); } }, modifiers:[ interact.modifiers.restrictRect({ restriction: pagePreview, endOnly:true }) ] });
+      interact(dom).resizable({ edges:{left:true,right:true,bottom:true,top:true}, listeners:{ move(event){ model.w = Math.max(20, event.rect.width); model.h = Math.max(20, event.rect.height); model.x += event.deltaRect.left; model.y += event.deltaRect.top; dom.style.width = model.w+'px'; dom.style.height = model.h+'px'; dom.style.left = model.x+'px'; dom.style.top = model.y+'px'; saveProjects(); } } });
+      // rotate handle (simple via pointermove while holding Alt)
+      dom.addEventListener('keydown', (e)=>{ if(e.key==='r'){ dom.style.transform = `rotate(${(model.rotation||0)+15}deg)`; model.rotation = (model.rotation||0)+15; saveProjects(); } });
+      // double click to edit text inline already enabled
     }
 
-    function addPage(){
-      pages.push({ id: Date.now(), elements: [] });
-      currentPage = pages.length-1;
-      updatePageList();
-      renderPage();
-    }
+    // ------------------ Selection & Inspector ------------------
+    function selectElement(id){ const el = currentPage().elements.find(x=>x.id===id); selected = el; updateInspector(); renderCanvas(); pushUndo(); }
+    function deselect(){ selected = null; updateInspector(); renderCanvas(); }
 
-    function exportPDF(){
-      html2canvas(canvas).then(cvs=>{
-        const imgData = cvs.toDataURL('image/png');
-        const pdf = new jspdf.jsPDF({orientation:'portrait', unit:'px', format:[canvas.width,canvas.height]});
-        pdf.addImage(imgData,'PNG',0,0,canvas.width,canvas.height);
-        pdf.save('yearbook.pdf');
-      });
-    }
-
-    function exportPNG(){
-      canvas.toBlob(blob=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='yearbook.png'; a.click(); });
-    }
-
-    function toggleDarkMode(){
-      darkMode = !darkMode;
-      document.body.style.backgroundColor = darkMode ? '#1a1a1a' : '#f8f8f8';
-      document.body.style.color = darkMode ? '#f0f0f0' : '#111';
-      renderPage();
-    }
-
-    function handleUpload(e){
-      [...e.target.files].forEach(f=>{
-        const reader = new FileReader();
-        reader.onload = ev => {
-          const img = new Image();
-          img.onload=()=>{ photos.push(img); addPhotoThumb(img); };
-          img.src=ev.target.result;
-        };
-        reader.readAsDataURL(f);
-      });
-    }
-
-    function addPhotoThumb(img){
-      const div=document.createElement('img');
-      div.src=img.src;
-      div.className='photo-thumb';
-      div.onclick=()=>{
-        pages[currentPage].elements.push({type:'img', img, x:50,y:50,w:200,h:200});
-        renderPage();
-      };
-      document.getElementById('photoLibrary').appendChild(div);
-    }
-
-    function updatePageList(){
-      const list=document.getElementById('pageList');
-      list.innerHTML='';
-      pages.forEach((pg,i)=>{
-        const btn=document.createElement('button');
-        btn.innerText='Page '+(i+1);
-        btn.onclick=()=>{currentPage=i;renderPage();};
-        list.appendChild(btn);
-      });
-    }
-
-    function changeFont(font){ currentFont = font; }
-    function changeTextColor(c){ currentColor = c; }
-
-    canvas.addEventListener('dblclick', e=>{
-      const text=prompt('Enter text:');
-      if(text){
-        pages[currentPage].elements.push({type:'text', text, x:e.offsetX,y:e.offsetY, font:currentFont, size:20, color:currentColor});
-        renderPage();
+    function updateInspector(){ inspector.innerHTML=''; if(!selected){ inspector.innerHTML='<div class="muted">No selection. Click an element to edit.</div>'; return; }
+      const s = selected; const title = document.createElement('div'); title.innerHTML = `<strong>Type:</strong> ${s.type}`; inspector.appendChild(title);
+      // position
+      inspector.appendChild(createLabeled('X', 'number', s.x, v=>{ s.x = Number(v); renderCanvas(); saveProjects(); }));
+      inspector.appendChild(createLabeled('Y', 'number', s.y, v=>{ s.y = Number(v); renderCanvas(); saveProjects(); }));
+      inspector.appendChild(createLabeled('W', 'number', s.w, v=>{ s.w = Number(v); renderCanvas(); saveProjects(); }));
+      inspector.appendChild(createLabeled('H', 'number', s.h, v=>{ s.h = Number(v); renderCanvas(); saveProjects(); }));
+      inspector.appendChild(createLabeled('Rotation', 'number', s.rotation||0, v=>{ s.rotation = Number(v); renderCanvas(); saveProjects(); }));
+      if(s.type==='text'){
+        inspector.appendChild(createLabeled('Text','textarea', s.props.text || '', v=>{ s.props.text = v; renderCanvas(); saveProjects(); }));
+        inspector.appendChild(createLabeled('Font','text', s.props.font || 'Inter', v=>{ s.props.font = v; renderCanvas(); saveProjects(); }));
+        inspector.appendChild(createLabeled('Size','number', s.props.size || 18, v=>{ s.props.size = Number(v); renderCanvas(); saveProjects(); }));
+        inspector.appendChild(createLabeled('Color','color', s.props.color || '#000000', v=>{ s.props.color = v; renderCanvas(); saveProjects(); }));
       }
-    });
+      if(s.type==='img'){
+        const fileInput = document.createElement('input'); fileInput.type='file'; fileInput.accept='image/*'; fileInput.onchange = async (ev)=>{ const f = ev.target.files[0]; if(!f) return; const data = await fileToDataURL(f); s.props.src = data; renderCanvas(); saveProjects(); };
+        const btn = document.createElement('div'); btn.style.marginTop='6px'; btn.appendChild(fileInput); inspector.appendChild(btn);
+      }
+      const del = document.createElement('button'); del.textContent='Delete Element'; del.style.marginTop='8px'; del.onclick = ()=>{ currentPage().elements = currentPage().elements.filter(x=>x.id!==s.id); selected=null; renderCanvas(); saveProjects(); pushUndo(); };
+      inspector.appendChild(del);
+    }
 
-    updatePageList();
-    renderPage();
+    function createLabeled(label,type,value,onchange){ const wrapper = document.createElement('div'); wrapper.style.display='flex'; wrapper.style.flexDirection='column'; wrapper.style.gap='6px'; const lab = document.createElement('div'); lab.textContent=label; const input = type==='textarea' ? document.createElement('textarea') : document.createElement('input'); input.type = (type==='textarea'?'text':type); input.value = value; input.oninput = (e)=> onchange(e.target.value); wrapper.appendChild(lab); wrapper.appendChild(input); return wrapper; }
+
+    // ------------------ Undo/Redo ------------------
+    function pushUndo(){ try{ const snapshot = JSON.stringify(projects); undoStack.push(snapshot); if(undoStack.length>50) undoStack.shift(); redoStack = []; }catch(e){} }
+    function undo(){ if(!undoStack.length) return; const last = undoStack.pop(); redoStack.push(JSON.stringify(projects)); projects = JSON.parse(last); renderProjectList(); selectProject(currentProjectIndex); saveProjects(); }
+    function redo(){ if(!redoStack.length) return; const next = redoStack.pop(); undoStack.push(JSON.stringify(projects)); projects = JSON.parse(next); renderProjectList(); selectProject(currentProjectIndex); saveProjects(); }
+
+    // ------------------ UI Actions ------------------
+    function attachUI(){
+      photoInput.addEventListener('change', async (ev)=>{ const files = Array.from(ev.target.files||[]); for(const f of files){ const d = await fileToDataURL(f); currentProject().photos.push({id:'ph_'+Math.random().toString(36).slice(2,9), src:d, name:f.name}); } saveProjects(); renderPhotos(); ev.target.value=''; });
+
+      document.getElementById('addPage').addEventListener('click', ()=>{ currentProject().pages.push(createPage('Page '+(currentProject().pages.length+1))); pushUndo(); saveProjects(); renderPagesRow(); renderCanvas(); });
+      document.getElementById('exportPdf').addEventListener('click', ()=> exportProjectPDF());
+      document.getElementById('printBtn').addEventListener('click', ()=> window.print());
+      document.getElementById('undoBtn').addEventListener('click', ()=> undo());
+      document.getElementById('redoBtn').addEventListener('click', ()=> redo());
+      document.getElementById('exportZip').addEventListener('click', ()=> exportPNGsZip());
+
+      // project controls
+      document.getElementById('newProjectBtn').addEventListener('click', ()=>{ projects.push(createEmptyProject('Project '+(projects.length+1))); saveProjects(); renderProjectList(); selectProject(projects.length-1); });
+      projectList.addEventListener('change', (e)=> selectProject(Number(e.target.value)));
+      document.getElementById('saveProject').addEventListener('click', ()=>{ saveProjects(); alert('Project saved locally'); });
+      document.getElementById('downloadProject').addEventListener('click', ()=>{ const blob = new Blob([JSON.stringify(currentProject())], {type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=(currentProject().name||'project')+'.yearbook'; a.click(); URL.revokeObjectURL(a.href); });
+      document.getElementById('uploadProject').addEventListener('change', async (ev)=>{ const f = ev.target.files[0]; if(!f) return; const txt = await fileToText(f); try{ const obj = JSON.parse(txt); projects.push(obj); saveProjects(); renderProjectList(); selectProject(projects.length-1); alert('Project imported'); }catch(e){ alert('Invalid file'); } ev.target.value=''; });
+      document.getElementById('renameProject').addEventListener('click', ()=>{ const name = prompt('New project name', currentProject().name||''); if(name){ currentProject().name = name; saveProjects(); renderProjectList(); } });
+      document.getElementById('deleteProject').addEventListener('click', ()=>{ if(confirm('Delete this project?')){ projects.splice(currentProjectIndex,1); if(!projects.length) projects.push(createEmptyProject('My Yearbook')); saveProjects(); renderProjectList(); selectProject(0); } });
+
+      // page actions
+      document.getElementById('duplicatePage').addEventListener('click', ()=>{ const cp = currentPage(); const copy = JSON.parse(JSON.stringify(cp)); copy.id='pg_'+Date.now(); currentProject().pages.splice(currentProject().currentPage+1,0,copy); saveProjects(); renderPagesRow(); renderCanvas(); });
+      document.getElementById('deletePage').addEventListener('click', ()=>{ if(currentProject().pages.length<=1) return alert('Need at least one page'); if(confirm('Delete this page?')){ currentProject().pages.splice(currentProject().currentPage,1); currentProject().currentPage = Math.max(0, currentProject().currentPage-1); saveProjects(); renderPagesRow(); renderCanvas(); } });
+      document.getElementById('moveLeft').addEventListener('click', ()=>{ const i = currentProject().currentPage; if(i>0){ const arr = currentProject().pages; [arr[i-1],arr[i]]=[arr[i],arr[i-1]]; currentProject().currentPage = i-1; saveProjects(); renderPagesRow(); renderCanvas(); } });
+      document.getElementById('moveRight').addEventListener('click', ()=>{ const i = currentProject().currentPage; const arr = currentProject().pages; if(i < arr.length-1){ [arr[i+1],arr[i]]=[arr[i],arr[i+1]]; currentProject().currentPage = i+1; saveProjects(); renderPagesRow(); renderCanvas(); } });
+
+      // templates
+      document.querySelectorAll('.tpl').forEach(b=> b.addEventListener('click', ()=>{ applyTemplate(b.dataset.tpl); }));
+
+      // page click deselect
+      pagePreview.addEventListener('pointerdown', ()=>{ selected=null; updateInspector(); renderCanvas(); });
+
+      // search element
+      document.getElementById('searchElem').addEventListener('change', (e)=>{ const q=e.target.value.toLowerCase(); const el = currentPage().elements.find(x=> x.id.toLowerCase().includes(q) || (x.props && x.props.text && x.props.text.toLowerCase().includes(q))); if(el) selectElement(el.id); else alert('Not found'); });
+
+      // scale select used during export
+    }
+
+    function selectProject(index){ currentProjectIndex = index; const pr = currentProject(); projectName.value = pr.name; renderProjectList(); projectList.value = index; renderPhotos(); renderPagesRow(); if(pr.currentPage==null) pr.currentPage = 0; renderCanvas(); }
+
+    function selectElement(id){ const el = currentPage().elements.find(x=>x.id===id); if(el){ selected = el; updateInspector(); renderCanvas(); pushUndo(); } }
+
+    // ------------------ Templates ------------------
+    function applyTemplate(name){ const pg = currentPage(); pg.elements = []; if(name==='portrait'){ const cols=3, rows=4, pad=20; const cardW = Math.floor((800 - pad*(cols+1))/cols); const cardH = 200; for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){ const x=pad + c*(cardW+pad); const y=pad + r*(cardH+pad); pg.elements.push(createRectElement(x,y,cardW,cardH,'#ffffff')); } }
+    if(name==='collage'){ pg.elements.push(createImgElement(currentProject().photos[0]?.src||'',20,20,360,500)); pg.elements.push(createImgElement(currentProject().photos[1]?.src||'',400,20,360,240)); pg.elements.push(createImgElement(currentProject().photos[2]?.src||'',400,280,360,240)); pg.elements.push(createTextElement('Caption here',30,540,22)); }
+    if(name==='single'){ pg.elements.push(createRectElement(60,40,680,920,'#ffffff')); }
+    saveProjects(); renderCanvas(); pushUndo(); }
+
+    // ------------------ Export ------------------
+    async function exportProjectPDF(){ const scale = Number(document.getElementById('scaleSelect').value) || 1; const { jsPDF } = window.jspdf; const pdf = new jsPDF({ unit:'px', format:[800*scale,1000*scale] }); for(let i=0;i<currentProject().pages.length;i++){ const pg = currentProject().pages[i]; const el = await renderPageToCanvas(pg, scale); const img = el.toDataURL('image/png'); if(i>0) pdf.addPage(); pdf.addImage(img,'PNG',0,0,800*scale,1000*scale); // keep pixel sizes matching
+      el.remove(); }
+      const filename = (currentProject().name||'Cuemo_Yearbook') + '.pdf'; pdf.save(filename);
+    }
+
+    async function exportPNGsZip(){ const zip = new JSZip(); const scale = Number(document.getElementById('scaleSelect').value) || 1; for(let i=0;i<currentProject().pages.length;i++){ const pg = currentProject().pages[i]; const c = await renderPageToCanvas(pg, scale); const blob = await new Promise(r=> c.toBlob(r,'image/png')); zip.file(`page_${i+1}.png`, blob); c.remove(); }
+      const content = await zip.generateAsync({type:'blob'}); const a=document.createElement('a'); a.href = URL.createObjectURL(content); a.download = (currentProject().name||'yearbook') + '.zip'; a.click(); URL.revokeObjectURL(a.href);
+    }
+
+    async function renderPageToCanvas(pg, scale=1){ // create offscreen container
+      const wrap = document.createElement('div'); wrap.style.width = (800*scale)+'px'; wrap.style.height = (1000*scale)+'px'; wrap.style.position='fixed'; wrap.style.left='-9999px'; wrap.style.top='-9999px'; wrap.style.background = pg.bg || '#fff'; document.body.appendChild(wrap);
+      // apply elements scaled
+      pg.elements.forEach(e=>{
+        const node = document.createElement('div'); node.style.position='absolute'; node.style.left = (e.x*scale)+'px'; node.style.top = (e.y*scale)+'px'; node.style.width = (e.w*scale)+'px'; node.style.height = (e.h*scale)+'px'; node.style.transform = `rotate(${e.rotation||0}deg)`; if(e.type==='img'){ const im = document.createElement('img'); im.src = e.props.src; im.style.width='100%'; im.style.height='100%'; im.style.objectFit='cover'; node.appendChild(im);} if(e.type==='text'){ const t = document.createElement('div'); t.innerText = e.props.text||''; t.style.fontSize = ((e.props.size||18)*scale)+'px'; t.style.whiteSpace='pre-wrap'; t.style.color = e.props.color || '#000'; t.style.fontFamily = e.props.font || 'Inter'; t.style.padding='4px'; node.appendChild(t);} if(e.type==='rect'){ node.style.background = e.props.fill || '#fff'; node.style.border = '1px solid rgba(0,0,0,.06)'; }
+        wrap.appendChild(node);
+      });
+      // ensure images load
+      await new Promise(r=>setTimeout(r, 300));
+      const canvas = await html2canvas(wrap, {scale:1, useCORS:true, allowTaint:true});
+      return canvas;
+    }
+
+    // ------------------ Helpers ------------------
+    function fileToDataURL(file){ return new Promise((res,rej)=>{ const fr = new FileReader(); fr.onload = ()=> res(fr.result); fr.onerror = rej; fr.readAsDataURL(file); }); }
+    function fileToText(file){ return new Promise((res,rej)=>{ const fr = new FileReader(); fr.onload = ()=> res(fr.result); fr.onerror = rej; fr.readAsText(file); }); }
+
+    // ------------------ Misc Controls ------------------
+    document.getElementById('projectName').addEventListener('change', (e)=>{ currentProject().name = e.target.value; saveProjects(); renderProjectList(); });
+
+    function saveProjects(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(projects)); }catch(e){ console.error(e); } }
+
+    // initial helpers
+    function currentProject(){ return projects[currentProjectIndex]; }
+
+    // select project helper
+    function selectProject(index){ currentProjectIndex = index; const pr = currentProject(); document.getElementById('projectName').value = pr.name || ''; renderProjectList(); renderPhotos(); renderPagesRow(); renderCanvas(); }
+
+    // attach render/project selection
+    // initial render
+    renderProjectList(); renderPhotos(); renderPagesRow(); renderCanvas();
+
+    // expose for debugging
+    window.Cuemo = { projects, saveProjects };
+  })();
   </script>
 </body>
 </html>
