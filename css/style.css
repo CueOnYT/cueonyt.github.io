@@ -1,71 +1,40 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #1a1a1a;
-  color: #f0f0f0;
+/* Additions for sidebar tabs and inspector */
+.tabs {
   display: flex;
-  flex-direction: column;
-  height: 100vh;
+  border-bottom: 1px solid #333;
 }
-
-header {
-  background: #111;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 1.3rem;
-}
-
-nav button {
-  background: #333;
-  border: none;
-  padding: 8px 12px;
-  margin-left: 6px;
-  border-radius: 4px;
-  color: #f0f0f0;
-  cursor: pointer;
-}
-nav button:hover {
-  background: #444;
-}
-
-main {
+.tab-btn {
   flex: 1;
-  display: flex;
-  overflow: hidden;
-}
-
-aside#sidebar {
-  width: 240px;
-  background: #181818;
-  border-right: 1px solid #333;
-  padding: 10px;
-  overflow-y: auto;
-}
-
-#workspace {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #121212;
-}
-
-canvas {
-  background: #1e1e1e;
-  border: 1px solid #444;
-  max-width: 100%;
-  height: auto;
-}
-
-footer {
-  background: #111;
   padding: 8px;
-  text-align: center;
-  border-top: 1px solid #333;
+  background: #222;
+  border: none;
+  cursor: pointer;
+  color: #ccc;
+}
+.tab-btn.active {
+  background: #333;
+  color: #fff;
+}
+.tab-content {
+  display: none;
+  padding: 10px;
+}
+.tab-content:not(.hidden) {
+  display: block;
+}
+.hidden {
+  display: none;
+}
+#inspector label {
+  display: block;
+  margin-top: 8px;
+}
+#inspector input, #inspector select {
+  width: 100%;
+  padding: 5px;
+  margin-top: 4px;
+  background: #333;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 4px;
 }
