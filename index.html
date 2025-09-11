@@ -1,360 +1,331 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devin's Web</title>
-    <style>
-        :root {
-            --bg-color: #f0f4f8;
-            --text-color: #333;
-            --header-bg: linear-gradient(135deg, #6a11cb, #2575fc);
-            --button-bg: linear-gradient(135deg, #ff7e5f, #feb47b);
-            --footer-bg: #2575fc;
-            --card-bg: #ffffff;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --border-color: #ddd;
-        }
-
-        [data-theme="dark"] {
-            --bg-color: #1a1a1a;
-            --text-color: #e0e0e0;
-            --header-bg: linear-gradient(135deg, #2e1065, #1e40af);
-            --button-bg: linear-gradient(135deg, #d946ef, #f472b6);
-            --footer-bg: #1e40af;
-            --card-bg: #2d2d2d;
-            --shadow-color: rgba(0, 0, 0, 0.3);
-            --border-color: #444;
-        }
-
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        header {
-            text-align: center;
-            padding: 60px 20px;
-            background: var(--header-bg);
-            color: white;
-            width: 100%;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-            box-shadow: 0 10px 20px var(--shadow-color);
-            position: relative;
-            z-index: 10;
-        }
-
-        h1 {
-            font-size: 2.8em;
-            margin: 0;
-            letter-spacing: -0.02em;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 1s ease-out;
-        }
-
-        .button-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 40px 20px;
-            max-width: 1000px;
-            width: 100%;
-        }
-
-        .button {
-            background: var(--button-bg);
-            color: white;
-            padding: 16px 32px;
-            font-size: 1.2em;
-            font-weight: 500;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px var(--shadow-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-            text-decoration: none;
-            text-align: center;
-            min-width: 150px;
-        }
-
-        .button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px var(--shadow-color);
-        }
-
-        .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 1.5em;
-            color: white;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            transform: rotate(20deg);
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: var(--footer-bg);
-            color: white;
-            width: 100%;
-            border-top-left-radius: 40px;
-            border-top-right-radius: 40px;
-            box-shadow: 0 -10px 20px var(--shadow-color);
-            margin-top: auto;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 2em; }
-            .button { padding: 12px 24px; font-size: 1em; }
-            .theme-toggle { font-size: 1.2em; }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cuemo's Tool — Yearbook Maker</title>
+  <meta name="description" content="Cuemo's Tool: a powerful single-file yearbook maker. Build, edit and export printable yearbooks." />
+  <!-- External libs via CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.min.css" integrity="" crossorigin="anonymous" />
+  <style>
+    :root{--panel:#0f172a;--accent:#06b6d4;--muted:#94a3b8;--bg:#f8fafc}
+    body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,'Helvetica Neue',Arial; background:var(--bg); margin:0; height:100vh; display:flex;}
+    .app{display:flex; flex:1; gap:12px; padding:12px;}
+    .sidebar{width:320px; background:white; border-radius:8px; box-shadow:0 6px 18px rgba(11,14,25,.06); padding:12px; overflow:auto}
+    .left-column{display:flex; flex-direction:column; gap:12px}
+    header .brand{font-weight:700; font-size:18px; color:var(--panel)}
+    .toolbar{display:flex; gap:8px; flex-wrap:wrap}
+    button{background:var(--accent); color:white; border:none; padding:8px 10px; border-radius:6px; cursor:pointer}
+    button.ghost{background:white; color:var(--panel); border:1px solid #e6eef2}
+    .thumb{width:110px; height:140px; border:1px solid #e6eef2; border-radius:6px; overflow:hidden; display:flex; align-items:center; justify-content:center}
+    .canvas-wrap{flex:1; display:flex; flex-direction:column; align-items:center}
+    .page-canvas{width:800px; height:1000px; background:white; border:1px solid #dbe8ee; border-radius:6px; position:relative; box-shadow:0 8px 24px rgba(13,20,30,.06); overflow:hidden}
+    .element{position:absolute; touch-action:none}
+    .element img{width:100%; height:100%; object-fit:cover; display:block}
+    .element .text{display:block; padding:6px; font-size:18px}
+    .sidebar h3{margin:0 0 6px 0}
+    .photos-grid{display:flex;gap:8px;flex-wrap:wrap}
+    .photo{width:72px;height:72px;border-radius:6px;overflow:hidden;border:1px solid #eee}
+    .pages-row{display:flex; gap:8px; margin-top:8px}
+    input[type=file]{display:block}
+    .inspector{width:300px; background:white; padding:12px; border-radius:8px}
+    .muted{color:var(--muted); font-size:13px}
+    .control{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+    .templates{display:flex;flex-direction:column;gap:8px}
+    .topbar{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+    .search{width:100%; padding:8px; border-radius:6px; border:1px solid #e6eef2}
+    .page-actions{display:flex; gap:8px}
+    .small{padding:6px 8px;font-size:13px}
+    footer{margin-top:8px;color:var(--muted); font-size:12px}
+    /* selection handles */
+    .handle{width:10px;height:10px;background:var(--accent);position:absolute;border-radius:2px}
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Devin's Web</h1>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
-    </header>
+<div class="app">
+  <div class="sidebar left-column">
+    <div>
+      <div class="brand">Cuemo's Tool — Yearbook Maker</div>
+      <div class="muted">All-in-one single-file editor. Make pages, import roster, export print-ready PDF.</div>
+    </div>
 
-    <div class="button-container">
-        <a href="typing.html" class="button">Go to Typing Page</a>
-        <a href="https://www.tiktok.com/@cue699" class="button" target="_blank">TikTok</a>
-        <a href="https://youtube.com/cuemo" class="button" target="_blank">Youtube</a>
+    <div class="toolbar">
+      <input id="photoInput" type="file" accept="image/*" multiple />
+      <button id="addTextBtn" class="small">Add Text</button>
+      <button id="addRectBtn" class="small ghost">Add Frame</button>
+      <button id="duplicateBtn" class="small">Duplicate Element</button>
+      <button id="deleteBtn" class="small ghost">Delete Selected</button>
+    </div>
+
+    <div>
+      <h3>Photos</h3>
+      <div id="photos" class="photos-grid" style="max-height:260px; overflow:auto"></div>
+    </div>
+
+    <div>
+      <h3>Pages</h3>
+      <div class="pages-row" id="pagesRow"></div>
+      <div style="margin-top:8px">
+        <button id="addPage">Add Page</button>
+        <button id="exportPdf" class="ghost">Export PDF</button>
+        <button id="printBtn" class="ghost small">Print</button>
+      </div>
+    </div>
+
+    <div>
+      <h3>Templates</h3>
+      <div class="templates">
+        <button class="ghost" data-template="grid">Portrait Grid (3x4)</button>
+        <button class="ghost" data-template="collage">Collage</button>
+        <button class="ghost" data-template="single">Single Portrait</button>
+      </div>
+    </div>
+
+    <div>
+      <h3>Roster Import (CSV)</h3>
+      <input id="csvInput" type="file" accept=".csv" />
+      <div class="muted">CSV headers: name,grade,role,photoFilename (photo optional)</div>
     </div>
 
     <footer>
-        &copy; 2025 Devin's Web. All rights reserved.
+      <div class="muted">Saved locally in your browser. Use Export to create a downloadable PDF. Works on desktop & iPad Safari.</div>
     </footer>
+  </div>
 
-    <script>
-        const toggleButton = document.getElementById('themeToggle');
-        const html = document.documentElement;
-
-        // Check for saved theme preference
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        html.setAttribute('data-theme', savedTheme);
-        toggleButton.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-
-        toggleButton.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            toggleButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-            localStorage.setItem('theme', newTheme);
-        });
-    </script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devin's Typing</title>
-    <style>
-        :root {
-            --bg-color: #f0f4f8;
-            --text-color: #333;
-            --header-bg: linear-gradient(135deg, #11998e, #38ef7d);
-            --button-bg: linear-gradient(135deg, #ff7e5f, #feb47b);
-            --footer-bg: #38ef7d;
-            --card-bg: #ffffff;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --border-color: #ddd;
-        }
-
-        [data-theme="dark"] {
-            --bg-color: #1a1a1a;
-            --text-color: #e0e0e0;
-            --header-bg: linear-gradient(135deg, #065f46, #10b981);
-            --button-bg: linear-gradient(135deg, #d946ef, #f472b6);
-            --footer-bg: #10b981;
-            --card-bg: #2d2d2d;
-            --shadow-color: rgba(0, 0, 0, 0.3);
-            --border-color: #444;
-        }
-
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        header {
-            text-align: center;
-            padding: 60px 20px;
-            background: var(--header-bg);
-            color: white;
-            width: 100%;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-            box-shadow: 0 10px 20px var(--shadow-color);
-            position: relative;
-        }
-
-        h1 {
-            font-size: 2.8em;
-            margin: 0;
-            letter-spacing: -0.02em;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 1s ease-out;
-        }
-
-        .typing-area {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 30px;
-            box-shadow: 0 10px 20px var(--shadow-color);
-            max-width: 700px;
-            width: 90%;
-            margin: 40px 20px;
-            text-align: center;
-        }
-
-        textarea {
-            width: 100%;
-            height: 250px;
-            padding: 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            font-size: 1.1em;
-            resize: none;
-            transition: border-color 0.3s ease, background-color 0.3s ease;
-            background: var(--card-bg);
-            color: var(--text-color);
-        }
-
-        textarea:focus {
-            border-color: #38ef7d;
-            outline: none;
-        }
-
-        .back-button {
-            background: var(--button-bg);
-            color: white;
-            padding: 16px 32px;
-            font-size: 1.2em;
-            font-weight: 500;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px var(--shadow-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-            text-decoration: none;
-            margin: 20px;
-        }
-
-        .back-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px var(--shadow-color);
-        }
-
-        .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 1.5em;
-            color: white;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            transform: rotate(20deg);
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: var(--footer-bg);
-            color: white;
-            width: 100%;
-            border-top-left-radius: 40px;
-            border-top-right-radius: 40px;
-            box-shadow: 0 -10px 20px var(--shadow-color);
-            margin-top: auto;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 2em; }
-            .back-button, textarea { font-size: 1em; }
-            .typing-area { padding: 20px; }
-            .theme-toggle { font-size: 1.2em; }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Typing Practice Page</h1>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
-    </header>
-
-    <div class="typing-area">
-        <p>Type anything below to practice your typing skills!</p>
-        <textarea placeholder="Start typing here..."></textarea>
+  <div class="canvas-wrap">
+    <div class="topbar">
+      <div style="font-weight:600">Editing: <span id="currentPageTitle">Page 1</span></div>
+      <input id="projectName" class="search" placeholder="Project name (used for export file)" />
     </div>
 
-    <a href="index.html" class="back-button">Back to Home</a>
+    <div id="pageContainer" class="page-canvas" aria-label="Yearbook page canvas"></div>
 
-    <footer>
-        &copy; 2025 Devin's Web. All rights reserved.
-    </footer>
+    <div style="width:800px; display:flex; justify-content:space-between; margin-top:8px">
+      <div class="muted">Canvas size: 8" x 10" @ 100 DPI (800x1000px). For print, export at higher scale.</div>
+      <div class="page-actions">
+        <button id="zoomOut" class="small ghost">-</button>
+        <button id="zoomIn" class="small">+</button>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        const toggleButton = document.getElementById('themeToggle');
-        const html = document.documentElement;
+  <div class="inspector">
+    <h3>Inspector</h3>
+    <div id="inspectorContent"><div class="muted">Select an element to edit.</div></div>
+    <hr />
+    <div>
+      <button id="saveProject" class="small">Save Project</button>
+      <button id="loadProject" class="small ghost">Load Project</button>
+      <button id="downloadJSON" class="small">Download .yearbook</button>
+    </div>
+  </div>
+</div>
 
-        // Check for saved theme preference
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        html.setAttribute('data-theme', savedTheme);
-        toggleButton.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+<!-- Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+<script>
+// Cuemo's Tool — single file app script
+(() => {
+  // State
+  const state = {
+    pages: [],
+    current: null,
+    photos: [],
+    selected: null,
+    scale: 1
+  };
 
-        toggleButton.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            toggleButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-            localStorage.setItem('theme', newTheme);
-        });
-    </script>
+  // Utils
+  const uid = (p='id') => p+'_'+Math.random().toString(36).slice(2,9);
+  const qs = (s)=>document.querySelector(s);
+  const qsa = (s)=>Array.from(document.querySelectorAll(s));
+
+  // Elements
+  const photosEl = qs('#photos');
+  const pageContainer = qs('#pageContainer');
+  const pagesRow = qs('#pagesRow');
+  const currentPageTitle = qs('#currentPageTitle');
+  const inspector = qs('#inspectorContent');
+  const projectNameInput = qs('#projectName');
+
+  // Initialize with a blank page
+  function init(){
+    loadFromLocal();
+    if(!state.pages.length){ createPage(); }
+    renderPagesRow();
+    selectPage(state.pages[0].id);
+    attachUI();
+  }
+
+  // Page model: { id, title, elements: [ {id,type,x,y,w,h,rotation,props} ], bg }
+  function createPage(title='Page'){ const p={id:uid('page'), title:title+' '+(state.pages.length+1), elements:[], bg:'#ffffff'}; state.pages.push(p); saveToLocal(); return p; }
+
+  function renderPagesRow(){ pagesRow.innerHTML=''; state.pages.forEach(pg=>{
+    const el=document.createElement('div'); el.className='thumb'; el.style.cursor='pointer'; el.textContent=pg.title; el.onclick=()=>selectPage(pg.id);
+    pagesRow.appendChild(el);
+  })}
+
+  function selectPage(id){ state.current = state.pages.find(p=>p.id===id) || state.pages[0]; currentPageTitle.textContent = state.current.title; renderCanvas(); }
+
+  function renderCanvas(){
+    pageContainer.innerHTML=''; pageContainer.style.transform = `scale(${state.scale})`;
+    pageContainer.style.transformOrigin='top left';
+    // render elements
+    state.current.elements.forEach(el=>{
+      const dom = document.createElement('div'); dom.className='element'; dom.dataset.id = el.id;
+      dom.style.left = el.x+'px'; dom.style.top = el.y+'px'; dom.style.width = el.w+'px'; dom.style.height = el.h+'px'; dom.style.transform = `rotate(${el.rotation||0}deg)`;
+      dom.style.border = el.type==='rect' ? '1px dashed #cbd5e1' : 'none';
+      if(el.type === 'img'){
+        const img = document.createElement('img'); img.src = el.props.src; dom.appendChild(img);
+      } else if(el.type === 'text'){
+        const t = document.createElement('div'); t.className='text'; t.contentEditable = true; t.innerText = el.props.text || 'Edit text'; t.style.fontSize = (el.props.size||20)+'px'; t.oninput = ()=>{ el.props.text = t.innerText; saveToLocal(); };
+        dom.appendChild(t);
+      } else if(el.type === 'rect'){
+        dom.style.background = el.props.fill || '#fff';
+      }
+      pageContainer.appendChild(dom);
+      makeInteractive(dom, el);
+    });
+  }
+
+  function makeInteractive(dom, model){
+    // click select
+    dom.addEventListener('pointerdown', (e)=>{ e.stopPropagation(); selectElement(model.id); });
+
+    // draggable & resizable using interact.js
+    interact(dom).draggable({ listeners: { move(event){
+      const dx = event.dx; const dy = event.dy;
+      const id = dom.dataset.id; const m = getElementById(id);
+      m.x += dx; m.y += dy; dom.style.left = m.x + 'px'; dom.style.top = m.y + 'px'; saveToLocal(); updateInspector(); } }
+    }).resizable({ edges:{left:true,right:true,bottom:true,top:true}, listeners:{ move(event){ const id=dom.dataset.id; const m=getElementById(id); m.w = Math.max(20, event.rect.width); m.h = Math.max(20, event.rect.height); m.x += event.deltaRect.left; m.y += event.deltaRect.top; dom.style.width = m.w+'px'; dom.style.height = m.h+'px'; dom.style.left = m.x+'px'; dom.style.top = m.y+'px'; saveToLocal(); updateInspector(); } } });
+  }
+
+  function getElementById(id){ return state.current.elements.find(e=>e.id===id); }
+
+  function selectElement(id){ state.selected = getElementById(id); updateInspector(); // highlight
+    qsa('.element').forEach(el=>el.style.outline='none'); const node = qsa(`.element[data-id='${id}']`)[0]; if(node) node.style.outline='2px solid rgba(6,182,212,.6)'; }
+
+  function updateInspector(){ inspector.innerHTML = ''; if(!state.selected){ inspector.innerHTML='<div class="muted">Select an element to edit.</div>'; return; }
+    const e = state.selected; const title = document.createElement('div'); title.innerHTML = `<strong>Selected:</strong> ${e.type}`; inspector.appendChild(title);
+    if(e.type==='text'){
+      const txt = document.createElement('textarea'); txt.style.width='100%'; txt.value = e.props.text||''; txt.oninput = ()=>{ e.props.text = txt.value; renderCanvas(); saveToLocal(); };
+      inspector.appendChild(document.createTextNode('Text:')); inspector.appendChild(txt);
+      const size = document.createElement('input'); size.type='number'; size.value = e.props.size||20; size.onchange = ()=>{ e.props.size = parseInt(size.value||20); renderCanvas(); saveToLocal(); };
+      inspector.appendChild(document.createTextNode('Font size:')); inspector.appendChild(size);
+    }
+    if(e.type==='img'){
+      const replace = document.createElement('input'); replace.type='file'; replace.accept='image/*'; replace.onchange = async (ev)=>{ const f = ev.target.files[0]; const url = await fileToDataURL(f); e.props.src = url; renderCanvas(); saveToLocal(); };
+      inspector.appendChild(document.createTextNode('Replace image:')); inspector.appendChild(replace);
+    }
+    // common props
+    const xInp = document.createElement('input'); xInp.type='number'; xInp.value = Math.round(e.x); xInp.onchange = ()=>{ e.x = parseInt(xInp.value||0); renderCanvas(); saveToLocal(); };
+    inspector.appendChild(document.createTextNode('X:')); inspector.appendChild(xInp);
+    const yInp = document.createElement('input'); yInp.type='number'; yInp.value = Math.round(e.y); yInp.onchange = ()=>{ e.y = parseInt(yInp.value||0); renderCanvas(); saveToLocal(); };
+    inspector.appendChild(document.createTextNode('Y:')); inspector.appendChild(yInp);
+
+    const wInp = document.createElement('input'); wInp.type='number'; wInp.value = Math.round(e.w); wInp.onchange = ()=>{ e.w = parseInt(wInp.value||100); renderCanvas(); saveToLocal(); };
+    inspector.appendChild(document.createTextNode('W:')); inspector.appendChild(wInp);
+    const hInp = document.createElement('input'); hInp.type='number'; hInp.value = Math.round(e.h); hInp.onchange = ()=>{ e.h = parseInt(hInp.value||100); renderCanvas(); saveToLocal(); };
+    inspector.appendChild(document.createTextNode('H:')); inspector.appendChild(hInp);
+
+    const zDel = document.createElement('button'); zDel.textContent='Delete'; zDel.onclick=()=>{ state.current.elements = state.current.elements.filter(x=>x.id!==e.id); state.selected=null; renderCanvas(); saveToLocal(); updateInspector(); };
+    inspector.appendChild(zDel);
+  }
+
+  // Add element helpers
+  function addImageElement(src, x=20, y=20, w=200, h=200){ const el={id:uid('e'), type:'img', x,y,w,h, rotation:0, props:{src}}; state.current.elements.push(el); renderCanvas(); saveToLocal(); }
+  function addTextElement(text='New text', x=40, y=40, w=300, h=60){ const el={id:uid('e'), type:'text', x,y,w,h, rotation:0, props:{text, size:20}}; state.current.elements.push(el); renderCanvas(); saveToLocal(); }
+  function addRectElement(x=30,y=30,w=200,h=120){ const el={id:uid('e'), type:'rect', x,y,w,h, rotation:0, props:{fill:'#fff'}}; state.current.elements.push(el); renderCanvas(); saveToLocal(); }
+
+  // Photo upload
+  qs('#photoInput').addEventListener('change', async (ev)=>{
+    const files = Array.from(ev.target.files || []);
+    for (let f of files){ const url = await fileToDataURL(f); const p = {id:uid('p'), name:f.name, src:url}; state.photos.push(p); renderPhotos(); }
+    saveToLocal(); ev.target.value='';
+  });
+
+  function renderPhotos(){ photosEl.innerHTML=''; state.photos.forEach(p=>{
+    const d = document.createElement('div'); d.className='photo'; const img = document.createElement('img'); img.src = p.src; img.style.width='100%'; img.style.height='100%'; img.style.objectFit='cover'; d.appendChild(img);
+    d.draggable = true; d.addEventListener('dragstart', (e)=>{ e.dataTransfer.setData('text/plain', p.src); });
+    d.addEventListener('dblclick', ()=> addImageElement(p.src));
+    photosEl.appendChild(d);
+  })}
+
+  // Drop from photos into canvas
+  pageContainer.addEventListener('dragover', (e)=>{ e.preventDefault(); });
+  pageContainer.addEventListener('drop', (e)=>{ e.preventDefault(); const src = e.dataTransfer.getData('text/plain'); if(src){ const rect = pageContainer.getBoundingClientRect(); const x = (e.clientX - rect.left); const y = (e.clientY - rect.top); addImageElement(src, x, y, 200, 200); } });
+
+  // UI Attach
+  function attachUI(){ qs('#addTextBtn').addEventListener('click', ()=> addTextElement()); qs('#addRectBtn').addEventListener('click', ()=> addRectElement()); qs('#addPage').addEventListener('click', ()=>{ const pg = createPage(); renderPagesRow(); selectPage(pg.id); });
+    qs('#exportPdf').addEventListener('click', exportPDF); qs('#printBtn').addEventListener('click', ()=>window.print()); qs('#duplicateBtn').addEventListener('click', duplicateSelected); qs('#deleteBtn').addEventListener('click', ()=>{ if(state.selected){ state.current.elements = state.current.elements.filter(x=>x.id!==state.selected.id); state.selected=null; renderCanvas(); saveToLocal(); updateInspector(); } });
+    qsa('.templates button').forEach(b=> b.addEventListener('click', ()=> applyTemplate(b.dataset.template)));
+    qs('#csvInput').addEventListener('change', handleCSVImport);
+    qs('#saveProject').addEventListener('click', saveToLocal);
+    qs('#loadProject').addEventListener('click', ()=>{ loadFromLocal(); renderPhotos(); renderPagesRow(); renderCanvas(); });
+    qs('#downloadJSON').addEventListener('click', ()=>{ const blob = new Blob([JSON.stringify(state)], {type:'application/json'}); const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=(projectNameInput.value||'cuemo_project')+'.yearbook'; a.click(); URL.revokeObjectURL(url); });
+    qs('#zoomIn').addEventListener('click', ()=>{ state.scale = Math.min(2, state.scale+0.1); renderCanvas(); }); qs('#zoomOut').addEventListener('click', ()=>{ state.scale = Math.max(.4, state.scale-0.1); renderCanvas(); });
+  }
+
+  // Duplicate selected
+  function duplicateSelected(){ if(!state.selected) return; const s = state.selected; const copy = JSON.parse(JSON.stringify(s)); copy.id = uid('e'); copy.x += 20; copy.y += 20; state.current.elements.push(copy); renderCanvas(); saveToLocal(); }
+
+  // Apply templates
+  function applyTemplate(name){ const pg = state.current; pg.elements = []; if(name==='grid'){
+    const cols=3, rows=4; const pad=20; const cardW = Math.floor((800 - pad*(cols+1))/cols); const cardH = 200; for(let r=0;r<rows;r++){ for(let c=0;c<cols;c++){ const x=pad + c*(cardW+pad); const y=pad + r*(cardH+pad); pg.elements.push({id:uid(), type:'rect', x,y,w:cardW,h:cardH, rotation:0, props:{fill:'#fff'}}); } }
+  } else if(name==='collage'){
+    pg.elements.push({id:uid(), type:'img', x:20,y:20,w:360,h:500, rotation:0, props:{src:state.photos[0]?.src||''}});
+    pg.elements.push({id:uid(), type:'img', x:400,y:20,w:360,h:240, rotation:0, props:{src:state.photos[1]?.src||''}});
+    pg.elements.push({id:uid(), type:'img', x:400,y:280,w:360,h:240, rotation:0, props:{src:state.photos[2]?.src||''}});
+    pg.elements.push({id:uid(), type:'text', x:30,y:540,w:700,h:80, rotation:0, props:{text:'Caption here', size:22}});
+  } else if(name==='single'){
+    pg.elements.push({id:uid(), type:'rect', x:100,y:60,w:600,h:760, rotation:0, props:{fill:'#fff'}});
+  }
+  renderCanvas(); saveToLocal(); }
+
+  // CSV import
+  async function handleCSVImport(ev){ const f=ev.target.files[0]; if(!f) return; const txt = await fileToText(f); const lines = txt.split(/\r?\n/).map(l=>l.trim()).filter(Boolean); const headers = lines[0].split(',').map(h=>h.trim().toLowerCase()); const rows = lines.slice(1).map(l=>{ const parts = l.split(','); const o={}; headers.forEach((h,i)=> o[h]=parts[i]?parts[i].trim():'' ); return o; });
+    // Create portrait cards on a new page
+    const pg = createPage('Roster'); rows.forEach((r,i)=>{
+      const cols=3; const pad=20; const cardW = Math.floor((800 - pad*(cols+1))/cols); const cardH = 180; const c = i%cols; const row = Math.floor(i/cols);
+      const x = pad + c*(cardW+pad); const y = pad + row*(cardH+pad);
+      const cardId = uid();
+      pg.elements.push({id:cardId, type:'rect', x,y,w:cardW,h:cardH, rotation:0, props:{fill:'#fff'}});
+      pg.elements.push({id:uid(), type:'text', x:x+10,y:y+cardH-60,w:cardW-20,h:40, rotation:0, props:{text: r.name || '', size:16}});
+    });
+    renderPagesRow(); selectPage(pg.id); saveToLocal(); }
+
+  // Export PDF (each page -> canvas -> add to jsPDF)
+  async function exportPDF(){ const { jsPDF } = window.jspdf; const pdf = new jsPDF({ unit:'px', format:[800,1000] }); for (let i=0;i<state.pages.length;i++){ const pg = state.pages[i]; // temporarily render only this page
+      const el = document.createElement('div'); el.style.width='800px'; el.style.height='1000px'; el.style.position='absolute'; el.style.left='-9999px'; el.style.top='-9999px'; el.style.background = pg.bg; document.body.appendChild(el);
+      // render elements into el
+      pg.elements.forEach(e=>{
+        const node = document.createElement('div'); node.style.position='absolute'; node.style.left = e.x+'px'; node.style.top = e.y+'px'; node.style.width = e.w+'px'; node.style.height = e.h+'px'; if(e.type==='img'){ const img = document.createElement('img'); img.src = e.props.src; img.style.width='100%'; img.style.height='100%'; img.style.objectFit='cover'; node.appendChild(img);} else if(e.type==='text'){ const t = document.createElement('div'); t.innerText = e.props.text||''; t.style.fontSize = (e.props.size||18)+'px'; t.style.padding='6px'; node.appendChild(t);} else if(e.type==='rect'){ node.style.background = e.props.fill || '#fff'; node.style.border = '1px solid #e2e8f0'; }
+        el.appendChild(node);
+      });
+      // wait a tick for images to load
+      await new Promise(r=>setTimeout(r, 250));
+      const canvas = await html2canvas(el, {scale:2, useCORS:true}); const img = canvas.toDataURL('image/png'); if(i>0) pdf.addPage(); pdf.addImage(img, 'PNG', 0, 0, 800, 1000); document.body.removeChild(el);
+    }
+    const filename = (projectNameInput.value||'Cuemo_Yearbook')+'.pdf'; pdf.save(filename);
+  }
+
+  // Helpers: file to data url and text
+  function fileToDataURL(file){ return new Promise((res,rej)=>{ const fr=new FileReader(); fr.onload=()=>res(fr.result); fr.onerror=rej; fr.readAsDataURL(file); }); }
+  function fileToText(file){ return new Promise((res,rej)=>{ const fr=new FileReader(); fr.onload=()=>res(fr.result); fr.onerror=rej; fr.readAsText(file); }); }
+
+  // Save/Load local
+  function saveToLocal(){ try{ localStorage.setItem('cuemo_project_v1', JSON.stringify({pages:state.pages, photos:state.photos, projectName:projectNameInput.value})); }catch(e){ console.error(e); } }
+  function loadFromLocal(){ try{ const s = JSON.parse(localStorage.getItem('cuemo_project_v1')||'null'); if(s){ state.pages = s.pages || []; state.photos = s.photos || []; projectNameInput.value = s.projectName || ''; } }catch(e){ console.error(e); } }
+
+  // click canvas empty area to deselect
+  pageContainer.addEventListener('pointerdown', ()=>{ state.selected=null; qsa('.element').forEach(el=>el.style.outline='none'); updateInspector(); });
+
+  // init
+  init();
+
+})();
+</script>
 </body>
 </html>
-
-make these wayy better and improve everything about them also make the color theme black and a cool blue
