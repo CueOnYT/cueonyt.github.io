@@ -1,52 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cuemo's Tool - Yearbook Maker</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Game Launcher</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
-    <h1><i class="fa-solid fa-book"></i> Cuemo's Tool</h1>
-    <nav>
-      <button onclick="Core.newProject()"><i class="fa-solid fa-file"></i></button>
-      <button onclick="Core.openProject()"><i class="fa-solid fa-folder-open"></i></button>
-      <button onclick="Core.saveProject()"><i class="fa-solid fa-save"></i></button>
-      <button onclick="Export.showMenu()"><i class="fa-solid fa-download"></i></button>
-      <button onclick="Tour.start()"><i class="fa-solid fa-circle-question"></i></button>
-    </nav>
+    <h1>Game Launcher 🎮</h1>
+    <div class="controls">
+      <button id="addGameBtn" class="primary">+ Add Game</button>
+      <button id="exportBtn">Export</button>
+      <button id="importBtn">Import</button>
+      <input id="importFile" type="file" accept="application/json" style="display:none" />
+    </div>
   </header>
 
   <main>
-    <aside id="sidebar">
-      <div class="tabs">
-        <button class="tab-btn active" data-tab="pages">Pages</button>
-        <button class="tab-btn" data-tab="inspector">Inspector</button>
-        <button class="tab-btn" data-tab="assets">Assets</button>
-      </div>
-      <div class="tab-content" id="pages"></div>
-      <div class="tab-content hidden" id="inspector"></div>
-      <div class="tab-content hidden" id="assets"></div>
+    <aside class="left">
+      <section class="games-list" id="gamesList" aria-live="polite">
+        <!-- Game cards inserted here -->
+      </section>
     </aside>
 
-    <section id="workspace">
-      <canvas id="yearbookCanvas" width="800" height="1000"></canvas>
+    <section class="play-area">
+      <div class="player-header">
+        <h2 id="activeTitle">No game loaded</h2>
+        <div class="player-actions">
+          <button id="openNewTab">Open in new tab</button>
+          <button id="reloadIframe">Reload</button>
+        </div>
+      </div>
+
+      <div class="frame-wrapper">
+        <iframe id="gameFrame" src="" title="Game frame" sandbox="allow-scripts allow-same-origin allow-forms" ></iframe>
+        <div id="frameOverlay" class="overlay hidden">
+          <div>
+            <p>Can't embed this site in an iframe (X-Frame-Options or CSP blocked).</p>
+            <button id="openFallback">Open in new tab</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="save-area">
+        <h3>Game save / notes</h3>
+        <textarea id="gameSave" placeholder="Paste game data, notes, or tiny save state here..."></textarea>
+        <div class="save-actions">
+          <button id="saveGameData" class="primary">Save</button>
+          <button id="clearGameData">Clear</button>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    © 2025 Cuemo's Tool – Advanced Yearbook Maker
-  </footer>
+  <!-- Add / Edit Modal -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <h3 id="modalTitle">Add Game</h3>
+      <label>
+        Game name
+        <input id="gameName" type="text" placeholder="Name (e.g. Super Game)" />
+      </label>
+      <label>
+        Game URL
+        <input id="gameURL" type="url" placeholder="https://example.com/game" />
+      </label>
+      <label>
+        Allow embed?
+        <select id="preferEmbed">
+          <option value="embed" selected>Prefer iframe embed</option>
+          <option value="newtab">Prefer new tab</option>
+        </select>
+      </label>
+      <div class="modal-actions">
+        <button id="saveBtn" class="primary">Save</button>
+        <button id="cancelBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-  <script src="js/core.js"></script>
-  <script src="js/canvas.js"></script>
-  <script src="js/export.js"></script>
-  <script src="js/templates.js"></script>
-  <script src="js/tour.js"></script>
-  <script src="js/inspector.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
