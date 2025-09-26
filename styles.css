@@ -1,107 +1,61 @@
-:root{
-  --bg:#0f1724;
-  --card:#0c1220;
-  --muted:#9aa6c0;
-  --accent:#6ee7b7;
-  --primary:#60a5fa;
-  --glass: rgba(255,255,255,0.03);
+body {
+  margin: 0;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: linear-gradient(180deg,#071127 0%, #07121b 100%);
-  color:#e6eef6;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
+header {
+  background: #111;
+  color: #fff;
+  padding: 12px;
+  text-align: center;
 }
 
-header{
-  padding:18px 24px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  border-bottom:1px solid rgba(255,255,255,0.03);
-}
-header h1{margin:0; font-size:20px; letter-spacing:0.4px}
-.controls{display:flex; gap:8px; align-items:center}
-button{background:var(--glass); color:var(--accent); border:1px solid rgba(255,255,255,0.04); padding:8px 12px; border-radius:8px; cursor:pointer}
-button.primary{background:linear-gradient(90deg,var(--primary),#38bdf8); color:#04263a; font-weight:600}
-button:hover{opacity:.95}
-main{
-  display:flex;
-  gap:18px;
-  padding:18px;
-  align-items:flex-start;
-  flex:1;
+main {
+  display: flex;
+  flex: 1;
 }
 
-/* Left column */
-.left{width:340px}
-.games-list{display:flex; flex-direction:column; gap:10px}
-.game-card{
-  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  padding:12px;
-  border-radius:10px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  border:1px solid rgba(255,255,255,0.03);
+.sidebar {
+  width: 220px;
+  background: #222;
+  color: #fff;
+  padding: 12px;
+  overflow-y: auto;
 }
-.card-left{display:flex; gap:10px; align-items:center}
-.game-icon{
-  width:44px; height:44px; border-radius:8px; background:linear-gradient(135deg,var(--primary),#7c3aed); display:flex; align-items:center; justify-content:center; font-weight:700; color:#021021;
-  flex-shrink:0;
-}
-.card-actions{display:flex; gap:6px; align-items:center}
-.small{padding:6px 8px; font-size:14px; border-radius:8px}
 
-/* Play area */
-.play-area{flex:1; display:flex; flex-direction:column; gap:12px}
-.player-header{display:flex; justify-content:space-between; align-items:center}
-.frame-wrapper{
-  position:relative;
-  background:#07121a;
-  border-radius:10px;
-  min-height:420px;
-  border:1px solid rgba(255,255,255,0.03);
-  overflow:hidden;
+.sidebar button {
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 10px;
+  border: none;
+  background: #444;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
 }
-iframe#gameFrame{
-  width:100%;
-  height:520px;
-  border:0;
-  display:block;
-  background:#000;
-}
-.overlay{
-  position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.6));
-  color:var(--muted);
-}
-.hidden{display:none}
 
-.save-area{margin-top:6px; display:flex; flex-direction:column; gap:8px}
-.save-area textarea{width:100%; min-height:110px; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.03); background:rgba(255,255,255,0.02); color:var(--muted)}
-.save-actions{display:flex; gap:8px; justify-content:flex-end}
-
-/* modal */
-.modal{
-  position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.5);
+.sidebar button:hover {
+  background: #666;
 }
-.modal-content{
-  width:420px; background:linear-gradient(180deg,#071126,#06101b); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,0.04);
-  display:flex; flex-direction:column; gap:10px;
-}
-.modal-content label{display:flex; flex-direction:column; gap:6px; font-size:14px; color:var(--muted)}
-.modal-content input, .modal-content select{padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.03); background:rgba(255,255,255,0.02); color:#e6eef6}
 
-/* responsive */
-@media (max-width:900px){
-  main{flex-direction:column}
-  .left{width:100%}
-  iframe#gameFrame{height:360px}
+.player {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f0f0f0;
+}
+
+#gameTitle {
+  margin: 0;
+  padding: 10px;
+  background: #ddd;
+}
+
+#gameFrame {
+  flex: 1;
+  border: none;
+  width: 100%;
 }
