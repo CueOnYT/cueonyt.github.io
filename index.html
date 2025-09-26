@@ -1,84 +1,27 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Game Launcher</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Games Hub</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
-    <h1>Game Launcher 🎮</h1>
-    <div class="controls">
-      <button id="addGameBtn" class="primary">+ Add Game</button>
-      <button id="exportBtn">Export</button>
-      <button id="importBtn">Import</button>
-      <input id="importFile" type="file" accept="application/json" style="display:none" />
-    </div>
+    <h1>🎮 My Games Hub</h1>
   </header>
 
   <main>
-    <aside class="left">
-      <section class="games-list" id="gamesList" aria-live="polite">
-        <!-- Game cards inserted here -->
-      </section>
+    <aside class="sidebar">
+      <h2>Games</h2>
+      <div id="gamesList"></div>
     </aside>
 
-    <section class="play-area">
-      <div class="player-header">
-        <h2 id="activeTitle">No game loaded</h2>
-        <div class="player-actions">
-          <button id="openNewTab">Open in new tab</button>
-          <button id="reloadIframe">Reload</button>
-        </div>
-      </div>
-
-      <div class="frame-wrapper">
-        <iframe id="gameFrame" src="" title="Game frame" sandbox="allow-scripts allow-same-origin allow-forms" ></iframe>
-        <div id="frameOverlay" class="overlay hidden">
-          <div>
-            <p>Can't embed this site in an iframe (X-Frame-Options or CSP blocked).</p>
-            <button id="openFallback">Open in new tab</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="save-area">
-        <h3>Game save / notes</h3>
-        <textarea id="gameSave" placeholder="Paste game data, notes, or tiny save state here..."></textarea>
-        <div class="save-actions">
-          <button id="saveGameData" class="primary">Save</button>
-          <button id="clearGameData">Clear</button>
-        </div>
-      </div>
+    <section class="player">
+      <h2 id="gameTitle">Select a game</h2>
+      <iframe id="gameFrame" src="" title="Game frame"></iframe>
     </section>
   </main>
-
-  <!-- Add / Edit Modal -->
-  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-content">
-      <h3 id="modalTitle">Add Game</h3>
-      <label>
-        Game name
-        <input id="gameName" type="text" placeholder="Name (e.g. Super Game)" />
-      </label>
-      <label>
-        Game URL
-        <input id="gameURL" type="url" placeholder="https://example.com/game" />
-      </label>
-      <label>
-        Allow embed?
-        <select id="preferEmbed">
-          <option value="embed" selected>Prefer iframe embed</option>
-          <option value="newtab">Prefer new tab</option>
-        </select>
-      </label>
-      <div class="modal-actions">
-        <button id="saveBtn" class="primary">Save</button>
-        <button id="cancelBtn">Cancel</button>
-      </div>
-    </div>
-  </div>
 
   <script src="script.js"></script>
 </body>
