@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cue's Stuff • Contact</title>
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body class="bg-grid">
+  <div class="accent-orb orb-1"></div>
+  <div class="accent-orb orb-2"></div>
+
+  <header class="top-bar">
+    <div class="logo-badge">
+      <span class="logo-dot"></span>
+      <span class="logo-text">Cue</span>
+    </div>
+    <nav class="top-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="projects.html" class="nav-link">Projects</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link active">Contact</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="window-panel">
+      <div class="window-header">
+        <span class="window-dots">
+          <span class="dot dot-close"></span>
+          <span class="dot dot-min"></span>
+          <span class="dot dot-max"></span>
+        </span>
+        <span class="window-title">Contact</span>
+      </div>
+
+      <div class="window-body">
+        <h1>Contact</h1>
+        <p class="page-subtitle">
+          This is a visual mockup of a contact form. You can hook it up to email, Firebase, or anything else later.
+        </p>
+
+        <form class="contact-form" onsubmit="return false;">
+          <div class="form-row">
+            <label for="name">Name</label>
+            <input id="name" type="text" placeholder="Your name" />
+          </div>
+
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="you@example.com" />
+          </div>
+
+          <div class="form-row">
+            <label for="message">Message</label>
+            <textarea id="message" rows="4" placeholder="Type something cool here..."></textarea>
+          </div>
+
+          <button class="btn primary" type="submit">Send (mock)</button>
+        </form>
+
+        <a href="index.html" class="btn ghost back-link">← Back to home</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="taskbar taskbar-sub">
+    <a href="index.html" class="taskbar-mini-link">Start • Cue’s Stuff</a>
+  </footer>
+</body>
+</html>
