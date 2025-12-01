@@ -19,7 +19,6 @@
       <a href="index.html" class="nav-link">Home</a>
       <a href="projects.html" class="nav-link active">Projects</a>
       <a href="about.html" class="nav-link">About</a>
-      <a href="contact.html" class="nav-link">Contact</a>
     </nav>
   </header>
 
@@ -37,25 +36,49 @@
       <div class="window-body">
         <h1>Projects</h1>
         <p class="page-subtitle">
-          This is a sample layout. You can replace these cards with your real projects, links, or anything else.
+          A simple grid of things I’m building. Add or rename buttons as you go.
         </p>
 
-        <div class="card-grid">
-          <div class="app-card">
-            <div class="card-icon">🧪</div>
-            <h3>Experiment One</h3>
-            <p>Some cool idea or concept you’re testing out.</p>
-          </div>
-          <div class="app-card">
-            <div class="card-icon">⚙️</div>
-            <h3>Utility Tool</h3>
-            <p>A small app or script that makes life easier.</p>
-          </div>
-          <div class="app-card">
-            <div class="card-icon">🎮</div>
-            <h3>Mini Game</h3>
-            <p>Fun little interactive thing to mess around with.</p>
-          </div>
+        <!-- PROJECT BUTTON GRID -->
+        <div class="projects-grid">
+          <!--
+            To add a project:
+            1. Copy one of these <a class="project-button"> blocks.
+            2. Change the text inside <span class="project-title">.
+            3. Change the href to the HTML file you want it to open.
+          -->
+
+          <a class="project-button" href="project-1.html">
+            <span class="project-title">Project One</span>
+            <span class="project-open">Open</span>
+          </a>
+
+          <a class="project-button" href="project-2.html">
+            <span class="project-title">Project Two</span>
+            <span class="project-open">Open</span>
+          </a>
+
+          <a class="project-button" href="project-3.html">
+            <span class="project-title">Project Three</span>
+            <span class="project-open">Open</span>
+          </a>
+
+          <!-- Example extra buttons -->
+          <a class="project-button" href="trading-dashboard.html">
+            <span class="project-title">Trading Dashboard</span>
+            <span class="project-open">Open</span>
+          </a>
+
+          <a class="project-button" href="game-test.html">
+            <span class="project-title">Game Test</span>
+            <span class="project-open">Open</span>
+          </a>
+
+          <a class="project-button" href="tools.html">
+            <span class="project-title">Tools</span>
+            <span class="project-open">Open</span>
+          </a>
+
         </div>
 
         <a href="index.html" class="btn ghost back-link">← Back to home</a>
