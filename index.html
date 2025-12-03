@@ -4,9 +4,11 @@
   <meta charset="UTF-8" />
   <title>Cue's Stuff • Home</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
-<body class="bg-grid">
+
+<body class="bg-grid page">
   <div class="accent-orb orb-1"></div>
   <div class="accent-orb orb-2"></div>
 
@@ -15,15 +17,21 @@
       <span class="logo-dot"></span>
       <span class="logo-text">Cue</span>
     </div>
+
     <nav class="top-nav">
       <a href="index.html" class="nav-link active">Home</a>
       <a href="projects.html" class="nav-link">Projects</a>
       <a href="about.html" class="nav-link">About</a>
     </nav>
+
+    <button class="theme-toggle" type="button" aria-label="Toggle theme" title="Toggle theme">
+      <span class="theme-icon" aria-hidden="true">◐</span>
+      <span class="theme-text">Theme</span>
+    </button>
   </header>
 
   <main class="shell">
-    <section class="hero-window">
+    <section class="window-panel">
       <div class="window-header">
         <span class="window-dots">
           <span class="dot dot-close"></span>
@@ -33,77 +41,77 @@
         <span class="window-title">Cue's Stuff • Home</span>
       </div>
 
-      <div class="hero-content">
-        <div class="hero-text">
-          <h1>Cue’s Stuff</h1>
-          <p class="hero-subtitle">
-            A small corner of the internet for my projects and ideas.
-            Dark theme, smooth green, Windows 11-style.
-          </p>
+      <div class="window-body home-body">
+        <h1>Recent news</h1>
+        <p class="page-subtitle">
+          Quick updates on what I’m working on or changing around here.
+        </p>
 
-          <div class="hero-actions">
-            <a href="projects.html" class="btn primary">Projects</a>
-            <a href="about.html" class="btn ghost">About Me</a>
-          </div>
+        <div class="news-list">
+          <article class="news-item">
+            <h2>Layout cleaned up</h2>
+            <p>Home is now just news, projects are organized, and everything stays simple.</p>
+            <span class="news-meta">UI Update</span>
+          </article>
+
+          <article class="news-item">
+            <h2>Projects page upgraded</h2>
+            <p>Added pinned projects and a fast search bar to keep things easy to find.</p>
+            <span class="news-meta">Projects</span>
+          </article>
+
+          <article class="news-item">
+            <h2>Theme toggle added</h2>
+            <p>Light/dark mode switch is in the top bar and it remembers your choice.</p>
+            <span class="news-meta">New</span>
+          </article>
         </div>
 
-        <div class="hero-visual">
-          <div class="tile-stack">
-            <div class="tile tile-main">
-              <span class="tile-label">Quick overview</span>
-              <h2>Devin’s setup</h2>
-              <p>Programming • Day trading • Building random stuff</p>
-              <div class="progress-bar">
-                <span class="progress"></span>
-              </div>
-            </div>
-
-            <div class="tile tile-side">
-              <span class="mini-label">Current vibe</span>
-              <ul class="mini-list">
-                <li><span class="status-dot live"></span> Always tweaking projects</li>
-                <li><span class="status-dot idle"></span> Charts in the background</li>
-                <li><span class="status-dot done"></span> Dark + green locked in</li>
-              </ul>
-            </div>
-          </div>
+        <div class="home-links">
+          <a href="projects.html" class="btn primary">Go to projects</a>
+          <a href="about.html" class="btn ghost">About me</a>
         </div>
       </div>
     </section>
 
     <section class="grid-section">
       <h2 class="section-title">Jump in</h2>
+
       <div class="card-grid">
-        <a href="projects.html" class="app-card">
-          <div class="card-icon">🧩</div>
+        <!-- Projects is a FILE (put projects.pdf in your folder, or rename the href) -->
+        <a href="projects.pdf" class="app-card" download>
+          <div class="card-icon">📄</div>
           <h3>Projects</h3>
-          <p>A simple grid of stuff I’m working on.</p>
+          <p>Download/open the projects file.</p>
         </a>
+
         <a href="about.html" class="app-card">
           <div class="card-icon">👤</div>
           <h3>About</h3>
           <p>Who I am and what I’m into.</p>
         </a>
+
         <div class="app-card">
           <div class="card-icon">🌘</div>
           <h3>Theme</h3>
-          <p>Dark, minimal, sharp corners and smooth glow.</p>
+          <p>Dark, minimal, smooth green glow.</p>
         </div>
+
         <div class="app-card">
           <div class="card-icon">💻</div>
           <h3>Code</h3>
-          <p>Just HTML &amp; CSS. Nothing too fancy.</p>
+          <p>Simple HTML, CSS, and a tiny JS file.</p>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="taskbar">
-    <button class="taskbar-start">
+    <button class="taskbar-start" type="button">
       <span class="start-icon">⊞</span>
       <span class="start-text">Cue</span>
     </button>
-    <div class="taskbar-center">
+    <div class="taskbar-center" aria-hidden="true">
       <span class="task-icon active"></span>
       <span class="task-icon"></span>
       <span class="task-icon"></span>
