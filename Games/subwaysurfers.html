@@ -1,30 +1,72 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Subway Surfers (iframe)</title>
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        background: #000;
-      }
-      iframe {
-        width: 100%;
-        height: 100%;
-        border: 0;
-        display: block;
-      }
-    </style>
-  </head>
-  <body>
-    <iframe
-      src="https://subway-surfers-unblock.github.io/"
-      title="Subway Surfers"
-      loading="eager"
-      referrerpolicy="no-referrer"
-      allow="fullscreen; autoplay; gamepad; clipboard-read; clipboard-write"
-    ></iframe>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Game</title>
+
+  <style>
+    :root{
+      /* Increase this to "scroll down" more (e.g. 180px, 220px) */
+      --Y_OFFSET: 160px;
+    }
+
+    /* Lock the page (no scrolling) and make it clean */
+    html, body{
+      height: 100%;
+      margin: 0;
+      background: #000;
+      overflow: hidden;
+      overscroll-behavior: none;
+      touch-action: none;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    /* Centered stage with a subtle, modern look */
+    .stage{
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(1200px 700px at 50% 35%, #111 0%, #000 60%);
+      padding: 14px;
+      box-sizing: border-box;
+    }
+
+    .frame{
+      width: min(1100px, calc(100vw - 28px));
+      height: min(720px, calc(100vh - 28px));
+      border-radius: 18px;
+      overflow: hidden;              /* IMPORTANT: hides the “top” you don’t want */
+      background: #000;              /* black border area */
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.70),
+        0 0 0 1px rgba(255,255,255,.08) inset;
+    }
+
+    /* The trick: make iframe taller and shift it upward */
+    iframe{
+      width: 100%;
+      height: calc(100% + var(--Y_OFFSET));
+      border: 0;
+      display: block;
+      transform: translateY(calc(-1 * var(--Y_OFFSET)));
+      background: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stage">
+    <div class="frame" aria-label="Embedded game frame">
+      <iframe
+        src="https://subway-surfers-unblock.github.io/"
+        title="Subway Surfers"
+        loading="eager"
+        referrerpolicy="no-referrer"
+        allow="fullscreen; autoplay; gamepad"
+      ></iframe>
+    </div>
+  </div>
+</body>
 </html>
