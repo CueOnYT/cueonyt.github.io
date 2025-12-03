@@ -3,26 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Game</title>
+  <title>Subway Surfers</title>
 
   <style>
     :root{
-      /* Increase this to "scroll down" more (e.g. 180px, 220px) */
+      /* how far down you want the iframe "pre-scrolled" */
       --Y_OFFSET: 160px;
     }
 
-    /* Lock the page (no scrolling) and make it clean */
     html, body{
       height: 100%;
       margin: 0;
       background: #000;
-      overflow: hidden;
+      overflow: hidden;              /* no scrolling on YOUR page */
       overscroll-behavior: none;
-      touch-action: none;
+      -webkit-overflow-scrolling: auto;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
-    /* Centered stage with a subtle, modern look */
     .stage{
       position: fixed;
       inset: 0;
@@ -37,14 +35,16 @@
       width: min(1100px, calc(100vw - 28px));
       height: min(720px, calc(100vh - 28px));
       border-radius: 18px;
-      overflow: hidden;              /* IMPORTANT: hides the “top” you don’t want */
-      background: #000;              /* black border area */
+      overflow: hidden;              /* hides everything outside the cropped area */
+      background: #000;
       box-shadow:
         0 20px 60px rgba(0,0,0,.70),
         0 0 0 1px rgba(255,255,255,.08) inset;
     }
 
-    /* The trick: make iframe taller and shift it upward */
+    /* Crop/shift trick:
+       We show a "lower" part of the embedded site while hiding the top.
+    */
     iframe{
       width: 100%;
       height: calc(100% + var(--Y_OFFSET));
@@ -58,8 +58,9 @@
 
 <body>
   <div class="stage">
-    <div class="frame" aria-label="Embedded game frame">
+    <div class="frame" id="frame">
       <iframe
+        id="game"
         src="https://subway-surfers-unblock.github.io/"
         title="Subway Surfers"
         loading="eager"
@@ -68,5 +69,43 @@
       ></iframe>
     </div>
   </div>
+
+  <script>
+    // Lock the viewport position (for Safari/iOS + some browsers)
+    const LOCK_Y = 0;
+
+    function hardLockScroll(){
+      // keep the parent page at top no matter what
+      if (window.scrollY !== LOCK_Y) window.scrollTo(0, LOCK_Y);
+    }
+
+    // Prevent common scroll gestures on the parent document
+    const block = (e) => {
+      // Don't block multi-touch pinch zoom gestures
+      if (e.touches && e.touches.length > 1) return;
+      e.preventDefault();
+      hardLockScroll();
+    };
+
+    window.addEventListener("scroll", hardLockScroll, { passive: true });
+
+    // Wheel / trackpad
+    window.addEventListener("wheel", block, { passive: false });
+
+    // Touch scrolling
+    window.addEventListener("touchmove", block, { passive: false });
+
+    // Also block arrow keys / space / page scroll keys
+    window.addEventListener("keydown", (e) => {
+      const keys = ["ArrowUp","ArrowDown","PageUp","PageDown","Home","End"," "];
+      if (keys.includes(e.key)) {
+        e.preventDefault();
+        hardLockScroll();
+      }
+    });
+
+    // Initial lock
+    hardLockScroll();
+  </script>
 </body>
 </html>
