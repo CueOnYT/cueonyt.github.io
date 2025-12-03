@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Cue's Stuff • Home</title>
+  <title>Cue's Stuff • About</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
-<body class="bg-grid">
+
+<body class="bg-grid page">
   <div class="accent-orb orb-1"></div>
   <div class="accent-orb orb-2"></div>
 
@@ -15,83 +17,67 @@
       <span class="logo-dot"></span>
       <span class="logo-text">Cue</span>
     </div>
+
     <nav class="top-nav">
-      <a href="index.html" class="nav-link active">Home</a>
+      <a href="index.html" class="nav-link">Home</a>
       <a href="projects.html" class="nav-link">Projects</a>
-      <a href="about.html" class="nav-link">About</a>
+      <a href="about.html" class="nav-link active">About</a>
     </nav>
+
+    <button class="theme-toggle" type="button" aria-label="Toggle theme" title="Toggle theme">
+      <span class="theme-icon" aria-hidden="true">◐</span>
+      <span class="theme-text">Theme</span>
+    </button>
   </header>
 
   <main class="shell">
-    <section class="hero-window">
+    <section class="window-panel">
       <div class="window-header">
         <span class="window-dots">
           <span class="dot dot-close"></span>
           <span class="dot dot-min"></span>
           <span class="dot dot-max"></span>
         </span>
-        <span class="window-title">Cue's Stuff • Home</span>
+        <span class="window-title">About</span>
       </div>
 
-      <div class="window-body home-body">
-        <h1>Recent news</h1>
+      <div class="window-body">
+        <h1>About me</h1>
         <p class="page-subtitle">
-          Quick updates on what I’m working on or changing around here.
+          Just a quick intro.
         </p>
 
-        <div class="news-list">
-          <!-- News item 1 -->
-          <article class="news-item">
-            <h2>Site layout updated</h2>
+        <div class="about-grid">
+          <div class="about-card">
+            <h3>Hi, I’m Devin</h3>
             <p>
-              Cleaned up the home page and moved everything into a simple
-              projects grid and an about page.
+              My name is Devin Slifer. I’m a 15-year-old programmer and day trader.
+              I like building tools, experimenting with ideas, and working on small projects.
             </p>
-            <span class="news-meta">Latest • UI tweak</span>
-          </article>
+          </div>
 
-          <!-- News item 2 -->
-          <article class="news-item">
-            <h2>New project slots</h2>
+          <div class="about-card">
+            <h3>What I’m into</h3>
             <p>
-              Added more spots on the projects page so I can drop in new ideas
-              without changing the layout.
+              Coding, charts, and anything that lets me improve fast.
             </p>
-            <span class="news-meta">Projects • Small update</span>
-          </article>
+          </div>
 
-          <!-- News item 3 -->
-          <article class="news-item">
-            <h2>Planning more tools</h2>
+          <div class="about-card">
+            <h3>Why this site</h3>
             <p>
-              Testing ideas around trading tools and small utilities to help
-              with charts and workflows.
+              A clean place to keep projects organized and easy to open.
             </p>
-            <span class="news-meta">Ideas • Work in progress</span>
-          </article>
+          </div>
         </div>
 
-        <div class="home-links">
-          <a href="projects.html" class="btn primary">Go to projects</a>
-          <a href="about.html" class="btn ghost">About me</a>
-        </div>
+        <a href="index.html" class="btn ghost back-link">← Back to home</a>
       </div>
     </section>
   </main>
 
-  <footer class="taskbar">
-    <button class="taskbar-start">
-      <span class="start-icon">⊞</span>
-      <span class="start-text">Cue</span>
-    </button>
-    <div class="taskbar-center">
-      <span class="task-icon active"></span>
-      <span class="task-icon"></span>
-      <span class="task-icon"></span>
-    </div>
-    <div class="taskbar-tray">
-      <span class="tray-pill">Home • Cue’s Stuff</span>
-    </div>
+  <footer class="taskbar taskbar-sub">
+    <a href="index.html" class="taskbar-mini-link">Start • Cue’s Stuff</a>
   </footer>
 </body>
 </html>
