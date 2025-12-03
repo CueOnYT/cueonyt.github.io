@@ -4,9 +4,11 @@
   <meta charset="UTF-8" />
   <title>Cue's Stuff • Projects</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
-<body class="bg-grid">
+
+<body class="bg-grid page">
   <div class="accent-orb orb-1"></div>
   <div class="accent-orb orb-2"></div>
 
@@ -15,11 +17,17 @@
       <span class="logo-dot"></span>
       <span class="logo-text">Cue</span>
     </div>
+
     <nav class="top-nav">
       <a href="index.html" class="nav-link">Home</a>
       <a href="projects.html" class="nav-link active">Projects</a>
       <a href="about.html" class="nav-link">About</a>
     </nav>
+
+    <button class="theme-toggle" type="button" aria-label="Toggle theme" title="Toggle theme">
+      <span class="theme-icon" aria-hidden="true">◐</span>
+      <span class="theme-text">Theme</span>
+    </button>
   </header>
 
   <main class="shell">
@@ -34,51 +42,83 @@
       </div>
 
       <div class="window-body">
-        <h1>Projects</h1>
-        <p class="page-subtitle">
-          A simple grid of things I’m building. Add or rename buttons as you go.
-        </p>
+        <div class="projects-header">
+          <div>
+            <h1>Projects</h1>
+            <p class="page-subtitle">
+              Pinned at the top, everything else below. Use search to filter instantly.
+            </p>
+          </div>
 
-        <!-- PROJECT BUTTON GRID -->
-        <div class="projects-grid">
-          <!--
-            To add a project:
-            1. Copy one of these <a class="project-button"> blocks.
-            2. Change the text inside <span class="project-title">.
-            3. Change the href to the HTML file you want it to open.
-          -->
+          <div class="search-wrap">
+            <input
+              id="projectSearch"
+              class="search-input"
+              type="text"
+              placeholder="Search projects..."
+              autocomplete="off"
+            />
+          </div>
+        </div>
 
-          <a class="project-button" href="project-1.html">
+        <!-- PINNED PROJECTS (row) -->
+        <div class="section-label">Pinned</div>
+        <div class="projects-grid projects-grid--pinned" id="pinnedGrid">
+          <!-- Easy add: copy one block, change title + href -->
+          <a class="project-button" href="trading-tools.html" data-title="Trading Tools">
+            <span class="project-title">Trading Tools</span>
+            <span class="project-open">Open</span>
+          </a>
+
+          <a class="project-button" href="utilities.html" data-title="Utilities">
+            <span class="project-title">Utilities</span>
+            <span class="project-open">Open</span>
+          </a>
+
+          <a class="project-button" href="project1.html" data-title="Project One">
+            <span class="project-title">Project One</span>
+            <span class="project-open">Open</span>
+          </a>
+        </div>
+
+        <!-- ALL PROJECTS (grid 3 per row) -->
+        <div class="section-label section-label--spaced">All Projects</div>
+        <div class="projects-grid" id="projectsGrid">
+          <!-- Add new buttons by copying these -->
+
+          <a class="project-button" href="project1.html" data-title="Project One">
             <span class="project-title">Project One</span>
             <span class="project-open">Open</span>
           </a>
 
-          <a class="project-button" href="project-2.html">
+          <a class="project-button" href="project2.html" data-title="Project Two">
             <span class="project-title">Project Two</span>
             <span class="project-open">Open</span>
           </a>
 
-          <a class="project-button" href="project-3.html">
+          <a class="project-button" href="project3.html" data-title="Project Three">
             <span class="project-title">Project Three</span>
             <span class="project-open">Open</span>
           </a>
 
-          <!-- Example extra buttons -->
-          <a class="project-button" href="trading-dashboard.html">
-            <span class="project-title">Trading Dashboard</span>
-            <span class="project-open">Open</span>
-          </a>
-
-          <a class="project-button" href="game-test.html">
+          <a class="project-button" href="game-test.html" data-title="Game Test">
             <span class="project-title">Game Test</span>
             <span class="project-open">Open</span>
           </a>
 
-          <a class="project-button" href="tools.html">
+          <a class="project-button" href="tools.html" data-title="Tools">
             <span class="project-title">Tools</span>
             <span class="project-open">Open</span>
           </a>
 
+          <a class="project-button" href="notes.html" data-title="Notes">
+            <span class="project-title">Notes</span>
+            <span class="project-open">Open</span>
+          </a>
+        </div>
+
+        <div class="no-results" id="noResults" hidden>
+          No projects match that search.
         </div>
 
         <a href="index.html" class="btn ghost back-link">← Back to home</a>
