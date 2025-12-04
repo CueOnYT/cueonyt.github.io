@@ -346,10 +346,6 @@ body{
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.grid-pinned .card-btn{
-  border-color: rgba(184,75,255,.35);
-}
-
 .card-btn{
   min-height: 110px;
   padding: 14px 14px;
