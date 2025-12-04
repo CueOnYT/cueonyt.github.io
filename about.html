@@ -8,76 +8,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
-<body class="bg-grid page">
-  <div class="accent-orb orb-1"></div>
-  <div class="accent-orb orb-2"></div>
+<body class="page bg-space">
+  <canvas id="stars" aria-hidden="true"></canvas>
 
-  <header class="top-bar">
-    <div class="logo-badge">
-      <span class="logo-dot"></span>
-      <span class="logo-text">Cue</span>
-    </div>
-
-    <nav class="top-nav">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="projects.html" class="nav-link">Projects</a>
-      <a href="about.html" class="nav-link active">About</a>
-    </nav>
-
-    <button class="theme-toggle" type="button" aria-label="Toggle theme" title="Toggle theme">
-      <span class="theme-icon" aria-hidden="true">◐</span>
-      <span class="theme-text">Theme</span>
+  <aside class="dock" aria-label="Navigation">
+    <a class="dock-btn" href="index.html" title="Home" aria-label="Home">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3l9-8z"/></svg>
+    </a>
+    <a class="dock-btn" href="projects.html" title="Projects" aria-label="Projects">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg>
+    </a>
+    <a class="dock-btn active" href="about.html" title="About" aria-label="About">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z"/></svg>
+    </a>
+    <div class="dock-divider"></div>
+    <button class="dock-btn theme-toggle" type="button" title="Toggle Theme" aria-label="Toggle Theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79z"/></svg>
     </button>
-  </header>
+  </aside>
 
-  <main class="shell">
-    <section class="window-panel">
-      <div class="window-header">
-        <span class="window-dots">
-          <span class="dot dot-close"></span>
-          <span class="dot dot-min"></span>
-          <span class="dot dot-max"></span>
-        </span>
-        <span class="window-title">About</span>
+  <main class="wrap">
+    <section class="panel">
+      <div class="panel-head">
+        <h1 class="page-title">About</h1>
+        <p class="page-subtitle">Simple, quick intro.</p>
       </div>
 
-      <div class="window-body">
-        <h1>About me</h1>
-        <p class="page-subtitle">
-          Just a quick intro.
-        </p>
-
-        <div class="about-grid">
-          <div class="about-card">
-            <h3>Hi, I’m Devin</h3>
-            <p>
-              My name is Devin Slifer. I’m a 15-year-old programmer and day trader.
-              I like building tools, experimenting with ideas, and working on small projects.
-            </p>
-          </div>
-
-          <div class="about-card">
-            <h3>What I’m into</h3>
-            <p>
-              Coding, charts, and anything that lets me improve fast.
-            </p>
-          </div>
-
-          <div class="about-card">
-            <h3>Why this site</h3>
-            <p>
-              A clean place to keep projects organized and easy to open.
-            </p>
-          </div>
+      <div class="about">
+        <div class="about-card">
+          <h3>Hi, I’m Devin</h3>
+          <p>My name is Devin Slifer. I’m a 15-year-old programmer and day trader.</p>
         </div>
 
-        <a href="index.html" class="btn ghost back-link">← Back to home</a>
+        <div class="about-card">
+          <h3>What I do</h3>
+          <p>I build tools, test ideas, and keep improving my projects over time.</p>
+        </div>
+
+        <div class="about-card">
+          <h3>This site</h3>
+          <p>A clean place to organize everything so I can open it fast.</p>
+        </div>
       </div>
     </section>
   </main>
-
-  <footer class="taskbar taskbar-sub">
-    <a href="index.html" class="taskbar-mini-link">Start • Cue’s Stuff</a>
-  </footer>
 </body>
 </html>
