@@ -88,44 +88,31 @@
   // -------------------------
   // Projects search
   // -------------------------
-  function initProjectsSearch() {
-    const input = document.getElementById("projectSearch");
-    const pinnedGrid = document.getElementById("pinnedGrid");
-    const noResults = document.getElementById("noResults");
+ function initProjectsSearch() {
+  const input = document.getElementById("projectSearch");
+  const noResults = document.getElementById("noResults");
+  if (!input) return;
 
-    if (!input) return;
+  const normalize = (s) => (s || "").toLowerCase().trim();
+  const buttons = () => Array.from(document.querySelectorAll(".card-btn"));
 
-    const normalize = (s) => (s || "").toLowerCase().trim();
-    const buttons = () => Array.from(document.querySelectorAll(".card-btn"));
+  function filter() {
+    const q = normalize(input.value);
+    let visible = 0;
 
-    function filter() {
-      const q = normalize(input.value);
-      let visible = 0;
+    buttons().forEach((btn) => {
+      const title = normalize(btn.getAttribute("data-title") || btn.textContent);
+      const show = q === "" || title.includes(q);
+      btn.style.display = show ? "" : "none";
+      if (show) visible++;
+    });
 
-      buttons().forEach((btn) => {
-        const title = normalize(btn.getAttribute("data-title") || btn.textContent);
-        const show = q === "" || title.includes(q);
-        btn.style.display = show ? "" : "none";
-        if (show) visible++;
-      });
-
-      if (noResults) noResults.hidden = !(q && visible === 0);
-
-      if (pinnedGrid) {
-        const anyPinnedVisible = Array.from(pinnedGrid.querySelectorAll(".card-btn"))
-          .some((b) => b.style.display !== "none");
-        pinnedGrid.style.display = anyPinnedVisible ? "" : "none";
-
-        const label = pinnedGrid.previousElementSibling;
-        if (label && label.classList.contains("section-label")) {
-          label.style.display = anyPinnedVisible ? "" : "none";
-        }
-      }
-    }
-
-    input.addEventListener("input", filter);
-    filter();
+    if (noResults) noResults.hidden = !(q && visible === 0);
   }
+
+  input.addEventListener("input", filter);
+  filter();
+}
 
   // -------------------------
   // Animated star background (canvas)
