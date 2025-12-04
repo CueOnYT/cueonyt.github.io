@@ -8,126 +8,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
-<body class="bg-grid page">
-  <div class="accent-orb orb-1"></div>
-  <div class="accent-orb orb-2"></div>
+<body class="page bg-space">
+  <canvas id="stars" aria-hidden="true"></canvas>
 
-  <header class="top-bar">
-    <div class="logo-badge">
-      <span class="logo-dot"></span>
-      <span class="logo-text">Cue</span>
-    </div>
-
-    <nav class="top-nav">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="projects.html" class="nav-link active">Projects</a>
-      <a href="about.html" class="nav-link">About</a>
-    </nav>
-
-    <button class="theme-toggle" type="button" aria-label="Toggle theme" title="Toggle theme">
-      <span class="theme-icon" aria-hidden="true">◐</span>
-      <span class="theme-text">Theme</span>
+  <aside class="dock" aria-label="Navigation">
+    <a class="dock-btn" href="index.html" title="Home" aria-label="Home">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3l9-8z"/></svg>
+    </a>
+    <a class="dock-btn active" href="projects.html" title="Projects" aria-label="Projects">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/></svg>
+    </a>
+    <a class="dock-btn" href="about.html" title="About" aria-label="About">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z"/></svg>
+    </a>
+    <div class="dock-divider"></div>
+    <button class="dock-btn theme-toggle" type="button" title="Toggle Theme" aria-label="Toggle Theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79z"/></svg>
     </button>
-  </header>
+  </aside>
 
-  <main class="shell">
-    <section class="window-panel">
-      <div class="window-header">
-        <span class="window-dots">
-          <span class="dot dot-close"></span>
-          <span class="dot dot-min"></span>
-          <span class="dot dot-max"></span>
-        </span>
-        <span class="window-title">Projects</span>
+  <main class="wrap">
+    <section class="panel">
+      <div class="panel-head panel-head-row">
+        <div>
+          <h1 class="page-title">Projects</h1>
+          <p class="page-subtitle">Pinned at the top. Search filters everything instantly.</p>
+        </div>
+
+        <div class="search">
+          <input id="projectSearch" class="search-input" type="text" placeholder="Search projects..." autocomplete="off" />
+        </div>
       </div>
 
-      <div class="window-body">
-        <div class="projects-header">
-          <div>
-            <h1>Projects</h1>
-            <p class="page-subtitle">
-              Pinned at the top, everything else below. Use search to filter instantly.
-            </p>
-          </div>
+      <div class="section-label">Pinned</div>
+      <div class="grid grid-pinned" id="pinnedGrid">
+        <!-- Pinned items -->
+        <a class="card-btn" href="trading-tools.html" data-title="Trading Tools">
+          <span class="card-title">Trading Tools</span>
+          <span class="card-sub">Open</span>
+        </a>
 
-          <div class="search-wrap">
-            <input
-              id="projectSearch"
-              class="search-input"
-              type="text"
-              placeholder="Search projects..."
-              autocomplete="off"
-            />
-          </div>
-        </div>
+        <a class="card-btn" href="utilities.html" data-title="Utilities">
+          <span class="card-title">Utilities</span>
+          <span class="card-sub">Open</span>
+        </a>
 
-        <!-- PINNED PROJECTS (row) -->
-        <div class="section-label">Pinned</div>
-        <div class="projects-grid projects-grid--pinned" id="pinnedGrid">
-          <!-- Easy add: copy one block, change title + href -->
-          <a class="project-button" href="Project1.html" data-title="Project">
-            <span class="project-title">Project</span>
-            <span class="project-open">Open</span>
-          </a>
-
-          <a class="project-button" href="Projects/free-tv.html" data-title="Movies">
-            <span class="project-title">Free TV</span>
-            <span class="project-open">Open</span>
-          </a>
-
-          <a class="project-button" href="Projects/proxy.html" data-title="Proxy">
-            <span class="project-title">Prœxy</span>
-            <span class="project-open">Open</span>
-          </a>
-        </div>
-
-        <!-- ALL PROJECTS (grid 3 per row) -->
-        <div class="section-label section-label--spaced">All Projects</div>
-        <div class="projects-grid" id="projectsGrid">
-          <!-- Add new buttons by copying these -->
-
-          <a class="project-button" href="Games/subwaysurfers.html" data-title="Subway Surfers">
-            <span class="project-title">Subway Surfers</span>
-            <span class="project-open">Open</span>
-          </a>
-
-          <a class="project-button" href="project2.html" data-title="Project Two">
-            <span class="project-title">Project Two</span>
-            <span class="project-open">Open</span>
-          </a>
-
-          <a class="project-button" href="project3.html" data-title="Project Three">
-            <span class="project-title">Project Three</span>
-            <span class="project-open">Open</span>
-          </a>
-
-          <a class="project-button" href="game-test.html" data-title="Game Test">
-            <span class="project-title">Game Test</span>
-            <span class="project-open">Open</span>
-          </a>
-
-          <a class="project-button" href="tools.html" data-title="Tools">
-            <span class="project-title">Tools</span>
-            <span class="project-open">Open</span>
-          </a>
-
-          <a class="project-button" href="notes.html" data-title="Notes">
-            <span class="project-title">Notes</span>
-            <span class="project-open">Open</span>
-          </a>
-        </div>
-
-        <div class="no-results" id="noResults" hidden>
-          No projects match that search.
-        </div>
-
-        <a href="index.html" class="btn ghost back-link">← Back to home</a>
+        <a class="card-btn" href="project1.html" data-title="Project One">
+          <span class="card-title">Project One</span>
+          <span class="card-sub">Open</span>
+        </a>
       </div>
-    </section>
-  </main>
 
-  <footer class="taskbar taskbar-sub">
-    <a href="index.html" class="taskbar-mini-link">Start • Cue’s Stuff</a>
-  </footer>
-</body>
-</html>
+      <div class="section-label section-label-spaced">All Projects</div>
+      <div class="grid" id="projectsGrid">
+        <!-- EASY ADD:
+             Copy a block, change data-title, visible name, and href.
+        -->
+
+        <a class="card-btn" href="project1.html" data-title="Project One">
+          <span class="card-title">Project One</span>
+          <span class="card-sub">Open</span>
+        </a>
+
+        <a class="card-btn" href="project2.html" data-title="Project Two">
+          <span class="card-title">Project Two</span>
+          <span class="card-sub">Open</span>
+        </a>
+
+        <a class="card-btn" href="project3.html" d
