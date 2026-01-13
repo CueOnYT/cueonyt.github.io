@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Computer Apps Vocab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0;
+  background: #0f172a;
+  color: #e5e7eb;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+header {
+  padding: 20px;
+  background: #020617;
+  text-align: center;
+}
+header h1 { margin: 0; }
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+nav button {
+  background: #1e293b;
+  border: none;
+  color: #e5e7eb;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+nav button.active {
+  background: #3b82f6;
+}
+main {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+.card {
+  background: #020617;
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 20px 40px rgba(0,0,0,.5);
+}
+.word {
+  font-size: 42px;
+}
+.pos {
+  color: #60a5fa;
+  margin-bottom: 10px;
+}
+.hidden { display: none; }
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+button {
+  background: #1e293b;
+  border: none;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+button.primary {
+  background: #3b82f6;
+}
+.progress {
+  margin-top: 10px;
+  text-align: center;
+  color: #94a3b8;
+}
+.choice {
+  background: #1e293b;
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.choice:hover { background: #334155; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Computer Apps Vocab</h1>
+  <nav>
+    <button id="tab-cards" class="active">Flashcards</button>
+    <button id="tab-quiz">Quiz</button>
+    <button id="tab-progress">Progress</button>
+  </nav>
+</header>
+
+<main>
+
+<section id="flashcards">
+  <div class="card" id="card"></div>
+  <div class="controls">
+    <button onclick="prev()">Prev</button>
+    <button class="primary" onclick="flip()">Flip</button>
+    <button onclick="next()">Next</button>
+  </div>
+  <div class="progress" id="card-progress"></div>
+</section>
+
+<section id="quiz" class="hidden">
+  <div id="quiz-area"></div>
+</section>
+
+<section id="progress" class="hidden">
+  <h2>Study Progress</h2>
+  <p id="progress-text"></p>
+</section>
+
+</main>
+
+<script>
+/* =========================
+   COMPUTER APPS VOCAB
+   ========================= */
+const CARD_DATA = [
+  { word:"Clipboard", pos:"noun", definition:"temporary storage area for copied or cut data", example:"Text was saved to the clipboard" },
+  { word:"Characters", pos:"noun", definition:"letters, numbers, or symbols in text", example:"The password uses special characters" },
+  { word:"Font", pos:"noun", definition:"the style and appearance of text", example:"Change the font size" },
+  { word:"Hard Page Break", pos:"noun", definition:"a manual page break inserted by the user", example:"Insert a hard page break" },
+  { word:"Margins", pos:"noun", definition:"blank space around the edges of a page", example:"Adjust the margins" },
+  { word:"Soft Page Break", pos:"noun", definition:"automatic page break created by software", example:"The document used soft page breaks" },
+  { word:"Window", pos:"noun", definition:"a rectangular area on the screen showing a program", example:"Resize the window" },
+  { word:"Orphan", pos:"noun", definition:"a single line of a paragraph left at the bottom of a page", example:"Avoid an orphan line" },
+  { word:"Range", pos:"noun", definition:"a group of selected cells", example:"Select the data range" },
+  { word:"Spreadsheet", pos:"noun", definition:"a program used to organize data in rows and columns", example:"Create a spreadsheet" },
+  { word:"Absolute Reference", pos:"noun", definition:"a cell reference that does not change when copied", example:"Use an absolute reference" },
+  { word:"Argument", pos:"noun", definition:"a value used in a formula or function", example:"The function needs an argument" },
+  { word:"Arithmetic Operator", pos:"noun", definition:"symbols used for math operations", example:"Addition is an operator" },
+  { word:"Mixed Reference", pos:"noun", definition:"a cell reference with one fixed part", example:"Use a mixed reference" },
+  { word:"Relative Reference", pos:"noun", definition:"a cell reference that changes when copied", example:"Relative references adjust automatically" },
+  { word:"Borders", pos:"noun", definition:"lines placed around cells or objects", example:"Add borders to the table" },
+  { word:"Bullets", pos:"noun", definition:"symbols used to create a list", example:"Use bullets for notes" },
+  { word:"Font Style", pos:"noun", definition:"text formatting like bold or italic", example:"Apply a font style" },
+  { word:"Chart", pos:"noun", definition:"a visual display of data", example:"Create a chart" },
+  { word:"Table", pos:"noun", definition:"data arranged in rows and columns", example:"Insert a table" }
+];
+
+let index = 0;
+let flipped = false;
+const card = document.getElementById("card");
+
+function renderCard() {
+  const c = CARD_DATA[index];
+  card.innerHTML = flipped
+    ? `<div class="pos">${c.pos}</div><div>${c.definition}</div><br><em>${c.example}</em>`
+    : `<div class="pos">${c.pos}</div><div class="word">${c.word}</div>`;
+  document.getElementById("card-progress").textContent =
+    `Card ${index + 1} / ${CARD_DATA.length}`;
+}
+
+function flip(){ flipped = !flipped; renderCard(); }
+function next(){ flipped = false; index = (index + 1) % CARD_DATA.length; renderCard(); }
+function prev(){ flipped = false; index = (index - 1 + CARD_DATA.length) % CARD_DATA.length; renderCard(); }
+
+renderCard();
+</script>
+
+</body>
+</html>
