@@ -3,50 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Devin M Slifer | Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Devin M Slifer</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <header>
-    <h1>Devin Slifer</h1>
-    <p>Student • Creator • Future Developer</p>
+    <h1>Devin M Slifer</h1>
+    <p>Devin Slifer • Creator • Developer</p>
   </header>
 
+  <!-- Navigation Tabs -->
   <nav>
-    <a href="#about">About</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
+    <button class="tab-btn active" onclick="showTab('about')">About</button>
+    <button class="tab-btn" onclick="showTab('projects')">Projects</button>
+    <button class="tab-btn" onclick="showTab('contact')">Contact</button>
   </nav>
 
-  <section id="about" class="card">
+  <!-- About Tab -->
+  <section id="about" class="tab-content active">
     <h2>About Me</h2>
     <p>
-      Hi! I'm Devin also known as CueMoo. I enjoy coding, creating cool projects,
-      and learning new technology.
+      Hey, I am Devin Slifer. I enjoy coding, gaming,
+      and building cool projects.
     </p>
   </section>
 
-  <section id="projects" class="card">
+  <!-- Projects Tab -->
+  <section id="projects" class="tab-content">
     <h2>Projects</h2>
 
     <div class="project">
       <h3>Photo Merger</h3>
-      <p>This is a project where you uploud a couple photos and it merges into one.</p>
+      <p>Upload photos to be merged into 1 photo</p>
     </div>
 
     <div class="project">
-      <h3>Project Two</h3>
-      <p>A short description of your project.</p>
+      <h3>Game Cheeze</h3>
+      <p>I also make video game cheats for cheap.</p>
     </div>
 
     <div class="project">
-      <h3>Project Three</h3>
-      <p>A short description of your project.</p>
+      <h3>Custom Scripts</h3>
+      <p>I give custom scripts in my discord, just request.</p>
     </div>
   </section>
 
-  <section id="contact" class="card">
+  <!-- Contact Tab -->
+  <section id="contact" class="tab-content">
     <h2>Contact</h2>
     <p>Email: devinslifer2029@gmail.com</p>
     <p>GitHub: github.com/cueonyt</p>
@@ -55,6 +59,29 @@
   <footer>
     <p>© 2026 Devin Slifer</p>
   </footer>
+
+  <script>
+    function showTab(tabId) {
+
+      // Hide all tabs
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => {
+        tab.classList.remove('active');
+      });
+
+      // Remove active button style
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      // Show selected tab
+      document.getElementById(tabId).classList.add('active');
+
+      // Highlight active button
+      event.target.classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
