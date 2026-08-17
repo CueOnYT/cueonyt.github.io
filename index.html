@@ -1,277 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Minimal Modern Site</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
-    body{
-      font-family:'Inter',sans-serif;
-      background:#111312;
-      color:#e8e8e8;
-      line-height:1.6;
-      -webkit-font-smoothing:antialiased;
-    }
-
-    header{
-      width:100%;
-      padding:24px 7%;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      border-bottom:1px solid rgba(255,255,255,0.05);
-      background:#111312;
-      position:sticky;
-      top:0;
-      z-index:100;
-    }
-
-    .logo{
-      font-size:1rem;
-      font-weight:600;
-      letter-spacing:-0.5px;
-    }
-
-    nav{
-      display:flex;
-      gap:32px;
-    }
-
-    nav a{
-      color:#a8a8a8;
-      text-decoration:none;
-      font-size:0.95rem;
-      transition:0.2s ease;
-    }
-
-    nav a:hover{
-      color:#d7d7d7;
-    }
-
-    .hero{
-      padding:120px 7% 100px;
-      max-width:1200px;
-    }
-
-    .hero h1{
-      font-size:clamp(3rem,7vw,5.5rem);
-      line-height:0.95;
-      letter-spacing:-3px;
-      max-width:850px;
-      margin-bottom:28px;
-      font-weight:700;
-    }
-
-    .hero h1 span{
-      color:#7a9b84;
-    }
-
-    .hero p{
-      max-width:620px;
-      color:#9f9f9f;
-      font-size:1.05rem;
-      margin-bottom:40px;
-    }
-
-    .buttons{
-      display:flex;
-      gap:16px;
-    }
-
-    .btn{
-      padding:14px 22px;
-      border-radius:10px;
-      text-decoration:none;
-      font-size:0.95rem;
-      font-weight:500;
-      transition:0.2s ease;
-    }
-
-    .primary{
-      background:#202522;
-      color:#dfe7e1;
-      border:1px solid rgba(122,155,132,0.35);
-    }
-
-    .primary:hover{
-      background:#262c28;
-    }
-
-    .secondary{
-      border:1px solid rgba(255,255,255,0.08);
-      color:#b8b8b8;
-    }
-
-    .secondary:hover{
-      border-color:rgba(255,255,255,0.16);
-      color:#fff;
-    }
-
-    .section{
-      padding:80px 7%;
-      border-top:1px solid rgba(255,255,255,0.05);
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:22px;
-      margin-top:40px;
-    }
-
-    .card{
-      padding:28px;
-      background:#171918;
-      border:1px solid rgba(255,255,255,0.05);
-      border-radius:14px;
-      transition:0.2s ease;
-    }
-
-    .card:hover{
-      border-color:rgba(122,155,132,0.22);
-      transform:translateY(-3px);
-    }
-
-    .card h3{
-      margin-bottom:10px;
-      font-size:1rem;
-      font-weight:600;
-    }
-
-    .card p{
-      color:#989898;
-      font-size:0.95rem;
-    }
-
-    .section h2{
-      font-size:2rem;
-      letter-spacing:-1px;
-      margin-bottom:10px;
-    }
-
-    .section-sub{
-      color:#949494;
-      max-width:650px;
-    }
-
-    footer{
-      padding:30px 7%;
-      color:#6f6f6f;
-      border-top:1px solid rgba(255,255,255,0.05);
-      font-size:0.9rem;
-    }
-
-    .fade{
-      opacity:0;
-      transform:translateY(14px);
-      animation:fadeUp 0.7s ease forwards;
-    }
-
-    @keyframes fadeUp{
-      to{
-        opacity:1;
-        transform:translateY(0);
-      }
-    }
-
-    @media(max-width:900px){
-
-      nav{
-        display:none;
-      }
-
-      .grid{
-        grid-template-columns:1fr;
-      }
-
-      .hero{
-        padding-top:90px;
-      }
-
-      .buttons{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devin Slifer — CueMoo</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-  <header>
-    <div class="logo">North</div>
+  <header class="site-header">
+    <a class="brand" href="index.html">Devin Slifer</a>
 
     <nav>
-      <a href="#">Home</a>
-      <a href="#">Work</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
+      <a href="index.html" class="active">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="public.html">Public</a>
     </nav>
   </header>
 
-  <section class="hero fade">
-    <h1>
-      Clean websites with a <span>modern edge.</span>
-    </h1>
+  <main>
 
-    <p>
-      Minimal dark interface design with subtle green accents,
-      smooth interactions, and a more natural handcrafted feel.
-    </p>
+    <section class="hero">
+      <p class="eyebrow">Online name · <strong>CueMoo</strong></p>
 
-    <div class="buttons">
-      <a href="#" class="btn primary">Get Started</a>
-      <a href="#" class="btn secondary">View Work</a>
-    </div>
-  </section>
+      <h1>Hi, I'm Devin.</h1>
 
-  <section class="section">
-    <h2>What we do</h2>
+      <p class="tagline">
+        Your one-line description goes here.
+      </p>
 
-    <p class="section-sub">
-      Thoughtful design focused on clarity, performance,
-      and modern user experience.
-    </p>
+      <div class="hero-actions">
+        <a class="button" href="#projects">View projects</a>
+        <a class="text-link" href="#contact">Find me online →</a>
+      </div>
+    </section>
 
-    <div class="grid">
 
-      <div class="card">
-        <h3>Design Systems</h3>
-        <p>
-          Structured layouts with consistent spacing and typography.
-        </p>
+    <section id="projects" class="section">
+
+      <div class="section-heading">
+        <p class="eyebrow">Things I'm building</p>
+        <h2>Projects</h2>
       </div>
 
-      <div class="card">
-        <h3>Responsive Build</h3>
-        <p>
-          Optimized for desktop, tablet, and mobile devices.
-        </p>
+      <div class="cards">
+
+        <a class="card card-link" href="games.html">
+          <span class="card-number">01</span>
+
+          <h3>Games</h3>
+
+          <p>
+            A collection of games I make and host right here.
+          </p>
+
+          <span class="card-arrow">
+            Open project →
+          </span>
+        </a>
+
+
+        <div class="card">
+          <span class="card-number">02</span>
+
+          <h3>Coming soon</h3>
+
+          <p>
+            A spot ready for your next project.
+          </p>
+
+          <span class="card-arrow muted">
+            GitHub →
+          </span>
+        </div>
+
+
+        <div class="card">
+          <span class="card-number">03</span>
+
+          <h3>Coming soon</h3>
+
+          <p>
+            Another empty space for something cool.
+          </p>
+
+          <span class="card-arrow muted">
+            GitHub →
+          </span>
+        </div>
+
+      </div>
+    </section>
+
+
+    <section id="about" class="section narrow">
+
+      <p class="eyebrow">About</p>
+
+      <h2>Devin / CueMoo</h2>
+
+      <p class="body-copy">
+        Put your bio here whenever you're ready. This text is intentionally
+        easy to edit.
+      </p>
+
+    </section>
+
+
+    <section id="contact" class="section">
+
+      <div class="section-heading">
+        <p class="eyebrow">Contact</p>
+        <h2>Find me online</h2>
       </div>
 
-      <div class="card">
-        <h3>Performance</h3>
-        <p>
-          Lightweight styling and subtle animation without clutter.
-        </p>
+      <div class="socials">
+
+        <a href="#" data-social="TikTok">
+          TikTok
+        </a>
+
+        <a href="#" data-social="YouTube">
+          YouTube
+        </a>
+
+        <a href="#" data-social="Snapchat">
+          Snapchat
+        </a>
+
+        <a href="#" data-social="Discord">
+          Discord
+        </a>
+
       </div>
 
-    </div>
-  </section>
+    </section>
+
+  </main>
+
 
   <footer>
-    © 2026 North Studio
+    <span>© 2026 Devin Slifer</span>
+    <span>CueMoo</span>
   </footer>
+
+
+  <script src="script.js"></script>
 
 </body>
 </html>
