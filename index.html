@@ -3,151 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Devin Slifer — CueMoo</title>
+  <title>CueMoo — Devin Slifer</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <header class="site-header">
-    <a class="brand" href="index.html">Devin Slifer</a>
+<header>
+  <a href="index.html" class="brand">
+    <strong>Devin Slifer</strong>
+    <span>CueMoo Online</span>
+  </a>
 
-    <nav>
-      <a href="index.html" class="active">Home</a>
-      <a href="#projects">Projects</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-      <a href="public.html">Public</a>
-    </nav>
-  </header>
+  <nav>
+    <a class="active" href="index.html">Projects</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="public.html">Public</a>
+  </nav>
+</header>
 
-  <main>
+<main>
+  <section class="hero">
+    <p class="eyebrow">CueMoo Online</p>
 
-    <section class="hero">
-      <p class="eyebrow">Online name · <strong>CueMoo</strong></p>
+    <h1>Projects<span>.</span></h1>
 
-      <h1>Hi, I'm Devin.</h1>
+    <p class="intro">
+      A small place for the things I'm building, playing with, and sharing.
+    </p>
 
-      <p class="tagline">
-        Your one-line description goes here.
-      </p>
+    <p class="editable">
+      Your one-line description can go here later.
+    </p>
+  </section>
 
-      <div class="hero-actions">
-        <a class="button" href="#projects">View projects</a>
-        <a class="text-link" href="#contact">Find me online →</a>
-      </div>
-    </section>
+  <section class="projects">
 
-
-    <section id="projects" class="section">
-
-      <div class="section-heading">
-        <p class="eyebrow">Things I'm building</p>
-        <h2>Projects</h2>
-      </div>
-
-      <div class="cards">
-
-        <a class="card card-link" href="games.html">
-          <span class="card-number">01</span>
-
-          <h3>Games</h3>
-
-          <p>
-            A collection of games I make and host right here.
-          </p>
-
-          <span class="card-arrow">
-            Open project →
-          </span>
-        </a>
-
-
-        <div class="card">
-          <span class="card-number">02</span>
-
-          <h3>Coming soon</h3>
-
-          <p>
-            A spot ready for your next project.
-          </p>
-
-          <span class="card-arrow muted">
-            GitHub →
-          </span>
-        </div>
-
-
-        <div class="card">
-          <span class="card-number">03</span>
-
-          <h3>Coming soon</h3>
-
-          <p>
-            Another empty space for something cool.
-          </p>
-
-          <span class="card-arrow muted">
-            GitHub →
-          </span>
-        </div>
-
-      </div>
-    </section>
-
-
-    <section id="about" class="section narrow">
-
-      <p class="eyebrow">About</p>
-
-      <h2>Devin / CueMoo</h2>
-
-      <p class="body-copy">
-        Put your bio here whenever you're ready. This text is intentionally
-        easy to edit.
-      </p>
-
-    </section>
-
-
-    <section id="contact" class="section">
-
-      <div class="section-heading">
-        <p class="eyebrow">Contact</p>
-        <h2>Find me online</h2>
+    <!-- PROJECT 1 -->
+    <a href="games.html" class="project-card">
+      <div>
+        <small>01</small>
+        <h2>Games</h2>
+        <p>
+          A collection of games and game projects.
+        </p>
       </div>
 
-      <div class="socials">
+      <span>↗</span>
+    </a>
 
-        <a href="#" data-social="TikTok">
-          TikTok
-        </a>
-
-        <a href="#" data-social="YouTube">
-          YouTube
-        </a>
-
-        <a href="#" data-social="Snapchat">
-          Snapchat
-        </a>
-
-        <a href="#" data-social="Discord">
-          Discord
-        </a>
-
+    <!-- PROJECT 2 -->
+    <div class="project-card">
+      <div>
+        <small>02</small>
+        <h2>Coming Soon</h2>
+        <p>
+          A spot ready for your next project.
+        </p>
       </div>
 
-    </section>
+      <span>—</span>
+    </div>
 
-  </main>
+    <!-- PROJECT 3 -->
+    <div class="project-card">
+      <div>
+        <small>03</small>
+        <h2>Coming Soon</h2>
+        <p>
+          Another spot for a future project.
+        </p>
+      </div>
 
+      <span>—</span>
+    </div>
 
-  <footer>
-    <span>© 2026 Devin Slifer</span>
-    <span>CueMoo</span>
-  </footer>
+  </section>
+</main>
 
+<footer>
+  <span>© <span id="year"></span> Devin Slifer</span>
+  <span>CueMoo Online</span>
+</footer>
 
-  <script src="script.js"></script>
-
+<script src="script.js"></script>
 </body>
 </html>
