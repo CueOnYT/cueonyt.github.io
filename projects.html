@@ -6,6 +6,7 @@
   <title>CueMoo — Projects</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header>
@@ -20,69 +21,113 @@
 </header>
 
 <main>
+
   <section class="section-heading">
+
     <p class="eyebrow">PROJECTS</p>
 
-    <h1>Stuff I'm working on.</h1>
+    <h1>My projects.</h1>
 
     <p class="muted">
-      A place for my projects, experiments, and random ideas.
+      Stuff I've made, worked on, or am currently working on.
     </p>
-  </section>
-
-  <section class="cards">
-
-    <article class="card">
-      <span class="number">01</span>
-
-      <h2>Games</h2>
-
-      <p>
-        A collection of games and experiments that can live
-        right here on the site.
-      </p>
-
-      <a href="#" class="card-link">
-        Coming soon →
-      </a>
-    </article>
-
-    <article class="card">
-      <span class="number">02</span>
-
-      <h2>Web Projects</h2>
-
-      <p>
-        Websites, tools, and random things I build when
-        I get an idea.
-      </p>
-
-      <a href="#" class="card-link">
-        Coming soon →
-      </a>
-    </article>
-
-    <article class="card">
-      <span class="number">03</span>
-
-      <h2>Experiments</h2>
-
-      <p>
-        Random tests, prototypes, and stuff that may or may
-        not turn into something.
-      </p>
-
-      <a href="#" class="card-link">
-        Coming soon →
-      </a>
-    </article>
 
   </section>
+
+  <!--
+    ============================
+    ADD / EDIT PROJECTS HERE
+    ============================
+
+    To add a project:
+    1. Copy one of the project objects.
+    2. Change the name.
+    3. Change the description.
+    4. Change the link.
+
+    That's it.
+  -->
+
+  <section class="cards" id="projects"></section>
+
 </main>
 
 <footer>
-  CueMoo <span>•</span> projects
+  CueMoo
 </footer>
+
+<script>
+
+const projects = [
+
+  {
+    name: "Games",
+    description: "A collection of games and game projects.",
+    link: "#"
+  },
+
+  {
+    name: "Web Projects",
+    description: "Websites, tools, and other things I'm building.",
+    link: "#"
+  },
+
+  {
+    name: "Experiments",
+    description: "Random experiments, tests, and ideas.",
+    link: "#"
+  }
+
+  /*
+  ADD ANOTHER PROJECT LIKE THIS:
+
+  ,
+  {
+    name: "My New Project",
+    description: "What my project does.",
+    link: "https://example.com"
+  }
+
+  */
+
+];
+
+
+const projectContainer = document.getElementById("projects");
+
+
+projects.forEach((project, index) => {
+
+  const card = document.createElement("article");
+
+  card.className = "card";
+
+  card.innerHTML = `
+
+    <span class="number">
+      ${String(index + 1).padStart(2, "0")}
+    </span>
+
+    <h2>${project.name}</h2>
+
+    <p>
+      ${project.description}
+    </p>
+
+    <a
+      class="card-link"
+      href="${project.link}"
+    >
+      View project →
+    </a>
+
+  `;
+
+  projectContainer.appendChild(card);
+
+});
+
+</script>
 
 </body>
 </html>
