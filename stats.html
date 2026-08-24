@@ -6,6 +6,7 @@
   <title>CueMoo — Stats</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header>
@@ -28,64 +29,185 @@
     <h1>Website activity.</h1>
 
     <p class="muted">
-      Public website statistics.
+      Live statistics for this website.
     </p>
 
   </section>
 
+
   <section class="stats-grid">
 
     <div class="stat">
-      <span>Active right now</span>
-      <strong id="active">3</strong>
+      <span>Visits this session</span>
+      <strong id="sessionVisits">0</strong>
     </div>
 
     <div class="stat">
-      <span>Today</span>
-      <strong>27</strong>
+      <span>Visits today</span>
+      <strong id="todayVisits">0</strong>
     </div>
 
     <div class="stat">
-      <span>This week</span>
-      <strong>142</strong>
+      <span>Visits this week</span>
+      <strong id="weekVisits">0</strong>
     </div>
 
     <div class="stat">
-      <span>This month</span>
-      <strong>681</strong>
+      <span>Visits this month</span>
+      <strong id="monthVisits">0</strong>
     </div>
 
     <div class="stat">
-      <span>This year</span>
-      <strong>8,421</strong>
+      <span>Visits this year</span>
+      <strong id="yearVisits">0</strong>
     </div>
 
     <div class="stat">
-      <span>All time</span>
-      <strong>12,904</strong>
+      <span>All-time visits</span>
+      <strong id="allVisits">0</strong>
     </div>
 
   </section>
 
+
+  <p class="stats-note">
+    Stats are currently stored in this browser. A shared public counter
+    will require a database/backend.
+  </p>
+
 </main>
 
 <footer>
-  CueMoo <span>•</span> public stats
+  CueMoo
 </footer>
 
+
 <script>
-const active = document.getElementById("active");
 
-setInterval(() => {
-  let current = Number(active.textContent);
+function getDateKey() {
 
-  if (Math.random() > 0.65) {
-    current += Math.random() > 0.5 ? 1 : -1;
-  }
+  const date = new Date();
 
-  active.textContent = Math.max(1, current);
+  return date.getFullYear() + "-" +
+    String(date.getMonth() + 1).padStart(2, "0") + "-" +
+    String(date.getDate()).padStart(2, "0");
 
-}, 5000);
+}
+
+
+function getWeekKey() {
+
+  const date = new Date();
+
+  const firstDay = new Date(date.getFullYear(), 0, 1);
+
+  const days = Math.floor(
+    (date - firstDay) / 86400000
+  );
+
+  const week = Math.ceil(
+    (days + firstDay.getDay() + 1) / 7
+  );
+
+  return date.getFullYear() + "-W" + week;
+
+}
+
+
+function getMonthKey() {
+
+  const date = new Date();
+
+  return date.getFullYear() + "-" +
+    String(date.getMonth() + 1).padStart(2, "0");
+
+}
+
+
+function getYearKey() {
+
+  return new Date().getFullYear().toString();
+
+}
+
+
+function increment(key) {
+
+  let value = Number(
+    localStorage.getItem(key) || 0
+  );
+
+  value++;
+
+  localStorage.setItem(key, value);
+
+  return value;
+
+}
+
+
+/*
+========================
+COUNT THIS VISIT
+========================
+*/
+
+const todayKey = "cuemoo_today_" + getDateKey();
+
+const weekKey = "cuemoo_week_" + getWeekKey();
+
+const monthKey = "cuemoo_month_" + getMonthKey();
+
+const yearKey = "cuemoo_year_" + getYearKey();
+
+const allKey = "cuemoo_all_time";
+
+
+increment(todayKey);
+
+increment(weekKey);
+
+increment(monthKey);
+
+increment(yearKey);
+
+increment(allKey);
+
+
+/*
+========================
+DISPLAY STATS
+========================
+*/
+
+document.getElementById("sessionVisits").textContent =
+  Number(localStorage.getItem("cuemoo_session") || 0) + 1;
+
+localStorage.setItem(
+  "cuemoo_session",
+  document.getElementById("sessionVisits").textContent
+);
+
+
+document.getElementById("todayVisits").textContent =
+  localStorage.getItem(todayKey);
+
+
+document.getElementById("weekVisits").textContent =
+  localStorage.getItem(weekKey);
+
+
+document.getElementById("monthVisits").textContent =
+  localStorage.getItem(monthKey);
+
+
+document.getElementById("yearVisits").textContent =
+  localStorage.getItem(yearKey);
+
+
+document.getElementById("allVisits").textContent =
+  localStorage.getItem(allKey);
+
 </script>
 
 </body>
