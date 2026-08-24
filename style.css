@@ -574,4 +574,9 @@ footer {
 
   }
 
+  .status-dot.connected {
+  background: #6f9f72;
+  box-shadow: 0 0 8px rgba(111, 159, 114, 0.5);
+}
+
 }
