@@ -1,32 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>CueMoo — Projects</title>
+
+  <!-- UMAMI ANALYTICS -->
+  <script
+    defer
+    src="https://cloud.umami.is/script.js"
+    data-website-id="f21ba53f-9919-4d9e-bebc-53fbb1c114e0">
+  </script>
+
   <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
 <header>
-  <a class="logo" href="index.html">CueMoo</a>
+
+  <a class="logo" href="index.html">
+    CueMoo
+  </a>
 
   <nav>
-    <a href="index.html">About</a>
-    <a class="active" href="projects.html">Projects</a>
-    <a href="contact.html">Contact</a>
-    <a href="stats.html">Stats</a>
+
+    <a href="index.html">
+      About
+    </a>
+
+    <a class="active" href="projects.html">
+      Projects
+    </a>
+
+    <a href="contact.html">
+      Contact
+    </a>
+
+    <a href="stats.html">
+      Stats
+    </a>
+
   </nav>
+
 </header>
+
 
 <main>
 
   <section class="section-heading">
 
-    <p class="eyebrow">PROJECTS</p>
+    <p class="eyebrow">
+      PROJECTS
+    </p>
 
-    <h1>My projects.</h1>
+    <h1>
+      My projects.
+    </h1>
 
     <p class="muted">
       Stuff I've made, worked on, or am currently working on.
@@ -34,27 +67,38 @@
 
   </section>
 
+
   <!--
-    ============================
-    ADD / EDIT PROJECTS HERE
-    ============================
+  ==================================================
+  PROJECTS
+  ==================================================
 
-    To add a project:
-    1. Copy one of the project objects.
-    2. Change the name.
-    3. Change the description.
-    4. Change the link.
+  ONLY EDIT THE SECTION BELOW.
 
-    That's it.
+  To add another project, copy one of these:
+
+  {
+    name: "Project Name",
+    description: "Project description.",
+    link: "https://example.com"
+  }
+
+  ==================================================
   -->
 
-  <section class="cards" id="projects"></section>
+  <section
+    class="cards"
+    id="projects">
+  </section>
+
 
 </main>
+
 
 <footer>
   CueMoo
 </footer>
+
 
 <script>
 
@@ -79,12 +123,13 @@ const projects = [
   }
 
   /*
-  ADD ANOTHER PROJECT LIKE THIS:
+  
+  ADD MORE PROJECTS LIKE THIS:
 
   ,
   {
     name: "My New Project",
-    description: "What my project does.",
+    description: "What the project does.",
     link: "https://example.com"
   }
 
@@ -93,14 +138,17 @@ const projects = [
 ];
 
 
-const projectContainer = document.getElementById("projects");
+const container =
+  document.getElementById("projects");
 
 
 projects.forEach((project, index) => {
 
-  const card = document.createElement("article");
+  const card =
+    document.createElement("article");
 
   card.className = "card";
+
 
   card.innerHTML = `
 
@@ -108,7 +156,9 @@ projects.forEach((project, index) => {
       ${String(index + 1).padStart(2, "0")}
     </span>
 
-    <h2>${project.name}</h2>
+    <h2>
+      ${project.name}
+    </h2>
 
     <p>
       ${project.description}
@@ -116,18 +166,19 @@ projects.forEach((project, index) => {
 
     <a
       class="card-link"
-      href="${project.link}"
-    >
+      href="${project.link}">
       View project →
     </a>
 
   `;
 
-  projectContainer.appendChild(card);
+
+  container.appendChild(card);
 
 });
 
 </script>
+
 
 </body>
 </html>
