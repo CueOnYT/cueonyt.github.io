@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CueMoo — Stats</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">CueMoo</a>
+
+  <nav>
+    <a href="index.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+    <a class="active" href="stats.html">Stats</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="section-heading">
+
+    <p class="eyebrow">PUBLIC STATS</p>
+
+    <h1>Website activity.</h1>
+
+    <p class="muted">
+      Public website statistics.
+    </p>
+
+  </section>
+
+  <section class="stats-grid">
+
+    <div class="stat">
+      <span>Active right now</span>
+      <strong id="active">3</strong>
+    </div>
+
+    <div class="stat">
+      <span>Today</span>
+      <strong>27</strong>
+    </div>
+
+    <div class="stat">
+      <span>This week</span>
+      <strong>142</strong>
+    </div>
+
+    <div class="stat">
+      <span>This month</span>
+      <strong>681</strong>
+    </div>
+
+    <div class="stat">
+      <span>This year</span>
+      <strong>8,421</strong>
+    </div>
+
+    <div class="stat">
+      <span>All time</span>
+      <strong>12,904</strong>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  CueMoo <span>•</span> public stats
+</footer>
+
+<script>
+const active = document.getElementById("active");
+
+setInterval(() => {
+  let current = Number(active.textContent);
+
+  if (Math.random() > 0.65) {
+    current += Math.random() > 0.5 ? 1 : -1;
+  }
+
+  active.textContent = Math.max(1, current);
+
+}, 5000);
+</script>
+
+</body>
+</html>
