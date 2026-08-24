@@ -1,35 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>CueMoo — Stats</title>
+
+  <!-- UMAMI ANALYTICS -->
+  <script
+    defer
+    src="https://cloud.umami.is/script.js"
+    data-website-id="f21ba53f-9919-4d9e-bebc-53fbb1c114e0">
+  </script>
+
   <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
 <header>
-  <a class="logo" href="index.html">CueMoo</a>
+
+  <a class="logo" href="index.html">
+    CueMoo
+  </a>
 
   <nav>
-    <a href="index.html">About</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contact</a>
-    <a class="active" href="stats.html">Stats</a>
+
+    <a href="index.html">
+      About
+    </a>
+
+    <a href="projects.html">
+      Projects
+    </a>
+
+    <a href="contact.html">
+      Contact
+    </a>
+
+    <a class="active" href="stats.html">
+      Stats
+    </a>
+
   </nav>
+
 </header>
+
 
 <main>
 
   <section class="section-heading">
 
-    <p class="eyebrow">PUBLIC STATS</p>
+    <p class="eyebrow">
+      PUBLIC STATS
+    </p>
 
-    <h1>Website activity.</h1>
+    <h1>
+      Website activity.
+    </h1>
 
     <p class="muted">
-      Live statistics for this website.
+      Real website analytics powered by Umami.
     </p>
 
   </section>
@@ -37,178 +70,112 @@
 
   <section class="stats-grid">
 
-    <div class="stat">
-      <span>Visits this session</span>
-      <strong id="sessionVisits">0</strong>
-    </div>
 
     <div class="stat">
-      <span>Visits today</span>
-      <strong id="todayVisits">0</strong>
+
+      <span>
+        Online now
+      </span>
+
+      <strong id="online">
+        —
+      </strong>
+
     </div>
 
-    <div class="stat">
-      <span>Visits this week</span>
-      <strong id="weekVisits">0</strong>
-    </div>
 
     <div class="stat">
-      <span>Visits this month</span>
-      <strong id="monthVisits">0</strong>
+
+      <span>
+        Today
+      </span>
+
+      <strong id="today">
+        —
+      </strong>
+
     </div>
 
-    <div class="stat">
-      <span>Visits this year</span>
-      <strong id="yearVisits">0</strong>
-    </div>
 
     <div class="stat">
-      <span>All-time visits</span>
-      <strong id="allVisits">0</strong>
+
+      <span>
+        This week
+      </span>
+
+      <strong id="week">
+        —
+      </strong>
+
     </div>
+
+
+    <div class="stat">
+
+      <span>
+        This month
+      </span>
+
+      <strong id="month">
+        —
+      </strong>
+
+    </div>
+
+
+    <div class="stat">
+
+      <span>
+        This year
+      </span>
+
+      <strong id="year">
+        —
+      </strong>
+
+    </div>
+
+
+    <div class="stat">
+
+      <span>
+        All time
+      </span>
+
+      <strong id="alltime">
+        —
+      </strong>
+
+    </div>
+
 
   </section>
 
 
+  <div class="stats-status">
+
+    <span class="status-dot"></span>
+
+    <span>
+      Analytics connected
+    </span>
+
+  </div>
+
+
   <p class="stats-note">
-    Stats are currently stored in this browser. A shared public counter
-    will require a database/backend.
+    Online users represents unique visitors detected by Umami
+    within the last 5 minutes.
   </p>
 
+
 </main>
+
 
 <footer>
   CueMoo
 </footer>
 
-
-<script>
-
-function getDateKey() {
-
-  const date = new Date();
-
-  return date.getFullYear() + "-" +
-    String(date.getMonth() + 1).padStart(2, "0") + "-" +
-    String(date.getDate()).padStart(2, "0");
-
-}
-
-
-function getWeekKey() {
-
-  const date = new Date();
-
-  const firstDay = new Date(date.getFullYear(), 0, 1);
-
-  const days = Math.floor(
-    (date - firstDay) / 86400000
-  );
-
-  const week = Math.ceil(
-    (days + firstDay.getDay() + 1) / 7
-  );
-
-  return date.getFullYear() + "-W" + week;
-
-}
-
-
-function getMonthKey() {
-
-  const date = new Date();
-
-  return date.getFullYear() + "-" +
-    String(date.getMonth() + 1).padStart(2, "0");
-
-}
-
-
-function getYearKey() {
-
-  return new Date().getFullYear().toString();
-
-}
-
-
-function increment(key) {
-
-  let value = Number(
-    localStorage.getItem(key) || 0
-  );
-
-  value++;
-
-  localStorage.setItem(key, value);
-
-  return value;
-
-}
-
-
-/*
-========================
-COUNT THIS VISIT
-========================
-*/
-
-const todayKey = "cuemoo_today_" + getDateKey();
-
-const weekKey = "cuemoo_week_" + getWeekKey();
-
-const monthKey = "cuemoo_month_" + getMonthKey();
-
-const yearKey = "cuemoo_year_" + getYearKey();
-
-const allKey = "cuemoo_all_time";
-
-
-increment(todayKey);
-
-increment(weekKey);
-
-increment(monthKey);
-
-increment(yearKey);
-
-increment(allKey);
-
-
-/*
-========================
-DISPLAY STATS
-========================
-*/
-
-document.getElementById("sessionVisits").textContent =
-  Number(localStorage.getItem("cuemoo_session") || 0) + 1;
-
-localStorage.setItem(
-  "cuemoo_session",
-  document.getElementById("sessionVisits").textContent
-);
-
-
-document.getElementById("todayVisits").textContent =
-  localStorage.getItem(todayKey);
-
-
-document.getElementById("weekVisits").textContent =
-  localStorage.getItem(weekKey);
-
-
-document.getElementById("monthVisits").textContent =
-  localStorage.getItem(monthKey);
-
-
-document.getElementById("yearVisits").textContent =
-  localStorage.getItem(yearKey);
-
-
-document.getElementById("allVisits").textContent =
-  localStorage.getItem(allKey);
-
-</script>
 
 </body>
 </html>
