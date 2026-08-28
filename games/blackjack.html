@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +8,7 @@
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
   >
 
   <title>CueMoo — Blackjack</title>
@@ -17,6 +18,11 @@
 
     * {
       box-sizing: border-box;
+    }
+
+
+    html {
+      touch-action: manipulation;
     }
 
 
@@ -47,13 +53,15 @@
           #101010 55%
         );
 
-      color:
-        var(--text);
+      color: var(--text);
 
       font-family:
         Arial,
         Helvetica,
         sans-serif;
+
+      user-select: none;
+      -webkit-user-select: none;
     }
 
 
@@ -365,7 +373,7 @@
 
 
     /* =========================
-       CARDS
+       PLAYING CARDS
     ========================= */
 
     .card {
@@ -599,6 +607,10 @@
     }
 
 
+    /* =========================
+       BUTTONS
+    ========================= */
+
     button {
       border:
         1px solid var(--border-light);
@@ -614,6 +626,12 @@
 
       cursor:
         pointer;
+
+      touch-action:
+        manipulation;
+
+      -webkit-tap-highlight-color:
+        transparent;
 
       transition:
         transform 0.15s ease,
@@ -652,16 +670,19 @@
 
     .bet-button {
       width:
-        44px;
+        50px;
 
       height:
-        44px;
+        50px;
 
       font-size:
-        22px;
+        25px;
 
       font-weight:
         400;
+
+      touch-action:
+        manipulation;
     }
 
 
@@ -679,7 +700,7 @@
 
     .game-button {
       min-height:
-        72px;
+        78px;
 
       padding:
         14px;
@@ -692,6 +713,9 @@
 
       letter-spacing:
         0.4px;
+
+      touch-action:
+        manipulation;
     }
 
 
@@ -721,7 +745,7 @@
         100%;
 
       min-height:
-        58px;
+        62px;
 
       margin-top:
         10px;
@@ -731,11 +755,14 @@
 
       font-weight:
         800;
+
+      touch-action:
+        manipulation;
     }
 
 
     /* =========================
-       HELP
+       HELP TEXT
     ========================= */
 
     .help {
@@ -853,6 +880,15 @@
       }
 
 
+      .bet-button {
+        width:
+          54px;
+
+        height:
+          54px;
+      }
+
+
       .game-buttons {
         grid-template-columns:
           repeat(2, 1fr);
@@ -861,7 +897,7 @@
 
       .game-button {
         min-height:
-          64px;
+          70px;
       }
 
 
@@ -901,7 +937,7 @@
 
       .game-button {
         min-height:
-          60px;
+          64px;
 
         font-size:
           13px;
@@ -1202,7 +1238,6 @@
    GAME STATE
 ========================= */
 
-
 let deck = [];
 
 let playerHand = [];
@@ -1227,7 +1262,6 @@ let pushes = 0;
 /* =========================
    DECK
 ========================= */
-
 
 const suits = [
   "♠",
@@ -1313,7 +1347,9 @@ function shuffle(array) {
 
 function drawCard() {
 
-  if (deck.length === 0) {
+  if (
+    deck.length === 0
+  ) {
 
     deck =
       shuffle(
@@ -1329,9 +1365,8 @@ function drawCard() {
 
 
 /* =========================
-   HAND CALCULATIONS
+   HAND VALUES
 ========================= */
-
 
 function getHandValue(hand) {
 
@@ -1355,7 +1390,11 @@ function getHandValue(hand) {
     }
 
     else if (
-      ["K", "Q", "J"].includes(
+      [
+        "K",
+        "Q",
+        "J"
+      ].includes(
         card.rank
       )
     ) {
@@ -1387,6 +1426,7 @@ function getHandValue(hand) {
 
 
   return total;
+
 }
 
 
@@ -1403,7 +1443,6 @@ function isBlackjack(hand) {
 /* =========================
    ELEMENTS
 ========================= */
-
 
 const bankrollElement =
   document.getElementById(
@@ -1493,7 +1532,6 @@ const newRoundButton =
    DISPLAY
 ========================= */
 
-
 function formatMoney(value) {
 
   return "$" +
@@ -1527,7 +1565,9 @@ function updateStats() {
     );
 
 
-  if (bet > maxBet) {
+  if (
+    bet > maxBet
+  ) {
 
     bet = maxBet;
 
@@ -1679,7 +1719,9 @@ function renderHands() {
   );
 
 
-  if (dealerHidden) {
+  if (
+    dealerHidden
+  ) {
 
     if (
       dealerHand.length
@@ -1756,9 +1798,8 @@ function setMessage(
 
 
 /* =========================
-   START ROUND
+   DEAL
 ========================= */
-
 
 function deal() {
 
@@ -1775,10 +1816,8 @@ function deal() {
 
   bankroll -= bet;
 
-
   roundActive =
     true;
-
 
   dealerHidden =
     true;
@@ -1843,7 +1882,6 @@ function deal() {
       dealerHidden =
         false;
 
-
       bankroll += bet;
 
       pushes++;
@@ -1861,10 +1899,8 @@ function deal() {
       dealerHidden =
         false;
 
-
       bankroll +=
         bet * 2.5;
-
 
       wins++;
 
@@ -1882,14 +1918,17 @@ function deal() {
 
 
 /* =========================
-   PLAYER ACTIONS
+   HIT
 ========================= */
-
 
 function hit() {
 
-  if (!roundActive) {
+  if (
+    !roundActive
+  ) {
+
     return;
+
   }
 
 
@@ -1936,10 +1975,18 @@ function hit() {
 }
 
 
+/* =========================
+   STAND
+========================= */
+
 function stand() {
 
-  if (!roundActive) {
+  if (
+    !roundActive
+  ) {
+
     return;
+
   }
 
 
@@ -1971,6 +2018,10 @@ function stand() {
 }
 
 
+/* =========================
+   DOUBLE DOWN
+========================= */
+
 function doubleDown() {
 
   if (
@@ -1984,7 +2035,6 @@ function doubleDown() {
 
 
   bankroll -= bet;
-
 
   bet *= 2;
 
@@ -2023,9 +2073,8 @@ function doubleDown() {
 
 
 /* =========================
-   ROUND RESULT
+   RESOLVE
 ========================= */
-
 
 function resolveRound() {
 
@@ -2048,7 +2097,6 @@ function resolveRound() {
     bankroll +=
       bet * 2;
 
-
     wins++;
 
 
@@ -2070,7 +2118,6 @@ function resolveRound() {
 
     bankroll +=
       bet * 2;
-
 
     wins++;
 
@@ -2118,6 +2165,10 @@ function resolveRound() {
 }
 
 
+/* =========================
+   END ROUND
+========================= */
+
 function endRound(
   text,
   type
@@ -2126,7 +2177,6 @@ function endRound(
   roundActive =
     false;
 
-
   dealerHidden =
     false;
 
@@ -2134,10 +2184,8 @@ function endRound(
   hitButton.disabled =
     true;
 
-
   standButton.disabled =
     true;
-
 
   doubleButton.disabled =
     true;
@@ -2155,6 +2203,7 @@ function endRound(
 
   updateStats();
 
+
   setMessage(
     text,
     type
@@ -2167,9 +2216,10 @@ function endRound(
    BET CONTROLS
 ========================= */
 
-
 document
-  .getElementById("minusBet")
+  .getElementById(
+    "minusBet"
+  )
   .addEventListener(
     "click",
     () => {
@@ -2197,7 +2247,9 @@ document
 
 
 document
-  .getElementById("plusBet")
+  .getElementById(
+    "plusBet"
+  )
   .addEventListener(
     "click",
     () => {
@@ -2226,9 +2278,8 @@ document
 
 
 /* =========================
-   BUTTONS
+   GAME BUTTONS
 ========================= */
-
 
 dealButton.addEventListener(
   "click",
@@ -2253,6 +2304,10 @@ doubleButton.addEventListener(
   doubleDown
 );
 
+
+/* =========================
+   NEW ROUND
+========================= */
 
 newRoundButton.addEventListener(
   "click",
@@ -2324,9 +2379,8 @@ newRoundButton.addEventListener(
 
 
 /* =========================
-   KEYBOARD
+   KEYBOARD CONTROLS
 ========================= */
-
 
 document.addEventListener(
   "keydown",
@@ -2367,9 +2421,8 @@ document.addEventListener(
 
 
 /* =========================
-   INITIALIZE
+   START
 ========================= */
-
 
 updateStats();
 
