@@ -12,6 +12,7 @@
   <title>CueMoo — Blackjack</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
@@ -26,23 +27,23 @@
     }
 
     :root {
-      --bg: #0e0e0e;
-      --panel: #181818;
+      --bg: #0d0d0d;
+      --panel: #171717;
       --border: #303030;
-      --border-light: #454545;
+      --border-light: #484848;
       --text: #eeeeee;
-      --muted: #858585;
+      --muted: #888888;
       --green: #79a67c;
-      --red: #aa6b6b;
+      --red: #b06b6b;
     }
 
     body {
       background:
         radial-gradient(
           ellipse at center,
-          #1c1c1c 0%,
-          #111111 48%,
-          #0b0b0b 100%
+          #202020 0%,
+          #121212 50%,
+          #090909 100%
         );
 
       color: var(--text);
@@ -58,8 +59,13 @@
     }
 
     button {
+      font-family: inherit;
       -webkit-tap-highlight-color: transparent;
     }
+
+    /* =========================
+       SCREEN
+    ========================= */
 
     .game-screen {
       width: 100%;
@@ -70,21 +76,25 @@
       flex-direction: column;
     }
 
-    /* HEADER */
+    /* =========================
+       HEADER
+    ========================= */
 
     header {
       width: 100%;
-      height: 68px;
+      height: 62px;
+
       flex-shrink: 0;
 
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      padding: 0 clamp(18px, 4vw, 45px);
+      padding:
+        0 clamp(18px, 4vw, 45px);
 
       border-bottom:
-        1px solid rgba(255, 255, 255, 0.06);
+        1px solid rgba(255,255,255,0.06);
     }
 
     .logo {
@@ -93,34 +103,40 @@
 
       font-size: 20px;
       font-weight: 800;
+
       letter-spacing: -0.8px;
     }
 
     .back {
       color: var(--muted);
       text-decoration: none;
-      font-size: 13px;
 
-      transition: color 0.2s ease;
+      font-size: 13px;
     }
 
     .back:hover {
       color: var(--text);
     }
 
-    /* TABLE */
+    /* =========================
+       TABLE
+    ========================= */
 
     .table {
       width:
-        min(1100px, calc(100% - 30px));
+        min(
+          1100px,
+          calc(100% - 24px)
+        );
 
       flex: 1;
       min-height: 0;
 
-      margin: 15px auto;
+      margin:
+        12px auto;
 
       padding:
-        clamp(15px, 2.5vw, 30px);
+        clamp(14px, 2.5vw, 28px);
 
       background:
         linear-gradient(
@@ -134,27 +150,31 @@
 
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-
-      box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.35);
 
       overflow: hidden;
+
+      box-shadow:
+        0 25px 70px rgba(0,0,0,0.4);
     }
 
-    /* TOP */
+    /* =========================
+       TOP BAR
+    ========================= */
 
     .table-info {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+
       flex-shrink: 0;
     }
 
     .game-name {
       color: var(--muted);
+
       font-size: 10px;
       font-weight: 800;
+
       letter-spacing: 3px;
     }
 
@@ -163,7 +183,9 @@
       font-weight: 800;
     }
 
-    /* HANDS */
+    /* =========================
+       HAND AREA
+    ========================= */
 
     .hands {
       flex: 1;
@@ -177,7 +199,7 @@
     }
 
     .hand {
-      min-height: 130px;
+      min-height: 120px;
 
       display: flex;
       flex-direction: column;
@@ -189,32 +211,37 @@
       justify-content: space-between;
       align-items: center;
 
-      width: 100%;
       margin-bottom: 10px;
     }
 
     .hand-name {
       color: var(--muted);
+
       font-size: 10px;
       font-weight: 800;
+
       letter-spacing: 2px;
     }
 
     .score {
-      color: #a5a5a5;
+      color: #a9a9a9;
+
       font-size: 14px;
       font-weight: 800;
     }
 
     .cards {
+      min-height: 105px;
+
       display: flex;
       align-items: center;
-      gap: 10px;
 
-      min-height: 105px;
+      gap: 10px;
     }
 
-    /* CARDS */
+    /* =========================
+       CARDS
+    ========================= */
 
     .card {
       width: 72px;
@@ -222,12 +249,13 @@
 
       flex-shrink: 0;
 
-      background: #eeeeee;
-      color: #111111;
+      padding: 7px;
 
       border-radius: 7px;
 
-      padding: 7px;
+      background: #eeeeee;
+
+      color: #111111;
 
       display: flex;
       flex-direction: column;
@@ -236,14 +264,14 @@
       font-weight: 800;
 
       box-shadow:
-        0 8px 18px rgba(0, 0, 0, 0.3);
+        0 8px 18px rgba(0,0,0,0.35);
 
       animation:
         cardIn 0.22s ease;
     }
 
     .card.red {
-      color: #9f5757;
+      color: #a45454;
     }
 
     .card.back-card {
@@ -252,12 +280,12 @@
           45deg,
           #292929,
           #292929 6px,
-          #383838 6px,
-          #383838 12px
+          #393939 6px,
+          #393939 12px
         );
 
       border:
-        1px solid #4b4b4b;
+        1px solid #4c4c4c;
 
       color: transparent;
     }
@@ -268,18 +296,21 @@
     }
 
     .card-suit {
-      font-size: 24px;
       align-self: center;
+
+      font-size: 24px;
     }
 
     .card-bottom {
       font-size: 18px;
       line-height: 1;
 
-      transform: rotate(180deg);
+      transform:
+        rotate(180deg);
     }
 
     @keyframes cardIn {
+
       from {
         opacity: 0;
         transform:
@@ -293,12 +324,16 @@
           translateY(0)
           scale(1);
       }
+
     }
 
-    /* MESSAGE */
+    /* =========================
+       MESSAGE
+    ========================= */
 
     .message {
       height: 30px;
+
       flex-shrink: 0;
 
       display: flex;
@@ -323,15 +358,17 @@
       color: #aaaaaa;
     }
 
-    /* CONTROLS */
+    /* =========================
+       CONTROLS
+    ========================= */
 
     .controls {
       flex-shrink: 0;
 
+      padding-top: 15px;
+
       border-top:
         1px solid var(--border);
-
-      padding-top: 15px;
     }
 
     .bet-row {
@@ -339,9 +376,7 @@
       align-items: center;
       justify-content: space-between;
 
-      gap: 15px;
-
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .bet-info {
@@ -352,8 +387,10 @@
 
     .bet-label {
       color: var(--muted);
+
       font-size: 10px;
       font-weight: 800;
+
       letter-spacing: 2px;
     }
 
@@ -363,32 +400,19 @@
     }
 
     .clear-bet {
-      border:
-        1px solid var(--border);
-
-      background:
-        transparent;
-
-      color:
-        var(--muted);
-
-      min-height:
-        34px;
+      min-height: 34px;
 
       padding:
         0 13px;
 
-      font-family:
-        inherit;
+      background: transparent;
 
-      font-size:
-        11px;
+      color: var(--muted);
 
-      cursor:
-        pointer;
+      border:
+        1px solid var(--border);
 
-      touch-action:
-        manipulation;
+      cursor: pointer;
     }
 
     .clear-bet:hover:not(:disabled) {
@@ -401,7 +425,9 @@
       cursor: not-allowed;
     }
 
-    /* CHIPS */
+    /* =========================
+       CHIPS
+    ========================= */
 
     .chips {
       display: grid;
@@ -411,48 +437,38 @@
 
       gap: 9px;
 
-      margin-bottom: 10px;
+      margin-bottom: 9px;
     }
 
     .chip {
       position: relative;
 
-      min-height: 58px;
+      min-height: 56px;
+
+      background: #242424;
+
+      color: var(--text);
 
       border:
         1px solid #4a4a4a;
 
-      background:
-        #242424;
+      font-size: 16px;
+      font-weight: 800;
 
-      color:
-        var(--text);
+      cursor: pointer;
 
-      font-family:
-        inherit;
-
-      font-size:
-        16px;
-
-      font-weight:
-        800;
-
-      cursor:
-        pointer;
-
-      touch-action:
-        manipulation;
+      touch-action: manipulation;
 
       transition:
         transform 0.12s ease,
-        background 0.15s ease,
-        border-color 0.15s ease;
+        background 0.15s ease;
     }
 
     .chip::before {
       content: "";
 
       position: absolute;
+
       inset: 5px;
 
       border:
@@ -462,8 +478,7 @@
     }
 
     .chip:hover:not(:disabled) {
-      background: #2d2d2d;
-      border-color: #626262;
+      background: #303030;
 
       transform:
         translateY(-2px);
@@ -476,16 +491,19 @@
 
     .chip:disabled {
       opacity: 0.3;
+
       cursor: not-allowed;
     }
 
-    /* GAME BUTTONS */
+    /* =========================
+       GAME BUTTONS
+    ========================= */
 
     .game-buttons {
       display: grid;
 
       grid-template-columns:
-        1.25fr
+        1.3fr
         1fr
         1fr
         1fr;
@@ -494,45 +512,29 @@
     }
 
     .game-button {
-      min-height: 64px;
+      min-height: 62px;
+
+      background: #242424;
+
+      color: var(--text);
 
       border:
         1px solid var(--border-light);
 
-      background:
-        #242424;
+      font-size: 14px;
+      font-weight: 800;
 
-      color:
-        var(--text);
+      cursor: pointer;
 
-      font-family:
-        inherit;
-
-      font-size:
-        14px;
-
-      font-weight:
-        800;
-
-      cursor:
-        pointer;
-
-      touch-action:
-        manipulation;
+      touch-action: manipulation;
 
       transition:
-        transform 0.12s ease,
         background 0.15s ease,
-        border-color 0.15s ease,
-        opacity 0.15s ease;
+        transform 0.12s ease;
     }
 
     .game-button:hover:not(:disabled) {
-      background:
-        #303030;
-
-      border-color:
-        #5b5b5b;
+      background: #303030;
 
       transform:
         translateY(-2px);
@@ -544,86 +546,56 @@
     }
 
     .game-button:disabled {
-      opacity:
-        0.3;
+      opacity: 0.3;
 
-      cursor:
-        not-allowed;
+      cursor: not-allowed;
     }
 
     .deal-button {
-      background:
-        #eeeeee;
+      background: #eeeeee;
 
-      color:
-        #101010;
+      color: #111111;
 
-      border-color:
-        #eeeeee;
+      border-color: #eeeeee;
     }
 
     .deal-button:hover:not(:disabled) {
-      background:
-        #ffffff;
-
-      border-color:
-        #ffffff;
+      background: #ffffff;
     }
 
     .new-round {
-      width:
-        100%;
+      width: 100%;
 
-      min-height:
-        58px;
+      min-height: 54px;
 
-      margin-top:
-        9px;
+      margin-top: 9px;
+
+      background: #242424;
+
+      color: var(--text);
 
       border:
         1px solid var(--border-light);
 
-      background:
-        #242424;
+      font-size: 13px;
+      font-weight: 800;
 
-      color:
-        var(--text);
-
-      font-family:
-        inherit;
-
-      font-size:
-        13px;
-
-      font-weight:
-        800;
-
-      cursor:
-        pointer;
-
-      touch-action:
-        manipulation;
+      cursor: pointer;
     }
 
     .new-round:hover {
-      background:
-        #303030;
+      background: #303030;
     }
 
-    /* DESKTOP */
+    /* =========================
+       DESKTOP
+    ========================= */
 
     @media (min-width: 800px) {
+
       .card {
         width: 82px;
         height: 112px;
-      }
-
-      .cards {
-        gap: 12px;
-      }
-
-      .controls {
-        padding-top: 18px;
       }
 
       .chips {
@@ -635,22 +607,31 @@
 
       .game-buttons {
         max-width: 800px;
-        margin: 0 auto;
+
+        margin:
+          0 auto;
       }
 
       .new-round {
         max-width: 800px;
+
         margin-left: auto;
         margin-right: auto;
       }
+
     }
 
-    /* MOBILE */
+    /* =========================
+       MOBILE
+    ========================= */
 
     @media (max-width: 600px) {
+
       header {
-        height: 54px;
-        padding: 0 15px;
+        height: 52px;
+
+        padding:
+          0 14px;
       }
 
       .logo {
@@ -663,39 +644,20 @@
 
       .table {
         width:
-          calc(100% - 12px);
+          calc(100% - 10px);
 
         margin:
-          6px auto;
+          5px auto;
 
         padding:
-          12px;
-
-        border-radius:
-          3px;
-      }
-
-      .game-name {
-        font-size: 8px;
-      }
-
-      .bankroll {
-        font-size: 13px;
-      }
-
-      .hand {
-        min-height: 105px;
-      }
-
-      .cards {
-        gap: 7px;
+          11px;
       }
 
       .card {
         width: 58px;
         height: 82px;
+
         padding: 6px;
-        border-radius: 6px;
       }
 
       .card-rank,
@@ -707,43 +669,52 @@
         font-size: 20px;
       }
 
-      .message {
-        font-size: 13px;
+      .cards {
+        gap: 7px;
       }
 
-      .bet-row {
-        margin-bottom: 8px;
-      }
-
-      .bet-value {
-        font-size: 18px;
+      .hand {
+        min-height: 100px;
       }
 
       .chip {
         min-height: 50px;
+
         font-size: 14px;
       }
 
       .game-button {
         min-height: 58px;
+
         font-size: 12px;
       }
+
     }
 
-    /* SMALL HEIGHT */
+    /* =========================
+       SMALL HEIGHT
+    ========================= */
 
     @media (max-height: 700px) {
+
       header {
-        height: 48px;
+        height: 46px;
       }
 
       .table {
-        margin: 4px auto;
-        padding: 10px;
+        margin:
+          4px auto;
+
+        padding:
+          9px;
       }
 
       .hand {
-        min-height: 85px;
+        min-height: 82px;
+      }
+
+      .cards {
+        min-height: 78px;
       }
 
       .card {
@@ -751,26 +722,20 @@
         height: 76px;
       }
 
-      .cards {
-        min-height: 80px;
-      }
-
       .controls {
-        padding-top: 9px;
-      }
-
-      .chips {
-        margin-bottom: 6px;
+        padding-top: 8px;
       }
 
       .chip {
-        min-height: 44px;
+        min-height: 43px;
       }
 
       .game-button {
-        min-height: 50px;
+        min-height: 48px;
       }
+
     }
+
   </style>
 </head>
 
@@ -778,6 +743,7 @@
 <body>
 
 <div class="game-screen">
+
 
   <header>
 
@@ -800,6 +766,9 @@
 
   <section class="table">
 
+
+    <!-- TABLE INFO -->
+
     <div class="table-info">
 
       <span class="game-name">
@@ -816,7 +785,10 @@
     </div>
 
 
+    <!-- HANDS -->
+
     <div class="hands">
+
 
       <!-- DEALER -->
 
@@ -881,12 +853,14 @@
 
       </div>
 
+
     </div>
 
 
     <!-- CONTROLS -->
 
     <div class="controls">
+
 
       <div class="bet-row">
 
@@ -955,7 +929,7 @@
       </div>
 
 
-      <!-- GAME BUTTONS -->
+      <!-- ACTION BUTTONS -->
 
       <div class="game-buttons">
 
@@ -1006,7 +980,9 @@
         NEW ROUND
       </button>
 
+
     </div>
+
 
   </section>
 
@@ -1066,13 +1042,17 @@
 
     const newDeck = [];
 
-    for (const suit of suits) {
+    for (
+      const suit of suits
+    ) {
 
-      for (const rank of ranks) {
+      for (
+        const rank of ranks
+      ) {
 
         newDeck.push({
-          suit: suit,
-          rank: rank
+          suit,
+          rank
         });
 
       }
@@ -1113,7 +1093,9 @@
 
   function drawCard() {
 
-    if (deck.length === 0) {
+    if (
+      deck.length === 0
+    ) {
 
       deck =
         shuffle(
@@ -1136,9 +1118,14 @@
 
     let aces = 0;
 
-    for (const card of hand) {
 
-      if (card.rank === "A") {
+    for (
+      const card of hand
+    ) {
+
+      if (
+        card.rank === "A"
+      ) {
 
         total += 11;
 
@@ -1147,9 +1134,8 @@
       }
 
       else if (
-        ["K", "Q", "J"].includes(
-          card.rank
-        )
+        ["K","Q","J"]
+          .includes(card.rank)
       ) {
 
         total += 10;
@@ -1179,6 +1165,7 @@
 
 
     return total;
+
   }
 
 
@@ -1268,16 +1255,22 @@
 
 
   /* =========================
-     DISPLAY
+     MONEY
   ========================= */
 
   function money(value) {
 
-    return "$" +
-      value.toLocaleString();
+    return (
+      "$" +
+      value.toLocaleString()
+    );
 
   }
 
+
+  /* =========================
+     DISPLAY
+  ========================= */
 
   function updateDisplay() {
 
@@ -1317,13 +1310,14 @@
 
     doubleButton.disabled =
       !roundActive ||
+      playerHand.length !== 2 ||
       bankroll < bet;
 
   }
 
 
   /* =========================
-     CARD RENDER
+     CARD CREATION
   ========================= */
 
   function renderCard(
@@ -1335,6 +1329,7 @@
       document.createElement(
         "div"
       );
+
 
     element.className =
       "card";
@@ -1399,20 +1394,40 @@
       card.rank;
 
 
-    element.appendChild(rank);
-    element.appendChild(suit);
-    element.appendChild(bottom);
+    element.appendChild(
+      rank
+    );
+
+    element.appendChild(
+      suit
+    );
+
+    element.appendChild(
+      bottom
+    );
 
 
     return element;
+
   }
 
+
+  /* =========================
+     RENDER HANDS
+  ========================= */
 
   function renderHands() {
 
     dealerCards.innerHTML = "";
+
     playerCards.innerHTML = "";
 
+
+    /*
+      DEALER'S SECOND CARD
+      STAYS HIDDEN UNTIL
+      PLAYER STANDS/BUSTS.
+    */
 
     dealerHand.forEach(
       (card, index) => {
@@ -1443,29 +1458,24 @@
     );
 
 
-    if (dealerHidden) {
+    /* DEALER SCORE */
 
-      if (
-        dealerHand.length > 0
-      ) {
+    if (
+      dealerHidden &&
+      dealerHand.length > 0
+    ) {
 
-        dealerScore.textContent =
-          `${getHandValue(
-            [dealerHand[0]]
-          )} + ?`;
-
-      }
-
-      else {
-
-        dealerScore.textContent =
-          "—";
-
-      }
+      dealerScore.textContent =
+        getHandValue([
+          dealerHand[0]
+        ]) +
+        " + ?";
 
     }
 
-    else {
+    else if (
+      dealerHand.length > 0
+    ) {
 
       dealerScore.textContent =
         getHandValue(
@@ -1474,6 +1484,15 @@
 
     }
 
+    else {
+
+      dealerScore.textContent =
+        "—";
+
+    }
+
+
+    /* PLAYER SCORE */
 
     if (
       playerHand.length > 0
@@ -1534,8 +1553,12 @@
         "click",
         () => {
 
-          if (roundActive) {
+          if (
+            roundActive
+          ) {
+
             return;
+
           }
 
 
@@ -1552,9 +1575,11 @@
 
             bet += value;
 
+
             setMessage(
               "Choose DEAL when you're ready."
             );
+
 
             updateDisplay();
 
@@ -1575,16 +1600,22 @@
     "click",
     () => {
 
-      if (roundActive) {
+      if (
+        roundActive
+      ) {
+
         return;
+
       }
 
 
       bet = 0;
 
+
       setMessage(
         "Choose your chips."
       );
+
 
       updateDisplay();
 
@@ -1609,12 +1640,17 @@
     }
 
 
+    /* TAKE THE BET */
+
     bankroll -= bet;
+
 
     roundActive = true;
 
     dealerHidden = true;
 
+
+    /* NEW SHUFFLED DECK */
 
     deck =
       shuffle(
@@ -1622,32 +1658,58 @@
       );
 
 
-    playerHand = [
-      drawCard(),
+    /*
+      STANDARD DEAL:
+
+      PLAYER: card
+      DEALER: card
+      PLAYER: card
+      DEALER: card
+    */
+
+    playerHand = [];
+
+    dealerHand = [];
+
+
+    playerHand.push(
       drawCard()
-    ];
+    );
 
-
-    dealerHand = [
-      drawCard(),
+    dealerHand.push(
       drawCard()
-    ];
+    );
 
+    playerHand.push(
+      drawCard()
+    );
+
+    dealerHand.push(
+      drawCard()
+    );
+
+
+    /*
+      PLAYER GETS THEIR
+      TURN FIRST.
+    */
 
     hitButton.disabled = false;
 
     standButton.disabled = false;
 
+
+    /*
+      DOUBLE ONLY ALLOWED
+      ON INITIAL TWO CARDS.
+    */
+
     doubleButton.disabled =
       bankroll < bet;
 
 
-    newRoundButton.hidden = true;
-
-
-    setMessage(
-      "Your move."
-    );
+    newRoundButton.hidden =
+      true;
 
 
     renderHands();
@@ -1655,19 +1717,26 @@
     updateDisplay();
 
 
-    /* PLAYER BLACKJACK */
+    /*
+      BLACKJACK CHECK
+    */
 
     if (
-      isBlackjack(playerHand)
+      isBlackjack(
+        playerHand
+      )
     ) {
 
-      /* BOTH BLACKJACK = PUSH */
+      dealerHidden = false;
+
+      renderHands();
+
 
       if (
-        isBlackjack(dealerHand)
+        isBlackjack(
+          dealerHand
+        )
       ) {
-
-        dealerHidden = false;
 
         bankroll += bet;
 
@@ -1678,11 +1747,7 @@
 
       }
 
-      /* PLAYER BLACKJACK = 3:2 */
-
       else {
-
-        dealerHidden = false;
 
         bankroll +=
           bet * 2.5;
@@ -1696,12 +1761,20 @@
 
     }
 
+    else {
+
+      setMessage(
+        "Your turn — Hit or Stand."
+      );
+
+    }
+
   }
 
 
-  /* IMPORTANT:
-     CONNECT THE DEAL BUTTON
-     TO THE DEAL FUNCTION
+  /*
+    THIS IS THE IMPORTANT
+    DEAL BUTTON CONNECTION.
   */
 
   dealButton.addEventListener(
@@ -1716,10 +1789,22 @@
 
   function hit() {
 
-    if (!roundActive) {
+    if (
+      !roundActive
+    ) {
+
       return;
+
     }
 
+
+    /*
+      ONLY THE PLAYER
+      GETS A CARD HERE.
+
+      THE DEALER DOES NOT
+      DRAW YET.
+    */
 
     playerHand.push(
       drawCard()
@@ -1728,6 +1813,8 @@
 
     renderHands();
 
+    updateDisplay();
+
 
     const value =
       getHandValue(
@@ -1735,23 +1822,51 @@
       );
 
 
-    if (value > 21) {
+    if (
+      value > 21
+    ) {
+
+      /*
+        PLAYER BUSTS.
+
+        NOW dealer reveals.
+      */
+
+      dealerHidden = false;
+
+      renderHands();
+
 
       endRound(
         "Bust. Dealer wins.",
         "loss"
       );
 
+
       return;
 
     }
 
 
-    if (value === 21) {
+    if (
+      value === 21
+    ) {
+
+      /*
+        21 means the player
+        automatically stands.
+      */
 
       stand();
 
+      return;
+
     }
+
+
+    setMessage(
+      "Your turn — Hit or Stand."
+    );
 
   }
 
@@ -1768,13 +1883,37 @@
 
   function stand() {
 
-    if (!roundActive) {
+    if (
+      !roundActive
+    ) {
+
       return;
+
     }
 
 
+    /*
+      PLAYER IS FINISHED.
+
+      NOW THE DEALER
+      TAKES THEIR TURN.
+    */
+
     dealerHidden = false;
 
+
+    renderHands();
+
+
+    setMessage(
+      "Dealer's turn..."
+    );
+
+
+    /*
+      DEALER DRAWS UNTIL
+      17 OR HIGHER.
+    */
 
     while (
       getHandValue(
@@ -1786,10 +1925,15 @@
         drawCard()
       );
 
+      /*
+        Update the table
+        after each dealer card.
+      */
+
+      renderHands();
+
     }
 
-
-    renderHands();
 
     resolveRound();
 
@@ -1810,6 +1954,7 @@
 
     if (
       !roundActive ||
+      playerHand.length !== 2 ||
       bankroll < bet
     ) {
 
@@ -1818,10 +1963,19 @@
     }
 
 
+    /*
+      MATCH THE ORIGINAL BET.
+    */
+
     bankroll -= bet;
 
     bet *= 2;
 
+
+    /*
+      PLAYER GETS EXACTLY
+      ONE MORE CARD.
+    */
 
     playerHand.push(
       drawCard()
@@ -1830,6 +1984,8 @@
 
     renderHands();
 
+    updateDisplay();
+
 
     if (
       getHandValue(
@@ -1837,15 +1993,26 @@
       ) > 21
     ) {
 
+      dealerHidden = false;
+
+      renderHands();
+
+
       endRound(
         "Double down — bust.",
         "loss"
       );
 
+
       return;
 
     }
 
+
+    /*
+      AFTER DOUBLE DOWN,
+      PLAYER AUTOMATICALLY STANDS.
+    */
 
     stand();
 
@@ -1859,7 +2026,7 @@
 
 
   /* =========================
-     RESOLVE
+     RESOLVE ROUND
   ========================= */
 
   function resolveRound() {
@@ -1935,6 +2102,7 @@
 
     bankroll += bet;
 
+
     endRound(
       "Push. Your bet is returned.",
       "push"
@@ -1964,7 +2132,8 @@
     doubleButton.disabled = true;
 
 
-    newRoundButton.hidden = false;
+    newRoundButton.hidden =
+      false;
 
 
     renderHands();
@@ -1988,7 +2157,15 @@
     "click",
     () => {
 
-      if (bankroll <= 0) {
+      /*
+        If the player runs
+        completely out of money,
+        restart with $1,000.
+      */
+
+      if (
+        bankroll <= 0
+      ) {
 
         bankroll = 1000;
 
@@ -2006,16 +2183,6 @@
       roundActive = false;
 
 
-      hitButton.disabled = true;
-
-      standButton.disabled = true;
-
-      doubleButton.disabled = true;
-
-
-      newRoundButton.hidden = true;
-
-
       dealerCards.innerHTML = "";
 
       playerCards.innerHTML = "";
@@ -2026,6 +2193,17 @@
 
       playerScore.textContent =
         "—";
+
+
+      hitButton.disabled = true;
+
+      standButton.disabled = true;
+
+      doubleButton.disabled = true;
+
+
+      newRoundButton.hidden =
+        true;
 
 
       setMessage(
@@ -2051,18 +2229,30 @@
         event.key.toLowerCase();
 
 
-      if (key === "h") {
+      if (
+        key === "h"
+      ) {
+
         hit();
+
       }
 
 
-      if (key === "s") {
+      if (
+        key === "s"
+      ) {
+
         stand();
+
       }
 
 
-      if (key === "d") {
+      if (
+        key === "d"
+      ) {
+
         doubleDown();
+
       }
 
 
@@ -2081,13 +2271,14 @@
 
 
   /* =========================
-     START GAME
+     START
   ========================= */
 
   deck =
     shuffle(
       createDeck()
     );
+
 
   updateDisplay();
 
