@@ -1,12 +1,14 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  <title>CueMoo — Projects</title>
+  <title>CueMoo — Games</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -15,7 +17,10 @@
 
 <header>
 
-  <a class="logo" href="index.html">
+  <a
+    class="logo"
+    href="index.html"
+  >
     CueMoo
   </a>
 
@@ -25,7 +30,10 @@
       About
     </a>
 
-    <a class="active" href="projects.html">
+    <a
+      class="active"
+      href="projects.html"
+    >
       Projects
     </a>
 
@@ -43,15 +51,15 @@
   <section class="section-heading">
 
     <p class="eyebrow">
-      PROJECTS
+      GAME LIBRARY
     </p>
 
     <h1>
-      My projects.
+      Pick a game.
     </h1>
 
     <p class="muted">
-      Stuff I've made, worked on, or am currently working on.
+      Small games, experiments, and things to play.
     </p>
 
   </section>
@@ -59,7 +67,7 @@
 
   <section
     class="cards"
-    id="projects"
+    id="games"
   ></section>
 
 </main>
@@ -72,81 +80,90 @@
 
 <script>
 
-const projects = [
+const games = [
 
   {
-    name: "Games",
-    description: "A collection of games and game projects.",
+    name: "Blackjack",
+    description: "Play classic blackjack against the dealer. Bet, hit, stand, or double down.",
     link: "games/blackjack.html"
   },
 
   {
-    name: "Web Projects",
-    description: "Websites, tools, and other things I'm building.",
+    name: "Higher or Lower",
+    description: "Guess whether the next card will be higher or lower.",
     link: "#"
   },
 
   {
-    name: "Experiments",
-    description: "Random experiments, tests, and ideas.",
+    name: "Mines",
+    description: "Choose your tiles, avoid the mines, and see how far you can go.",
     link: "#"
-  }
-
-  /*
-  ADD MORE PROJECTS LIKE THIS:
-
-  ,
+  },
 
   {
-    name: "My New Project",
-    description: "What the project does.",
-    link: "https://example.com"
+    name: "Coming Soon",
+    description: "Another game is currently being built.",
+    link: "#"
   }
-
-  */
 
 ];
 
 
 const container =
-  document.getElementById("projects");
+  document.getElementById("games");
 
 
-projects.forEach((project, index) => {
+games.forEach(
+  (game, index) => {
 
-  const card =
-    document.createElement("article");
+    const card =
+      document.createElement("article");
 
-  card.className = "card";
-
-
-  card.innerHTML = `
-
-    <span class="number">
-      ${String(index + 1).padStart(2, "0")}
-    </span>
-
-    <h2>
-      ${project.name}
-    </h2>
-
-    <p>
-      ${project.description}
-    </p>
-
-    <a
-      class="card-link"
-      href="${project.link}"
-    >
-      View project →
-    </a>
-
-  `;
+    card.className = "card";
 
 
-  container.appendChild(card);
+    const playable =
+      game.link !== "#";
 
-});
+
+    card.innerHTML = `
+
+      <span class="number">
+        ${String(index + 1).padStart(2, "0")}
+      </span>
+
+      <h2>
+        ${game.name}
+      </h2>
+
+      <p>
+        ${game.description}
+      </p>
+
+      <a
+        class="card-link"
+        href="${game.link}"
+        ${playable ? "" : 'aria-disabled="true"'}
+      >
+        ${playable ? "Play game →" : "Coming soon"}
+      </a>
+
+    `;
+
+
+    if (!playable) {
+
+      card.classList.add(
+        "card-disabled"
+      );
+
+    }
+
+
+    container.appendChild(card);
+
+  }
+);
 
 </script>
 
