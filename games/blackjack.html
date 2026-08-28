@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,20 +20,28 @@
     }
 
 
-    html {
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+
+      margin: 0;
+
+      overflow: hidden;
+
       touch-action: manipulation;
     }
 
 
     :root {
-      --bg: #101010;
+      --bg: #0e0e0e;
       --panel: #181818;
       --panel-2: #202020;
       --border: #303030;
-      --border-light: #404040;
+      --border-light: #454545;
 
-      --text: #f0f0f0;
-      --muted: #898989;
+      --text: #eeeeee;
+      --muted: #858585;
 
       --green: #79a67c;
       --red: #aa6b6b;
@@ -42,26 +49,52 @@
 
 
     body {
-      margin: 0;
-
-      min-height: 100vh;
-
       background:
         radial-gradient(
-          circle at top,
-          #1b1b1b 0%,
-          #101010 55%
+          ellipse at center,
+          #1c1c1c 0%,
+          #111111 48%,
+          #0b0b0b 100%
         );
 
-      color: var(--text);
+      color:
+        var(--text);
 
       font-family:
         Arial,
         Helvetica,
         sans-serif;
 
-      user-select: none;
-      -webkit-user-select: none;
+      user-select:
+        none;
+
+      -webkit-user-select:
+        none;
+
+      -webkit-touch-callout:
+        none;
+    }
+
+
+    /* =========================
+       FULL SCREEN APP
+    ========================= */
+
+    .game-screen {
+      width:
+        100%;
+
+      height:
+        100dvh;
+
+      min-height:
+        560px;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
     }
 
 
@@ -71,25 +104,33 @@
 
     header {
       width:
-        min(
-          1100px,
-          calc(100% - 40px)
-        );
+        100%;
 
-      margin:
-        0 auto;
+      height:
+        68px;
 
-      padding:
-        28px 0;
+      flex-shrink:
+        0;
 
       display:
         flex;
 
+      align-items:
+        center;
+
       justify-content:
         space-between;
 
-      align-items:
-        center;
+      padding:
+        0 clamp(18px, 4vw, 45px);
+
+      border-bottom:
+        1px solid rgba(
+          255,
+          255,
+          255,
+          0.06
+        );
     }
 
 
@@ -101,7 +142,7 @@
         none;
 
       font-size:
-        21px;
+        20px;
 
       font-weight:
         800;
@@ -133,154 +174,28 @@
 
 
     /* =========================
-       MAIN
-    ========================= */
-
-    main {
-      width:
-        min(
-          1050px,
-          calc(100% - 30px)
-        );
-
-      margin:
-        0 auto;
-
-      padding:
-        25px 0 70px;
-    }
-
-
-    .game-header {
-      text-align:
-        center;
-
-      margin-bottom:
-        28px;
-    }
-
-
-    .eyebrow {
-      color:
-        var(--muted);
-
-      font-size:
-        10px;
-
-      font-weight:
-        800;
-
-      letter-spacing:
-        3px;
-
-      margin:
-        0 0 12px;
-    }
-
-
-    h1 {
-      margin:
-        0;
-
-      font-size:
-        clamp(
-          46px,
-          8vw,
-          76px
-        );
-
-      line-height:
-        0.95;
-
-      letter-spacing:
-        -5px;
-    }
-
-
-    .subtitle {
-      color:
-        var(--muted);
-
-      margin:
-        13px 0 0;
-
-      font-size:
-        14px;
-    }
-
-
-    /* =========================
-       TOP STATS
-    ========================= */
-
-    .top-bar {
-      display:
-        grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      gap:
-        10px;
-
-      margin-bottom:
-        14px;
-    }
-
-
-    .stat {
-      background:
-        var(--panel);
-
-      border:
-        1px solid var(--border);
-
-      padding:
-        17px 18px;
-
-      text-align:
-        center;
-    }
-
-
-    .stat-label {
-      display:
-        block;
-
-      color:
-        var(--muted);
-
-      font-size:
-        10px;
-
-      letter-spacing:
-        1px;
-
-      text-transform:
-        uppercase;
-
-      margin-bottom:
-        7px;
-    }
-
-
-    .stat-value {
-      font-size:
-        24px;
-
-      font-weight:
-        800;
-
-      letter-spacing:
-        -1px;
-    }
-
-
-    /* =========================
        TABLE
     ========================= */
 
     .table {
+      width:
+        min(
+          1100px,
+          calc(100% - 30px)
+        );
+
+      flex:
+        1;
+
+      min-height:
+        0;
+
+      margin:
+        15px auto;
+
+      padding:
+        clamp(15px, 2.5vw, 30px);
+
       background:
         linear-gradient(
           145deg,
@@ -290,12 +205,6 @@
 
       border:
         1px solid var(--border);
-
-      padding:
-        28px;
-
-      min-height:
-        620px;
 
       display:
         flex;
@@ -307,14 +216,99 @@
         space-between;
 
       box-shadow:
-        0 20px 50px
-        rgba(0, 0, 0, 0.25);
+        0 25px 60px
+        rgba(
+          0,
+          0,
+          0,
+          0.35
+        );
+
+      overflow:
+        hidden;
     }
 
 
-    .hand-area {
+    /* =========================
+       TABLE TOP INFO
+    ========================= */
+
+    .table-info {
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      align-items:
+        center;
+
+      flex-shrink:
+        0;
+    }
+
+
+    .game-name {
+      color:
+        var(--muted);
+
+      font-size:
+        10px;
+
+      font-weight:
+        800;
+
+      letter-spacing:
+        3px;
+    }
+
+
+    .bankroll {
+      font-size:
+        15px;
+
+      font-weight:
+        800;
+    }
+
+
+    /* =========================
+       HANDS
+    ========================= */
+
+    .hands {
+      flex:
+        1;
+
       min-height:
-        175px;
+        0;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      justify-content:
+        space-around;
+
+      gap:
+        5px;
+    }
+
+
+    .hand {
+      min-height:
+        130px;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      justify-content:
+        center;
     }
 
 
@@ -329,16 +323,19 @@
         center;
 
       margin-bottom:
-        15px;
+        10px;
+
+      width:
+        100%;
     }
 
 
-    .hand-title span:first-child {
+    .hand-name {
       color:
         var(--muted);
 
       font-size:
-        11px;
+        10px;
 
       font-weight:
         800;
@@ -350,13 +347,13 @@
 
     .score {
       color:
-        #a0a0a0;
+        #a5a5a5;
 
       font-size:
         14px;
 
       font-weight:
-        700;
+        800;
     }
 
 
@@ -364,24 +361,30 @@
       display:
         flex;
 
-      flex-wrap:
-        wrap;
+      align-items:
+        center;
 
       gap:
-        12px;
+        10px;
+
+      min-height:
+        105px;
     }
 
 
     /* =========================
-       PLAYING CARDS
+       CARDS
     ========================= */
 
     .card {
       width:
-        82px;
+        72px;
 
       height:
-        114px;
+        100px;
+
+      flex-shrink:
+        0;
 
       background:
         #eeeeee;
@@ -390,6 +393,9 @@
         #111111;
 
       border-radius:
+        7px;
+
+      padding:
         7px;
 
       display:
@@ -401,18 +407,20 @@
       justify-content:
         space-between;
 
-      padding:
-        9px;
-
       font-weight:
         800;
 
       box-shadow:
-        0 10px 18px
-        rgba(0, 0, 0, 0.28);
+        0 8px 18px
+        rgba(
+          0,
+          0,
+          0,
+          0.3
+        );
 
       animation:
-        cardIn 0.25s ease;
+        cardIn 0.22s ease;
     }
 
 
@@ -428,12 +436,12 @@
           45deg,
           #292929,
           #292929 6px,
-          #363636 6px,
-          #363636 12px
+          #383838 6px,
+          #383838 12px
         );
 
       border:
-        1px solid #4a4a4a;
+        1px solid #4b4b4b;
 
       color:
         transparent;
@@ -442,7 +450,7 @@
 
     .card-rank {
       font-size:
-        20px;
+        18px;
 
       line-height:
         1;
@@ -451,7 +459,7 @@
 
     .card-suit {
       font-size:
-        27px;
+        24px;
 
       align-self:
         center;
@@ -460,7 +468,7 @@
 
     .card-bottom {
       font-size:
-        20px;
+        18px;
 
       line-height:
         1;
@@ -477,10 +485,9 @@
           0;
 
         transform:
-          translateY(-12px)
-          scale(0.95);
+          translateY(-10px)
+          scale(0.96);
       }
-
 
       to {
         opacity:
@@ -495,24 +502,33 @@
 
 
     /* =========================
-       MESSAGE
+       CENTER MESSAGE
     ========================= */
 
     .message {
-      min-height:
-        31px;
+      height:
+        30px;
+
+      flex-shrink:
+        0;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
 
       text-align:
         center;
 
       font-size:
-        17px;
+        15px;
 
       font-weight:
         800;
-
-      margin:
-        16px 0;
     }
 
 
@@ -539,15 +555,22 @@
     ========================= */
 
     .controls {
+      flex-shrink:
+        0;
+
       border-top:
         1px solid var(--border);
 
       padding-top:
-        22px;
+        15px;
     }
 
 
-    .bet-section {
+    /* =========================
+       BET DISPLAY
+    ========================= */
+
+    .bet-row {
       display:
         flex;
 
@@ -558,19 +581,31 @@
         space-between;
 
       gap:
-        14px;
+        15px;
 
       margin-bottom:
-        18px;
+        12px;
     }
 
 
-    .bet-title {
+    .bet-info {
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        10px;
+    }
+
+
+    .bet-label {
       color:
         var(--muted);
 
       font-size:
-        11px;
+        10px;
 
       font-weight:
         800;
@@ -580,25 +615,7 @@
     }
 
 
-    .bet-controls {
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      gap:
-        8px;
-    }
-
-
-    .bet-display {
-      min-width:
-        105px;
-
-      text-align:
-        center;
-
+    .bet-value {
       font-size:
         20px;
 
@@ -607,16 +624,67 @@
     }
 
 
-    /* =========================
-       BUTTONS
-    ========================= */
-
-    button {
+    .clear-bet {
       border:
-        1px solid var(--border-light);
+        1px solid var(--border);
 
       background:
-        #232323;
+        transparent;
+
+      color:
+        var(--muted);
+
+      min-height:
+        34px;
+
+      padding:
+        0 13px;
+
+      font-family:
+        inherit;
+
+      font-size:
+        11px;
+
+      cursor:
+        pointer;
+
+      touch-action:
+        manipulation;
+    }
+
+
+    /* =========================
+       CHIPS
+    ========================= */
+
+    .chips {
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap:
+        9px;
+
+      margin-bottom:
+        10px;
+    }
+
+
+    .chip {
+      position:
+        relative;
+
+      min-height:
+        58px;
+
+      border:
+        1px solid #4a4a4a;
+
+      background:
+        #242424;
 
       color:
         var(--text);
@@ -624,98 +692,155 @@
       font-family:
         inherit;
 
+      font-size:
+        16px;
+
+      font-weight:
+        800;
+
       cursor:
         pointer;
 
       touch-action:
         manipulation;
 
-      -webkit-tap-highlight-color:
-        transparent;
-
       transition:
-        transform 0.15s ease,
-        background 0.2s ease,
-        border-color 0.2s ease,
-        opacity 0.2s ease;
+        transform 0.12s ease,
+        background 0.15s ease,
+        border-color 0.15s ease;
     }
 
 
-    button:hover:not(:disabled) {
+    .chip::before {
+      content:
+        "";
+
+      position:
+        absolute;
+
+      inset:
+        5px;
+
+      border:
+        1px dashed #555555;
+
+      pointer-events:
+        none;
+    }
+
+
+    .chip:hover:not(:disabled) {
       background:
-        #2c2c2c;
+        #2d2d2d;
 
       border-color:
-        #555555;
+        #626262;
 
       transform:
         translateY(-2px);
     }
 
 
-    button:active:not(:disabled) {
+    .chip:active:not(:disabled) {
       transform:
-        translateY(0);
+        scale(0.97);
     }
 
 
-    button:disabled {
+    .chip:disabled {
       opacity:
-        0.35;
+        0.3;
 
       cursor:
         not-allowed;
     }
 
 
-    .bet-button {
-      width:
-        50px;
-
-      height:
-        50px;
-
-      font-size:
-        25px;
-
-      font-weight:
-        400;
-
-      touch-action:
-        manipulation;
-    }
-
+    /* =========================
+       GAME BUTTONS
+    ========================= */
 
     .game-buttons {
       display:
         grid;
 
       grid-template-columns:
-        1.3fr 1fr 1fr 1fr;
+        1.25fr
+        1fr
+        1fr
+        1fr;
 
       gap:
-        10px;
+        9px;
+    }
+
+
+    button {
+      -webkit-tap-highlight-color:
+        transparent;
     }
 
 
     .game-button {
       min-height:
-        78px;
+        64px;
 
-      padding:
-        14px;
+      border:
+        1px solid var(--border-light);
+
+      background:
+        #242424;
+
+      color:
+        var(--text);
+
+      font-family:
+        inherit;
 
       font-size:
-        15px;
+        14px;
 
       font-weight:
         800;
 
-      letter-spacing:
-        0.4px;
+      cursor:
+        pointer;
 
       touch-action:
         manipulation;
+
+      transition:
+        transform 0.12s ease,
+        background 0.15s ease,
+        border-color 0.15s ease,
+        opacity 0.15s ease;
+    }
+
+
+    .game-button:hover:not(:disabled) {
+      background:
+        #303030;
+
+      border-color:
+        #5b5b5b;
+
+      transform:
+        translateY(-2px);
+    }
+
+
+    .game-button:active:not(:disabled) {
+      transform:
+        translateY(0);
+    }
+
+
+    .game-button:disabled {
+      opacity:
+        0.3;
+
+      cursor:
+        not-allowed;
     }
 
 
@@ -745,41 +870,87 @@
         100%;
 
       min-height:
-        62px;
+        58px;
 
       margin-top:
-        10px;
+        9px;
+
+      border:
+        1px solid var(--border-light);
+
+      background:
+        #242424;
+
+      color:
+        var(--text);
+
+      font-family:
+        inherit;
 
       font-size:
-        14px;
+        13px;
 
       font-weight:
         800;
+
+      cursor:
+        pointer;
 
       touch-action:
         manipulation;
     }
 
 
+    .new-round:hover {
+      background:
+        #303030;
+    }
+
+
     /* =========================
-       HELP TEXT
+       DESKTOP
     ========================= */
 
-    .help {
-      margin-top:
-        18px;
+    @media (min-width: 800px) {
 
-      text-align:
-        center;
+      .card {
+        width:
+          82px;
 
-      color:
-        #666666;
+        height:
+          112px;
+      }
 
-      font-size:
-        11px;
 
-      line-height:
-        1.6;
+      .cards {
+        gap:
+          12px;
+      }
+
+
+      .controls {
+        padding-top:
+          18px;
+      }
+
+
+      .chips {
+        grid-template-columns:
+          repeat(4, 150px);
+
+        justify-content:
+          center;
+      }
+
+
+      .game-buttons {
+        max-width:
+          800px;
+
+        margin:
+          0 auto;
+      }
+
     }
 
 
@@ -787,160 +958,200 @@
        MOBILE
     ========================= */
 
-    @media (max-width: 700px) {
+    @media (max-width: 600px) {
 
       header {
+        height:
+          54px;
+
         padding:
-          22px 0;
+          0 15px;
       }
 
 
-      main {
-        padding-top:
-          10px;
-      }
-
-
-      h1 {
-        letter-spacing:
-          -3px;
-      }
-
-
-      .top-bar {
-        grid-template-columns:
-          repeat(3, 1fr);
-      }
-
-
-      .stat {
-        padding:
-          13px 7px;
-      }
-
-
-      .stat-value {
+      .logo {
         font-size:
           18px;
       }
 
 
-      .table {
-        padding:
-          18px;
+      .back {
+        font-size:
+          12px;
+      }
 
+
+      .table {
+        width:
+          calc(100% - 12px);
+
+        margin:
+          6px auto;
+
+        padding:
+          12px;
+
+        border-radius:
+          3px;
+      }
+
+
+      .game-name {
+        font-size:
+          8px;
+      }
+
+
+      .bankroll {
+        font-size:
+          13px;
+      }
+
+
+      .hand {
         min-height:
-          570px;
+          105px;
+      }
+
+
+      .cards {
+        gap:
+          7px;
+
+        overflow:
+          visible;
       }
 
 
       .card {
         width:
-          62px;
+          58px;
 
         height:
-          88px;
+          82px;
 
         padding:
-          7px;
+          6px;
+
+        border-radius:
+          6px;
       }
 
 
       .card-rank,
       .card-bottom {
         font-size:
-          16px;
+          15px;
       }
 
 
       .card-suit {
         font-size:
-          21px;
+          20px;
       }
 
 
-      .bet-section {
-        flex-direction:
-          column;
-
-        align-items:
-          stretch;
+      .message {
+        font-size:
+          13px;
       }
 
 
-      .bet-title {
-        text-align:
-          center;
+      .bet-row {
+        margin-bottom:
+          8px;
       }
 
 
-      .bet-controls {
-        justify-content:
-          center;
+      .bet-value {
+        font-size:
+          18px;
       }
 
 
-      .bet-button {
-        width:
-          54px;
+      .chip {
+        min-height:
+          50px;
 
-        height:
-          54px;
-      }
-
-
-      .game-buttons {
-        grid-template-columns:
-          repeat(2, 1fr);
+        font-size:
+          14px;
       }
 
 
       .game-button {
         min-height:
-          70px;
-      }
+          58px;
 
-
-      .deal-button {
-        grid-column:
-          1 / -1;
+        font-size:
+          12px;
       }
 
     }
 
 
-    @media (max-width: 430px) {
+    /* =========================
+       SMALL HEIGHT SCREENS
+    ========================= */
 
-      .top-bar {
-        gap:
+    @media (max-height: 700px) {
+
+      header {
+        height:
+          48px;
+      }
+
+
+      .table {
+        margin:
+          4px auto;
+
+        padding:
+          10px;
+      }
+
+
+      .hand {
+        min-height:
+          85px;
+      }
+
+
+      .card {
+        width:
+          54px;
+
+        height:
+          76px;
+      }
+
+
+      .cards {
+        min-height:
+          80px;
+      }
+
+
+      .controls {
+        padding-top:
+          9px;
+      }
+
+
+      .chips {
+        margin-bottom:
           6px;
       }
 
 
-      .stat {
-        padding:
-          11px 4px;
-      }
-
-
-      .stat-label {
-        font-size:
-          8px;
-      }
-
-
-      .stat-value {
-        font-size:
-          16px;
+      .chip {
+        min-height:
+          44px;
       }
 
 
       .game-button {
         min-height:
-          64px;
-
-        font-size:
-          13px;
+          50px;
       }
 
     }
@@ -953,57 +1164,40 @@
 <body>
 
 
-<header>
-
-  <a
-    class="logo"
-    href="../index.html"
-  >
-    CueMoo
-  </a>
+<div class="game-screen">
 
 
-  <a
-    class="back"
-    href="../projects.html"
-  >
-    ← Games
-  </a>
+  <header>
 
-</header>
-
-
-<main>
+    <a
+      class="logo"
+      href="../index.html"
+    >
+      CueMoo
+    </a>
 
 
-  <section class="game-header">
+    <a
+      class="back"
+      href="../projects.html"
+    >
+      ← Games
+    </a>
 
-    <p class="eyebrow">
-      GAME 01
-    </p>
-
-    <h1>
-      Blackjack
-    </h1>
-
-    <p class="subtitle">
-      Beat the dealer. Get as close to 21 as possible.
-    </p>
-
-  </section>
+  </header>
 
 
-  <section class="top-bar">
+  <section class="table">
 
 
-    <div class="stat">
+    <div class="table-info">
 
-      <span class="stat-label">
-        Bankroll
+      <span class="game-name">
+        BLACKJACK
       </span>
 
       <span
-        class="stat-value"
+        class="bankroll"
         id="bankroll"
       >
         $1,000
@@ -1012,72 +1206,38 @@
     </div>
 
 
-    <div class="stat">
-
-      <span class="stat-label">
-        Bet
-      </span>
-
-      <span
-        class="stat-value"
-        id="betDisplay"
-      >
-        $25
-      </span>
-
-    </div>
+    <div class="hands">
 
 
-    <div class="stat">
+      <!-- DEALER -->
 
-      <span class="stat-label">
-        Record
-      </span>
+      <div class="hand">
 
-      <span
-        class="stat-value"
-        id="record"
-      >
-        0-0-0
-      </span>
+        <div class="hand-title">
 
-    </div>
+          <span class="hand-name">
+            DEALER
+          </span>
 
+          <span
+            class="score"
+            id="dealerScore"
+          >
+            —
+          </span>
 
-  </section>
-
-
-  <section class="table">
+        </div>
 
 
-    <div class="hand-area">
-
-      <div class="hand-title">
-
-        <span>
-          DEALER
-        </span>
-
-        <span
-          class="score"
-          id="dealerScore"
-        >
-          —
-        </span>
+        <div
+          class="cards"
+          id="dealerCards"
+        ></div>
 
       </div>
 
 
-      <div
-        class="cards"
-        id="dealerCards"
-      ></div>
-
-    </div>
-
-
-    <div>
-
+      <!-- MESSAGE -->
 
       <div
         class="message"
@@ -1087,11 +1247,13 @@
       </div>
 
 
-      <div class="hand-area">
+      <!-- PLAYER -->
+
+      <div class="hand">
 
         <div class="hand-title">
 
-          <span>
+          <span class="hand-name">
             YOU
           </span>
 
@@ -1113,113 +1275,142 @@
       </div>
 
 
-      <div class="controls">
+    </div>
 
 
-        <div class="bet-section">
+    <!-- CONTROLS -->
 
-          <div class="bet-title">
-            BET SIZE
-          </div>
+    <div class="controls">
 
 
-          <div class="bet-controls">
+      <div class="bet-row">
 
-            <button
-              class="bet-button"
-              id="minusBet"
-              type="button"
-              aria-label="Decrease bet"
-            >
-              −
-            </button>
+        <div class="bet-info">
 
+          <span class="bet-label">
+            BET
+          </span>
 
-            <div
-              class="bet-display"
-              id="betAmount"
-            >
-              $25
-            </div>
-
-
-            <button
-              class="bet-button"
-              id="plusBet"
-              type="button"
-              aria-label="Increase bet"
-            >
-              +
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <div class="game-buttons">
-
-
-          <button
-            class="game-button deal-button"
-            id="dealButton"
-            type="button"
+          <span
+            class="bet-value"
+            id="betAmount"
           >
-            DEAL
-          </button>
-
-
-          <button
-            class="game-button"
-            id="hitButton"
-            type="button"
-            disabled
-          >
-            HIT
-          </button>
-
-
-          <button
-            class="game-button"
-            id="standButton"
-            type="button"
-            disabled
-          >
-            STAND
-          </button>
-
-
-          <button
-            class="game-button"
-            id="doubleButton"
-            type="button"
-            disabled
-          >
-            DOUBLE
-          </button>
-
+            $0
+          </span>
 
         </div>
 
 
         <button
-          class="new-round"
-          id="newRoundButton"
+          class="clear-bet"
+          id="clearBet"
           type="button"
-          hidden
         >
-          NEW ROUND
+          CLEAR
+        </button>
+
+      </div>
+
+
+      <!-- CHIPS -->
+
+      <div class="chips">
+
+
+        <button
+          class="chip"
+          data-value="10"
+          type="button"
+        >
+          $10
+        </button>
+
+
+        <button
+          class="chip"
+          data-value="50"
+          type="button"
+        >
+          $50
+        </button>
+
+
+        <button
+          class="chip"
+          data-value="100"
+          type="button"
+        >
+          $100
+        </button>
+
+
+        <button
+          class="chip"
+          data-value="500"
+          type="button"
+        >
+          $500
         </button>
 
 
       </div>
 
 
-      <div class="help">
-        H = Hit &nbsp; • &nbsp;
-        S = Stand &nbsp; • &nbsp;
-        D = Double Down
+      <!-- GAME BUTTONS -->
+
+      <div class="game-buttons">
+
+
+        <button
+          class="game-button deal-button"
+          id="dealButton"
+          type="button"
+        >
+          DEAL
+        </button>
+
+
+        <button
+          class="game-button"
+          id="hitButton"
+          type="button"
+          disabled
+        >
+          HIT
+        </button>
+
+
+        <button
+          class="game-button"
+          id="standButton"
+          type="button"
+          disabled
+        >
+          STAND
+        </button>
+
+
+        <button
+          class="game-button"
+          id="doubleButton"
+          type="button"
+          disabled
+        >
+          DOUBLE
+        </button>
+
+
       </div>
+
+
+      <button
+        class="new-round"
+        id="newRoundButton"
+        type="button"
+        hidden
+      >
+        NEW ROUND
+      </button>
 
 
     </div>
@@ -1228,7 +1419,7 @@
   </section>
 
 
-</main>
+</div>
 
 
 <script>
@@ -1246,7 +1437,7 @@ let dealerHand = [];
 
 let bankroll = 1000;
 
-let bet = 25;
+let bet = 0;
 
 let roundActive = false;
 
@@ -1312,6 +1503,7 @@ function createDeck() {
 
 
   return newDeck;
+
 }
 
 
@@ -1342,6 +1534,7 @@ function shuffle(array) {
 
 
   return array;
+
 }
 
 
@@ -1365,7 +1558,7 @@ function drawCard() {
 
 
 /* =========================
-   HAND VALUES
+   HAND VALUE
 ========================= */
 
 function getHandValue(hand) {
@@ -1450,21 +1643,9 @@ const bankrollElement =
   );
 
 
-const betDisplay =
-  document.getElementById(
-    "betDisplay"
-  );
-
-
 const betAmount =
   document.getElementById(
     "betAmount"
-  );
-
-
-const record =
-  document.getElementById(
-    "record"
   );
 
 
@@ -1522,9 +1703,21 @@ const doubleButton =
   );
 
 
+const clearBet =
+  document.getElementById(
+    "clearBet"
+  );
+
+
 const newRoundButton =
   document.getElementById(
     "newRoundButton"
+  );
+
+
+const chipButtons =
+  document.querySelectorAll(
+    ".chip"
   );
 
 
@@ -1532,7 +1725,7 @@ const newRoundButton =
    DISPLAY
 ========================= */
 
-function formatMoney(value) {
+function money(value) {
 
   return "$" +
     value.toLocaleString();
@@ -1540,52 +1733,54 @@ function formatMoney(value) {
 }
 
 
-function updateStats() {
+function updateDisplay() {
 
   bankrollElement.textContent =
-    formatMoney(bankroll);
-
-
-  betDisplay.textContent =
-    formatMoney(bet);
+    money(bankroll);
 
 
   betAmount.textContent =
-    formatMoney(bet);
+    money(bet);
 
 
-  record.textContent =
-    `${wins}-${losses}-${pushes}`;
+  chipButtons.forEach(
+    chip => {
+
+      const value =
+        Number(
+          chip.dataset.value
+        );
 
 
-  const maxBet =
-    Math.min(
-      500,
-      bankroll
-    );
+      chip.disabled =
+        roundActive ||
+        bet + value > bankroll;
+
+    }
+  );
 
 
-  if (
-    bet > maxBet
-  ) {
-
-    bet = maxBet;
-
-  }
+  clearBet.disabled =
+    roundActive ||
+    bet === 0;
 
 
-  if (
-    bankroll <= 0 &&
-    !roundActive
-  ) {
+  dealButton.disabled =
+    roundActive ||
+    bet <= 0 ||
+    bet > bankroll;
 
-    dealButton.disabled =
-      true;
 
-  }
+  doubleButton.disabled =
+    !roundActive ||
+    bankroll < bet;
 
 }
 
+
+/* =========================
+   CARD RENDER
+========================= */
 
 function renderCard(
   card,
@@ -1724,7 +1919,7 @@ function renderHands() {
   ) {
 
     if (
-      dealerHand.length
+      dealerHand.length > 0
     ) {
 
       dealerScore.textContent =
@@ -1754,7 +1949,7 @@ function renderHands() {
 
 
   if (
-    playerHand.length
+    playerHand.length > 0
   ) {
 
     playerScore.textContent =
@@ -1773,6 +1968,10 @@ function renderHands() {
 
 }
 
+
+/* =========================
+   MESSAGE
+========================= */
 
 function setMessage(
   text,
@@ -1795,6 +1994,83 @@ function setMessage(
   }
 
 }
+
+
+/* =========================
+   CHIPS
+========================= */
+
+chipButtons.forEach(
+  chip => {
+
+    chip.addEventListener(
+      "click",
+      () => {
+
+        if (
+          roundActive
+        ) {
+
+          return;
+
+        }
+
+
+        const value =
+          Number(
+            chip.dataset.value
+          );
+
+
+        if (
+          bet + value <=
+          bankroll
+        ) {
+
+          bet += value;
+
+          setMessage(
+            "Place your bet and deal."
+          );
+
+          updateDisplay();
+
+        }
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================
+   CLEAR BET
+========================= */
+
+clearBet.addEventListener(
+  "click",
+  () => {
+
+    if (
+      roundActive
+    ) {
+
+      return;
+
+    }
+
+
+    bet = 0;
+
+    setMessage(
+      "Choose your chips."
+    );
+
+    updateDisplay();
+
+  }
+);
 
 
 /* =========================
@@ -1841,10 +2117,6 @@ function deal() {
   ];
 
 
-  dealButton.disabled =
-    true;
-
-
   hitButton.disabled =
     false;
 
@@ -1868,7 +2140,7 @@ function deal() {
 
   renderHands();
 
-  updateStats();
+  updateDisplay();
 
 
   if (
@@ -1994,9 +2266,6 @@ function stand() {
     false;
 
 
-  renderHands();
-
-
   while (
     getHandValue(
       dealerHand
@@ -2012,14 +2281,13 @@ function stand() {
 
   renderHands();
 
-
   resolveRound();
 
 }
 
 
 /* =========================
-   DOUBLE DOWN
+   DOUBLE
 ========================= */
 
 function doubleDown() {
@@ -2191,17 +2459,17 @@ function endRound(
     true;
 
 
-  dealButton.disabled =
-    bankroll <= 0;
-
-
   newRoundButton.hidden =
     false;
 
 
+  dealButton.disabled =
+    true;
+
+
   renderHands();
 
-  updateStats();
+  updateDisplay();
 
 
   setMessage(
@@ -2210,99 +2478,6 @@ function endRound(
   );
 
 }
-
-
-/* =========================
-   BET CONTROLS
-========================= */
-
-document
-  .getElementById(
-    "minusBet"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      if (
-        roundActive
-      ) {
-
-        return;
-
-      }
-
-
-      bet =
-        Math.max(
-          5,
-          bet - 5
-        );
-
-
-      updateStats();
-
-    }
-  );
-
-
-document
-  .getElementById(
-    "plusBet"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      if (
-        roundActive
-      ) {
-
-        return;
-
-      }
-
-
-      bet =
-        Math.min(
-          500,
-          bankroll,
-          bet + 5
-        );
-
-
-      updateStats();
-
-    }
-  );
-
-
-/* =========================
-   GAME BUTTONS
-========================= */
-
-dealButton.addEventListener(
-  "click",
-  deal
-);
-
-
-hitButton.addEventListener(
-  "click",
-  hit
-);
-
-
-standButton.addEventListener(
-  "click",
-  stand
-);
-
-
-doubleButton.addEventListener(
-  "click",
-  doubleDown
-);
 
 
 /* =========================
@@ -2325,9 +2500,10 @@ newRoundButton.addEventListener(
 
       pushes = 0;
 
-      bet = 25;
-
     }
+
+
+    bet = 0;
 
 
     playerHand = [];
@@ -2338,13 +2514,18 @@ newRoundButton.addEventListener(
     dealerHidden =
       true;
 
-
     roundActive =
       false;
 
 
-    dealButton.disabled =
-      false;
+    hitButton.disabled =
+      true;
+
+    standButton.disabled =
+      true;
+
+    doubleButton.disabled =
+      true;
 
 
     newRoundButton.hidden =
@@ -2368,11 +2549,11 @@ newRoundButton.addEventListener(
 
 
     setMessage(
-      "Choose your bet and deal."
+      "Choose your chips."
     );
 
 
-    updateStats();
+    updateDisplay();
 
   }
 );
@@ -2424,7 +2605,7 @@ document.addEventListener(
    START
 ========================= */
 
-updateStats();
+updateDisplay();
 
 renderHands();
 
@@ -2432,5 +2613,6 @@ renderHands();
 
 
 </body>
+
 </html>
 ```
